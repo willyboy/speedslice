@@ -10,9 +10,10 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
+host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 $(document).ready(function(e) {
-	$.get("LoginStatus.php",function(data){
+	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
 		if(loggedIn){
 			getDeliveryOpts();
@@ -190,7 +191,7 @@ $(document).ready(function(e) {
 					text:"Confirm",
 					click:function(){
 						$("#confirmOrder").empty().append($(loader).clone());
-						$.post("PlaceOrder.php",{"RestaurantID":$(theSelection).attr("data-restID"),"TrayOrder":$(theSelection).attr("data-order"),"AddressName":$("#addressTo").val(),"Price":$(theSelection).children(".fR").text()},function(data){
+						$.post(host+"PlaceOrder.php",{"RestaurantID":$(theSelection).attr("data-restID"),"TrayOrder":$(theSelection).attr("data-order"),"AddressName":$("#addressTo").val(),"Price":$(theSelection).children(".fR").text()},function(data){
 							switchSlides(7,9);
 							data=$.parseJSON(data);
 							$("#refNum").text(data.refnum);
@@ -235,7 +236,7 @@ $(document).ready(function(e) {
 		var blockChanges="#addr,#addr2,#city,#state,#zip,#phone";
 		$(blockChanges).attr("readonly","1");
 		$("#deliveryLoc>.infoWrapper").css("opacity","0.5").prepend(loaderClone);
-		$.getJSON("DeliveryOpts.php?addrNick="+addrNick,function(data){
+		$.getJSON(host+"DeliveryOpts.php?addrNick="+addrNick,function(data){
 			$("#addr").val(data.addr);
 			$("#addr2").val(data.addr2);
 			$("#city").val(data.city);
@@ -260,7 +261,7 @@ function makeActive(cntnrStr,rdOnlyStr){
 	$("#loader").remove();
 }
 function getDeliveryOpts(){
-	$.getJSON("DeliveryOpts.php",function(data){
+	$.getJSON(host+"DeliveryOpts.php",function(data){
 		if(data!=null){
 			$(".delLoc:not(:first)").remove();
 			$.each(data,function(index,value){
@@ -325,7 +326,7 @@ function orderPizzaPage(curSlide){
             pizzasString+=$(element).attr("name").substr(1)+"q"+$(element).val()+",";
         });
 		pizzasString=pizzasString.substr(0,(pizzasString.length-1));
-		$.getJSON("FindPizzaPlaces.php?PizzaID="+pizzasString+"&AddressName="+address.addrNick,function(data){
+		$.getJSON(host+"FindPizzaPlaces.php?PizzaID="+pizzasString+"&AddressName="+address.addrNick,function(data){
 			$("#loader").remove();
 			if(typeof data.error=="undefined"){
 				$.each(data,function(index,value){
@@ -373,13 +374,13 @@ function setNewAddress(){
 	}
 	$("#addressTo").val($("#addrNick").val()).removeClass("redBrdr");
 	if(loggedIn){
-		$.post("SetAddress.php",address,function(data){
+		$.post(host+"SetAddress.php",address,function(data){
 			getDeliveryOpts();	
 		});	
 	}
 }
 function deleteAddress(){
-	$.post("DeleteAddress.php",{"addrNick":$("#addrNick").val()});
+	$.post(host+"DeleteAddress.php",{"addrNick":$("#addrNick").val()});
 	$(".delLoc").each(function(index, element) {
         if($(element).text().substr(4)==$("#addrNick").val()){
 			$(element).remove();	
@@ -412,7 +413,7 @@ function logIn(theDiv){
 	var PW=document.getElementById('pWordLogIn').value;
 	var email=document.getElementById('emailLogIn').value;
 	var userAndPW="Email="+email+"&Password="+PW;
-	$.post("Login.php",userAndPW,function(data){
+	$.post(host+"Login.php",userAndPW,function(data){
 		loader=$("#loader").remove();
 		if(!isNaN(data.substr(0,1))){
 			$("#badLogin").remove();
@@ -442,14 +443,14 @@ function createAccount(theDiv){
 	var lName=document.getElementById('lName').value;
 	var info="Email="+email+"&Password="+PW+"&fName="+fName+"&lName="+lName;
 	$(theDiv).append(loader);
-	$.post("CreateAccount.php",info,function(data){
+	$.post(host+"CreateAccount.php",info,function(data){
 		loader=$("#loader").remove();
 		loggedIn=1;
 		if(!isNaN(data)){
 			$("#emailAdd").removeClass("redBrdr");
 			switchSlides(4,6);//check me
 			cardReturnTo="order";
-			$.post("SetAddress.php",address);
+			$.post(host+"SetAddress.php",address);
 			addUserPizza();
 			getUserInfo();
 			getCardInfo();
@@ -477,7 +478,7 @@ function addUserPizza(){//same pizza different name doesn't get added to array, 
 			count++;
 		}
 		$.each(additionalPizzas,function(index,value){
-			$.post("CreatePizza.php",{"Toppings":value,"PizzaName":index},function(data){
+			$.post(host+"CreatePizza.php",{"Toppings":value,"PizzaName":index},function(data){
 				if(index==(count-1)){
 					populatePizzaList($.parseJSON(data));	
 				}
@@ -489,7 +490,7 @@ function addUserPizza(){//same pizza different name doesn't get added to array, 
 	if($("#pizzaName").attr("name")==""){//name is the pizzaid, if no pizza id, needs to be saved
 		toppings=currentToppings();
 		//validate pizzaname
-		$.post("CreatePizza.php",{"Toppings":toppings,"PizzaName":$("#pizzaName").val()},function(data){
+		$.post(host+"CreatePizza.php",{"Toppings":toppings,"PizzaName":$("#pizzaName").val()},function(data){
 			populatePizzaList($.parseJSON(data));	
 		});	
 	}
@@ -503,7 +504,7 @@ function currentToppings(){
 	return toppings;
 }
 function getPizzaList(){
-	$.getJSON("GetUserPizzas.php",function(data){
+	$.getJSON(host+"GetUserPizzas.php",function(data){
 		if(data!=null){
 			$("#pizzaToppings,.tapAddTxt").hide();
 			populatePizzaList(data);
@@ -559,7 +560,7 @@ function addCard(){
 		$("#cNum").addClass("redBrdr");
 		return false;	
 	}
-	$.post("Card.php",cardData);
+	$.post(host+"Card.php",cardData);
 	//if from account
 	//if from pizza order
 	switch(cardReturnTo){
@@ -597,7 +598,7 @@ function updateCard(){
 	cardReturnTo="account";	
 }
 function getCardInfo(){
-	$.getJSON("Card.php",function(data){		
+	$.getJSON(host+"Card.php",function(data){		
 		$("#cNum").val("****"+data.First.cc_last5);
 		$("#accntCard").prepend(data.First.type+" "+data.First.cc_last5);
 		$("#expMo").val(data.First.expiry_month);
@@ -610,7 +611,7 @@ function viewAddresses(){
 	selectAddress(8);	
 }
 function getUserInfo(){
-	$.get("CheckAccount.php",function(data){
+	$.get(host+"CheckAccount.php",function(data){
 		showUserInfo(data);
 	});
 }
