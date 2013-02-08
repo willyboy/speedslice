@@ -35,42 +35,10 @@ $(document).ready(function(e) {
 		switchSlides($(this).parentsUntil("section").parent("section").index(),prevSlide);
 	});
 	$("#pRight").on("click",function(){
-		pizzaIndex=document.getElementById("pizzaID").selectedIndex;
-		numOptions=$("#pizzaID").children("option").length;
-		if(numOptions==(pizzaIndex+1)){
-			changePizza($("#pizzaID").children("option:first").attr("selected","selected"));
-			$("#pizzaID").children("option:not(:first)").removeAttr("selected");
-		}
-		else{
-			changePizza($("#pizzaID").children("option:eq("+(pizzaIndex+1)+")").attr("selected","selected"));
-			$("#pizzaID").children("option:not(:eq("+(pizzaIndex+1)+"))").removeAttr("selected");
-		}
-		if((pizzaIndex+2)==numOptions || numOptions==1){
-			$("#pizzaToppings,.tapAddTxt").show();
-			$("#pizzaName").removeAttr("readonly");
-		}
-		else{
-			$("#pizzaToppings,.tapAddTxt").hide();
-			$("#pizzaName").attr("readonly",1);
-		}
+		rightPizza();
 	});
 	$("#pLeft").on("click",function(){
-		pizzaIndex=document.getElementById("pizzaID").selectedIndex;
-		numOptions=$("#pizzaID").children("option").length;
-		if(pizzaIndex==0){
-			changePizza($("#pizzaID").children("option:last").attr("selected","selected"));
-			$("#pizzaID").children("option:not(:last)").removeAttr("selected");
-		}
-		else{
-			changePizza($("#pizzaID").children("option:eq("+(pizzaIndex-1)+")").attr("selected","selected"));
-			$("#pizzaID").children("option:not(:eq("+(pizzaIndex-1)+"))").removeAttr("selected");
-		}
-		if(pizzaIndex==0 || numOptions==1){
-			$("#pizzaToppings,.tapAddTxt").show();
-		}
-		else{
-			$("#pizzaToppings,.tapAddTxt").hide();
-		}
+		leftPizza();	
 	});
 	$(".tip").on("click",function(){
 		$(".tipSelected").removeClass("tipSelected");
@@ -253,6 +221,11 @@ $(document).ready(function(e) {
 			makeActive("#deliveryLoc>.infoWrapper",blockChanges);
 			$("#deleteAddress").show();
 		});
+	});
+	$(".transBkgd").on("swipeleft",function(){
+		leftPizza();
+	}).on("swiperight",function(){
+		rightPizza();
 	});
 });
 function makeActive(cntnrStr,rdOnlyStr){
@@ -627,6 +600,44 @@ function showUserInfo(data){
 		break;
 		case "C": $(".tip:eq(2)").addClass("tipSelected");
 		break;
+	}
+}
+function leftPizza(){
+	pizzaIndex=document.getElementById("pizzaID").selectedIndex;
+	numOptions=$("#pizzaID").children("option").length;
+	if(pizzaIndex==0){
+		changePizza($("#pizzaID").children("option:last").attr("selected","selected"));
+		$("#pizzaID").children("option:not(:last)").removeAttr("selected");
+	}
+	else{
+		changePizza($("#pizzaID").children("option:eq("+(pizzaIndex-1)+")").attr("selected","selected"));
+		$("#pizzaID").children("option:not(:eq("+(pizzaIndex-1)+"))").removeAttr("selected");
+	}
+	if(pizzaIndex==0 || numOptions==1){
+		$("#pizzaToppings,.tapAddTxt").show();
+	}
+	else{
+		$("#pizzaToppings,.tapAddTxt").hide();
+	}	
+}
+function rightPizza(){
+	pizzaIndex=document.getElementById("pizzaID").selectedIndex;
+	numOptions=$("#pizzaID").children("option").length;
+	if(numOptions==(pizzaIndex+1)){
+		changePizza($("#pizzaID").children("option:first").attr("selected","selected"));
+		$("#pizzaID").children("option:not(:first)").removeAttr("selected");
+	}
+	else{
+		changePizza($("#pizzaID").children("option:eq("+(pizzaIndex+1)+")").attr("selected","selected"));
+		$("#pizzaID").children("option:not(:eq("+(pizzaIndex+1)+"))").removeAttr("selected");
+	}
+	if((pizzaIndex+2)==numOptions || numOptions==1){
+		$("#pizzaToppings,.tapAddTxt").show();
+		$("#pizzaName").removeAttr("readonly");
+	}
+	else{
+		$("#pizzaToppings,.tapAddTxt").hide();
+		$("#pizzaName").attr("readonly",1);
 	}
 }
 function switchSlides(active,newSlide){

@@ -5,6 +5,9 @@
 	font-stretch:normal;
 	font-weight:normal;
 }
+*{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+}
 ::-webkit-input-placeholder {
     color:rgba(96,71,60,0.8);
 }
@@ -515,5 +518,5 @@ input[type=text].w40{
 	position:absolute;
 }
 @media screen and (max-device-width:600px){
-	body{width:320px; zoom:1.0;}
+	body{width:320px; zoom:1.7;}
 }
