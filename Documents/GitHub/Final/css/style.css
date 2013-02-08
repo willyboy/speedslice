@@ -517,6 +517,3 @@ input[type=text].w40{
 	width:90%;
 	position:absolute;
 }
-@media screen and (max-device-width:600px){
-	body{width:320px; zoom:1.7;}
-}
