@@ -31,6 +31,7 @@ a:hover,a:active{
 }
 body{
 	font-size:1.6rem;
+	width:32rem;
 }
 h1,h2,h3,h4,h5,h6,.h1Style,.center{
 	margin:0;
@@ -523,13 +524,478 @@ input[type=text].w40{
 	width:90%;
 	position:absolute;
 }
-@media only screen and (min-width:320px) and (max-width:400px){
-	html{
-		font-size:75%;
-	}
+@media only screen and (max-width:330px){
+html{
+font-size:62.5%;
 }
-@media only screen and (min-width:400px) and (max-width:600px){
-	html{
-		font-size:85%;
-	}
+}
+@media only screen and (max-width:340px){
+html{
+font-size:63.5%;
+}
+}
+@media only screen and (max-width:350px){
+html{
+font-size:64.5%;
+}
+}
+@media only screen and (max-width:360px){
+html{
+font-size:65.5%;
+}
+}
+@media only screen and (max-width:370px){
+html{
+font-size:66.5%;
+}
+}
+@media only screen and (max-width:380px){
+html{
+font-size:67.5%;
+}
+}
+@media only screen and (max-width:390px){
+html{
+font-size:68.5%;
+}
+}
+@media only screen and (max-width:400px){
+html{
+font-size:69.5%;
+}
+}
+@media only screen and (max-width:410px){
+html{
+font-size:70.5%;
+}
+}
+@media only screen and (max-width:420px){
+html{
+font-size:71.5%;
+}
+}
+@media only screen and (max-width:430px){
+html{
+font-size:72.5%;
+}
+}
+@media only screen and (max-width:440px){
+html{
+font-size:73.5%;
+}
+}
+@media only screen and (max-width:450px){
+html{
+font-size:74.5%;
+}
+}
+@media only screen and (max-width:460px){
+html{
+font-size:75.5%;
+}
+}
+@media only screen and (max-width:470px){
+html{
+font-size:76.5%;
+}
+}
+@media only screen and (max-width:480px){
+html{
+font-size:77.5%;
+}
+}
+@media only screen and (max-width:490px){
+html{
+font-size:78.5%;
+}
+}
+@media only screen and (max-width:500px){
+html{
+font-size:79.5%;
+}
+}
+@media only screen and (max-width:510px){
+html{
+font-size:80.5%;
+}
+}
+@media only screen and (max-width:520px){
+html{
+font-size:81.5%;
+}
+}
+@media only screen and (max-width:530px){
+html{
+font-size:82.5%;
+}
+}
+@media only screen and (max-width:540px){
+html{
+font-size:83.5%;
+}
+}
+@media only screen and (max-width:550px){
+html{
+font-size:84.5%;
+}
+}
+@media only screen and (max-width:560px){
+html{
+font-size:85.5%;
+}
+}
+@media only screen and (max-width:570px){
+html{
+font-size:86.5%;
+}
+}
+@media only screen and (max-width:580px){
+html{
+font-size:87.5%;
+}
+}
+@media only screen and (max-width:590px){
+html{
+font-size:88.5%;
+}
+}
+@media only screen and (max-width:600px){
+html{
+font-size:89.5%;
+}
+}
+@media only screen and (max-width:610px){
+html{
+font-size:90.5%;
+}
+}
+@media only screen and (max-width:620px){
+html{
+font-size:91.5%;
+}
+}
+@media only screen and (max-width:630px){
+html{
+font-size:92.5%;
+}
+}
+@media only screen and (max-width:640px){
+html{
+font-size:93.5%;
+}
+}
+@media only screen and (max-width:650px){
+html{
+font-size:94.5%;
+}
+}
+@media only screen and (max-width:660px){
+html{
+font-size:95.5%;
+}
+}
+@media only screen and (max-width:670px){
+html{
+font-size:96.5%;
+}
+}
+@media only screen and (max-width:680px){
+html{
+font-size:97.5%;
+}
+}
+@media only screen and (max-width:690px){
+html{
+font-size:98.5%;
+}
+}
+@media only screen and (max-width:700px){
+html{
+font-size:99.5%;
+}
+}
+@media only screen and (max-width:710px){
+html{
+font-size:100.5%;
+}
+}
+@media only screen and (max-width:720px){
+html{
+font-size:101.5%;
+}
+}
+@media only screen and (max-width:730px){
+html{
+font-size:102.5%;
+}
+}
+@media only screen and (max-width:740px){
+html{
+font-size:103.5%;
+}
+}
+@media only screen and (max-width:750px){
+html{
+font-size:104.5%;
+}
+}
+@media only screen and (max-width:760px){
+html{
+font-size:105.5%;
+}
+}
+@media only screen and (max-width:770px){
+html{
+font-size:106.5%;
+}
+}
+@media only screen and (max-width:780px){
+html{
+font-size:107.5%;
+}
+}
+@media only screen and (max-width:790px){
+html{
+font-size:108.5%;
+}
+}
+@media only screen and (max-width:800px){
+html{
+font-size:109.5%;
+}
+}
+@media only screen and (max-width:810px){
+html{
+font-size:110.5%;
+}
+}
+@media only screen and (max-width:820px){
+html{
+font-size:111.5%;
+}
+}
+@media only screen and (max-width:830px){
+html{
+font-size:112.5%;
+}
+}
+@media only screen and (max-width:840px){
+html{
+font-size:113.5%;
+}
+}
+@media only screen and (max-width:850px){
+html{
+font-size:114.5%;
+}
+}
+@media only screen and (max-width:860px){
+html{
+font-size:115.5%;
+}
+}
+@media only screen and (max-width:870px){
+html{
+font-size:116.5%;
+}
+}
+@media only screen and (max-width:880px){
+html{
+font-size:117.5%;
+}
+}
+@media only screen and (max-width:890px){
+html{
+font-size:118.5%;
+}
+}
+@media only screen and (max-width:900px){
+html{
+font-size:119.5%;
+}
+}
+@media only screen and (max-width:910px){
+html{
+font-size:120.5%;
+}
+}
+@media only screen and (max-width:920px){
+html{
+font-size:121.5%;
+}
+}
+@media only screen and (max-width:930px){
+html{
+font-size:122.5%;
+}
+}
+@media only screen and (max-width:940px){
+html{
+font-size:123.5%;
+}
+}
+@media only screen and (max-width:950px){
+html{
+font-size:124.5%;
+}
+}
+@media only screen and (max-width:960px){
+html{
+font-size:125.5%;
+}
+}
+@media only screen and (max-width:970px){
+html{
+font-size:126.5%;
+}
+}
+@media only screen and (max-width:980px){
+html{
+font-size:127.5%;
+}
+}
+@media only screen and (max-width:990px){
+html{
+font-size:128.5%;
+}
+}
+@media only screen and (max-width:1000px){
+html{
+font-size:129.5%;
+}
+}
+@media only screen and (max-width:1010px){
+html{
+font-size:130.5%;
+}
+}
+@media only screen and (max-width:1020px){
+html{
+font-size:131.5%;
+}
+}
+@media only screen and (max-width:1030px){
+html{
+font-size:132.5%;
+}
+}
+@media only screen and (max-width:1040px){
+html{
+font-size:133.5%;
+}
+}
+@media only screen and (max-width:1050px){
+html{
+font-size:134.5%;
+}
+}
+@media only screen and (max-width:1060px){
+html{
+font-size:135.5%;
+}
+}
+@media only screen and (max-width:1070px){
+html{
+font-size:136.5%;
+}
+}
+@media only screen and (max-width:1080px){
+html{
+font-size:137.5%;
+}
+}
+@media only screen and (max-width:1090px){
+html{
+font-size:138.5%;
+}
+}
+@media only screen and (max-width:1100px){
+html{
+font-size:139.5%;
+}
+}
+@media only screen and (max-width:1110px){
+html{
+font-size:140.5%;
+}
+}
+@media only screen and (max-width:1120px){
+html{
+font-size:141.5%;
+}
+}
+@media only screen and (max-width:1130px){
+html{
+font-size:142.5%;
+}
+}
+@media only screen and (max-width:1140px){
+html{
+font-size:143.5%;
+}
+}
+@media only screen and (max-width:1150px){
+html{
+font-size:144.5%;
+}
+}
+@media only screen and (max-width:1160px){
+html{
+font-size:145.5%;
+}
+}
+@media only screen and (max-width:1170px){
+html{
+font-size:146.5%;
+}
+}
+@media only screen and (max-width:1180px){
+html{
+font-size:147.5%;
+}
+}
+@media only screen and (max-width:1190px){
+html{
+font-size:148.5%;
+}
+}
+@media only screen and (max-width:1200px){
+html{
+font-size:149.5%;
+}
+}
+@media only screen and (max-width:1210px){
+html{
+font-size:150.5%;
+}
+}
+@media only screen and (max-width:1220px){
+html{
+font-size:151.5%;
+}
+}
+@media only screen and (max-width:1230px){
+html{
+font-size:152.5%;
+}
+}
+@media only screen and (max-width:1240px){
+html{
+font-size:153.5%;
+}
+}
+@media only screen and (max-width:1250px){
+html{
+font-size:154.5%;
+}
+}
+@media only screen and (max-width:1260px){
+html{
+font-size:155.5%;
+}
+}
+@media only screen and (max-width:1270px){
+html{
+font-size:156.5%;
+}
 }
