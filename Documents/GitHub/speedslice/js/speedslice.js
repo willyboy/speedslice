@@ -13,6 +13,7 @@ prevSlide=1;
 host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
+dontFocus=false;
 $(document).ready(function(e) {
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
@@ -52,6 +53,8 @@ $(document).ready(function(e) {
 			delete(additionalPizzas[pizName]);
 		}
 		$(this).parent().remove();
+		dontFocus=true;
+		setTimeout("dontFocus=false",400);
 	});
 	$("#addPizza.ribbon").on("tap",function(){
 		//fix bug where pizza can have same name and different toppings
@@ -374,6 +377,10 @@ function emptyLine(addrLine,addrID){
 	}
 }
 function selectAddress(active){
+	if(dontFocus){
+		dontFocus=false;
+		return;
+	}
 	$("#addressTo").blur();
 	if($("#delOpts").children(".delLoc").length==1){
 		switchSlides(active,2);
@@ -582,7 +589,7 @@ function getCardInfo(){
 }
 function viewAddresses(){
 	addrRtrnTo="account";
-	selectAddress(8);	
+	selectAddress(7);	
 }
 function getUserInfo(){
 	$.get(host+"CheckAccount.php",function(data){
