@@ -161,7 +161,7 @@ h4.orderOpt{
 }
 .infoWrapper>div:not(#abtContentWrapper):not(#legalContentWrapper),#abtContent>p,#legalContent>p{
 	width:96%;
-	padding:.5rem .5rem;
+	padding:1rem .5rem;
 }
 #abtContentWrapper,#legalContentWrapper{
 	width:100%;
@@ -311,7 +311,7 @@ h4.orderOpt{
 	border-radius: 1.6rem;
 	font-size: 1.3rem;
 	cursor: pointer;
-	margin: .4rem 0 0 1rem;
+	margin: .1rem 0 0 1rem;
 	padding: .2rem;
 }
 .stretchX{
