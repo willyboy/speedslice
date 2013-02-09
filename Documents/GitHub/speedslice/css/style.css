@@ -427,56 +427,56 @@ input[type=text].w40{
 }
 #cheeseTopping{
 	background: url('../images/Toppings-small.png') 0 0;
-	height:3rem;
-	width:5rem;
+	height:30px;
+	width:50px;
 }
 #cheeseTopping:hover,.chSelect{
 	background:url('../images/Toppings-small.png') 0 30px !important;
 }
 #pepperoniTopping{
 	background: url('../images/Toppings-small.png') 245px 0;
-	height:3rem;
-	width:4rem;
+	height:30px;
+	width:40px;
 }
 #pepperoniTopping:hover,.peSelect{
 	background: url('../images/Toppings-small.png') 245px 30px !important;
 }
 #sausageTopping{
 	background: url('../images/Toppings-small.png') 195px 0;
-	height:3rem;
-	width:4rem;
+	height:30px;
+	width:40px;
 }
 #sausageTopping:hover,.saSelect{
 	background: url('../images/Toppings-small.png') 195px 30px !important;
 }
 #p3ppersTopping{
 	background: url('../images/Toppings-small.png') 145px 0;
-	height:3rem;
-	width:4rem;
+	height:30px;
+	width:40px;
 }
 #p3ppersTopping:hover,.p3Select{
 	background: url('../images/Toppings-small.png') 145px 30px !important;
 }
 #olivesTopping{
 	background: url('../images/Toppings-small.png') 110px 0;
-	height:3rem;
-	width:4rem;
+	height:30px;
+	width:40px;
 }
 #olivesTopping:hover,.olSelect{
 	background: url('../images/Toppings-small.png') 110px 30px !important;
 }
 #onionsTopping{
 	background: url('../images/Toppings-small.png') 70px 0;
-	height:3rem;
-	width:3.5rem;
+	height:30px;
+	width:35px;
 }
 #onionsTopping:hover,.onSelect{
 	background: url('../images/Toppings-small.png') 70px 30px !important;
 }
 #mushroomsTopping{
 	background: url('../images/Toppings-small.png') 30px 0;
-	height:3rem;
-	width:3rem;
+	height:30px;
+	width:30px;
 }
 #mushroomsTopping:hover,.muSelect{
 	background: url('../images/Toppings-small.png') 30px 30px !important;
