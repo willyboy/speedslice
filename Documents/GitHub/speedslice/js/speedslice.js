@@ -14,8 +14,18 @@ host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
+ function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // Cordova is loaded and it is now safe to make calls Cordova methods
+    //
+    function onDeviceReady() {
+        // Register the event listener
+        document.addEventListener("menubutton", onMenuKeyDown, false);
+    }
+
 $(document).ready(function(e) {
-	document.addEventListener("menubutton", onMenuKeyDown, false);
 	$(window).on("resize",function(){
 		$("html").css("font-size",($(window).width()/5.12)+"%");
 	});
