@@ -18,6 +18,7 @@ $(document).ready(function(e) {
 	$(window).on("resize",function(){
 		$("html").css("font-size",($(window).width()/5.12)+"%");
 	});
+	document.addEventListener("menubutton", onMenuKeyDown, false);
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
 		if(loggedIn){
@@ -677,7 +678,7 @@ function switchSlides(active,newSlide){
 }
 function customScrolling(theContainer,innerContainer,sliderHandle){
 	$("#"+sliderHandle).draggable({scroll:false,axis:"y",containment:"parent",drag:function(e,u){ 
-		$("#"+innerContainer).css("margin-top",(-($("#"+innerContainer).height()/$(".aSlider:first").height())*u.position.top)+"px");}
+		$("#"+innerContainer).css("margin-top",(-$("#"+innerContainer).height()*(u.position.top/$(".aSlider:first").height()))+"px");}
 	});
 	$("#"+theContainer).on("touchmove",function(e){
 		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
@@ -756,5 +757,8 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 		slidePixels=(sliderHeight-handleHt);
 	}
 	$(sliderHandle).css("top",slidePixels+"px"); 
+}
+function onMenuKeyDown(){
+	$("body").append("<div style='position: fixed;bottom: 0;height: 4rem;width: 10rem;background: red;z-index: 100;left: 40%;'><ul><li onclick='switchSlides(0,7); $(this).remove()'>Account info</li></ul></div>");	
 }
 (function(a){a.fn.mousewheel=function(a){return this[a?"on":"trigger"]("wheel",a)},a.event.special.wheel={setup:function(){a.event.add(this,b,c,{})},teardown:function(){a.event.remove(this,b,c)}};var b=a.browser.mozilla?"DOMMouseScroll"+(a.browser.version<"1.9"?" mousemove":""):"mousewheel";function c(b){switch(b.type){case"mousemove":return a.extend(b.data,{clientX:b.clientX,clientY:b.clientY,pageX:b.pageX,pageY:b.pageY});case"DOMMouseScroll":a.extend(b,b.data),b.delta=-b.detail/3;break;case"mousewheel":b.delta=b.wheelDelta/120}b.type="wheel";return a.event.handle.call(this,b,b.delta)}})(jQuery);
