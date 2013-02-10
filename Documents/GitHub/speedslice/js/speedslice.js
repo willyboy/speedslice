@@ -43,9 +43,6 @@ $(document).ready(function(e) {
 			}
 		}
 	});
-	$("body:not(#menuOptions").on("tap",function(){
-		$("#menuOptions").hide();
-	});
 	$("#menuOptions").on("tap","li",function(){
 		switch($(this).index()){
 			case 0: switchSlides($("section:visible").index(),0);
