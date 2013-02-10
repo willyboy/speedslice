@@ -14,17 +14,12 @@ host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
- function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
-
-    // Cordova is loaded and it is now safe to make calls Cordova methods
-    //
-    function onDeviceReady() {
-        // Register the event listener
-        document.addEventListener("menubutton", onMenuKeyDown, false);
-    }
-
+function onLoad() {
+	document.addEventListener("deviceready", onDeviceReady, false);
+}
+function onDeviceReady() {
+	document.addEventListener("menubutton", onMenuKeyDown, false);
+}
 $(document).ready(function(e) {
 	$(window).on("resize",function(){
 		$("html").css("font-size",($(window).width()/5.12)+"%");
@@ -48,13 +43,16 @@ $(document).ready(function(e) {
 			}
 		}
 	});
+	$("body:not(#menuOptions").on("tap",function(){
+		$("#menuOptions").hide();
+	});
 	$("#menuOptions").on("tap","li",function(){
 		switch($(this).index()){
 			case 0: switchSlides($("section:visible").index(),0);
 			break;
 			case 1: switchSlides($("section:visible").index(),7);
 			break;
-			case 2: switchSlides($("section:visible").index(),10);
+			case 2: switchSlides($("section:visible").index(),11);
 			break;
 			case 3: //switchSlides($("section:visible").index(),7);
 			break;
@@ -782,6 +780,6 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 	$(sliderHandle).css("top",slidePixels+"px"); 
 }
 function onMenuKeyDown(){
-	$("#menuOptions").fadeToggle(250);	
+	$("#menuOptions").toggle();	
 }
 (function(a){a.fn.mousewheel=function(a){return this[a?"on":"trigger"]("wheel",a)},a.event.special.wheel={setup:function(){a.event.add(this,b,c,{})},teardown:function(){a.event.remove(this,b,c)}};var b=a.browser.mozilla?"DOMMouseScroll"+(a.browser.version<"1.9"?" mousemove":""):"mousewheel";function c(b){switch(b.type){case"mousemove":return a.extend(b.data,{clientX:b.clientX,clientY:b.clientY,pageX:b.pageX,pageY:b.pageY});case"DOMMouseScroll":a.extend(b,b.data),b.delta=-b.detail/3;break;case"mousewheel":b.delta=b.wheelDelta/120}b.type="wheel";return a.event.handle.call(this,b,b.delta)}})(jQuery);
