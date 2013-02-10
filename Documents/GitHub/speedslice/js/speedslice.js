@@ -15,6 +15,9 @@ loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
 $(document).ready(function(e) {
+	$(window).on("resize",function(){
+		$("html").css("font-size",($(window).width()/5.12)+"%");
+	});
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
 		if(loggedIn){
@@ -22,6 +25,7 @@ $(document).ready(function(e) {
 			getPizzaList();
 			getCardInfo();
 			getUserInfo();
+			showGear();
 		}
 	});
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
@@ -406,6 +410,7 @@ function logIn(theDiv){
 				getPizzaList();	
 				getCardInfo();
 				showUserInfo(data);
+				showGear();
 				if(!orderPizzaPage(4)){
 					switchSlides(4,0);
 				}
@@ -417,6 +422,9 @@ function logIn(theDiv){
 		$("#pWordLogin").parent("div").after("<div id='badLogin' class='cRed'>Invalid email or password</div>");
 	});
 }
+function showGear(){
+	$("[src='images/Gear.png']").show();
+}
 function createAccount(theDiv){
 	var PW=document.getElementById('pWord').value;
 	var email=document.getElementById('emailAdd').value;
@@ -427,6 +435,7 @@ function createAccount(theDiv){
 	$.post(host+"CreateAccount.php",info,function(data){
 		loader=$("#loader").remove();
 		loggedIn=1;
+		showGear();
 		if(!isNaN(data)){
 			$("#emailAdd").removeClass("redBrdr");
 			switchSlides(3,5);//check me
@@ -649,16 +658,17 @@ function rightPizza(){
 	}
 }
 function switchSlides(active,newSlide){
+	var sectionHeight=$("section:first").height();
 	prevSlide=active;
 	if(active<newSlide){
 		$("section:eq("+newSlide+")").show(0,function(){
-			$("section:eq("+active+")").animate({"margin-top":"-580px"},500,"swing",function(){
+			$("section:eq("+active+")").animate({"margin-top":"-"+sectionHeight+"px"},500,"swing",function(){
 				$(this).hide().css("margin-top",0);
 			});
 		});
 	}
 	else{
-		$("section:eq("+newSlide+")").css("margin-top","-580px").show(0,function(){
+		$("section:eq("+newSlide+")").css("margin-top","-"+sectionHeight+"px").show(0,function(){
 			$("section:eq("+newSlide+")").animate({"margin-top":"0px"},500,"swing",function(){
 				$("section:eq("+active+")").hide().css("margin-top",0);
 			});
@@ -667,21 +677,21 @@ function switchSlides(active,newSlide){
 }
 function customScrolling(theContainer,innerContainer,sliderHandle){
 	$("#"+sliderHandle).draggable({scroll:false,axis:"y",containment:"parent",drag:function(e,u){ 
-		$("#"+innerContainer).css("margin-top",(-($("#"+innerContainer).height()/380)*u.position.top)+"px");}
+		$("#"+innerContainer).css("margin-top",(-($("#"+innerContainer).height()/$(".aSlider:first").height())*u.position.top)+"px");}
 	});
 	$("#"+theContainer).on("touchmove",function(e){
 		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 		var elm = $(this).offset();
 		var y = touch.pageY;
 		if(lastY!=0){
-			scrollDiv(e,(y-lastY),"#"+innerContainer,"#"+sliderHandle,1);
+			scrollDiv(e,(y-lastY),"#"+innerContainer,"#"+sliderHandle,1,$(".aSlider:first").height());
 		}
 		lastY=y;
 	}).on("touchend",function(e){
 		e.preventDefault();
 		e.stopPropagation();
 	}).mousewheel(function(e){
-		scrollDiv(e,e.originalEvent.wheelDelta,"#"+innerContainer,"#"+sliderHandle,0);
+		scrollDiv(e,e.originalEvent.wheelDelta,"#"+innerContainer,"#"+sliderHandle,0,$(".aSlider:first").height());
 	});
 	$("#"+theContainer).on("mousedown",".aSlider",function(e){
 		e.stopPropagation();
@@ -694,7 +704,7 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		else{
 			offY=e.offsetY;
 		}
-		timeoutId=setInterval("clickScroll("+offY+",'"+innerContainer+"','#"+sliderHandle+"')",30);
+		timeoutId=setInterval("clickScroll("+offY+",'"+innerContainer+"','#"+sliderHandle+"',"+$(".aSlider:first").height()+")",30);
 	});
 	$(document).on("mouseup",function(e){
 		if(typeof timeoutId!="undefined"){
@@ -703,7 +713,7 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		$("#"+sliderHandle).stop(true);
 	});
 }
-function scrollDiv(e,upOrDown,innerContainer,sliderHandle,touch){
+function scrollDiv(e,upOrDown,innerContainer,sliderHandle,touch,sliderHeight){
 	e.preventDefault();
 	e.stopPropagation();
 	var iContMrgnTop=parseInt($(innerContainer).css("margin-top"),10);
@@ -717,32 +727,33 @@ function scrollDiv(e,upOrDown,innerContainer,sliderHandle,touch){
 			$(innerContainer).css({"margin-top":"+="+(touch ? "15":"30")+"px"});
 		}
 	}
-	adjustSlider(iContMrgnTop,innerContainer,sliderHandle);	
+	adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight);	
 }
-function clickScroll(theOffset,innerContainer,sliderHandle){
+function clickScroll(theOffset,innerContainer,sliderHandle,sliderHeight){
 	$(sliderHandle).stop(true);
 	var sliderPosition=parseInt($(sliderHandle).css("top"),10);
 	if(theOffset>sliderPosition){
-		if(sliderPosition<380 && sliderPosition!=theOffset){
+		if(sliderPosition<sliderHeight && sliderPosition!=theOffset){
 			$(sliderHandle).css("top","+=1");
-			$("#"+innerContainer).css("margin-top",(-($("#"+innerContainer).height()/380)*parseInt($(sliderHandle).css("top"),10))+"px");
+			$("#"+innerContainer).css("margin-top",(-($("#"+innerContainer).height()/sliderHeight)*parseInt($(sliderHandle).css("top"),10))+"px");
 		}
 	}
 	else{
 		if(sliderPosition>0 && sliderPosition!=theOffset){
 			$(sliderHandle).css("top","-=1");
-			$("#"+innerContainer).css("margin-top",(-($("#"+innerContainer).height()/380)*parseInt($(sliderHandle).css("top"),10))+"px");
+			$("#"+innerContainer).css("margin-top",(-($("#"+innerContainer).height()/sliderHeight)*parseInt($(sliderHandle).css("top"),10))+"px");
 		}
 	}					
 }
-function adjustSlider(iContMrgnTop,innerContainer,sliderHandle){
-	var slidePixels=-(iContMrgnTop/$(innerContainer).height())*380;
+function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
+	var slidePixels=-(iContMrgnTop/$(innerContainer).height())*sliderHeight;
+	var handleHt=$(sliderHandle).height();
 	// + or - height of slider 
-	if(slidePixels<20){
+	if(slidePixels<handleHt){
 		slidePixels=0;
 	}
-	if(slidePixels>360){
-		slidePixels=360;
+	if(slidePixels>(sliderHeight-handleHt)){
+		slidePixels=(sliderHeight-handleHt);
 	}
 	$(sliderHandle).css("top",slidePixels+"px"); 
 }

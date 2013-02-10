@@ -55,13 +55,6 @@ h4{
 	font-size: 1.4rem;
 }
 section{
-	width:100%;
-	min-height:58rem;
-	height:58rem;
-	position:relative;
-	clear:both;
-}
-section{
 	background: url('../images/PizzaBackgroundSmall.jpg') no-repeat;
 	background-position: -10px 0px;
 	/*background-attachment: fixed;*/
@@ -69,6 +62,11 @@ section{
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	width:100%;
+	min-height:56.9rem;
+	height:56.9rem;
+	position:relative;
+	clear:both;
 }
 section:not(:first-child){
 	display:none;
@@ -98,6 +96,13 @@ h5{
 }
 [src='images/Gear.png']{
 	cursor:pointer;
+	width:5rem;
+	height:5rem;
+	display:none;
+}
+[src='images/Bike.png']{
+	width:4rem;
+	height:4rem;
 }
 .fL{
 	float:left;
@@ -140,7 +145,7 @@ h4.orderOpt{
 	padding:1rem 1rem 0.5rem 1rem;
 }
 .infoWrapper{
-	margin:1rem;
+	margin:0.8rem;
 	border-radius:.5rem;
 	background:rgb(254,249,241);
 	color:rgb(96,71,60);
@@ -206,6 +211,7 @@ h4.orderOpt{
 .topping{
 	cursor:pointer;
 	float:left;
+	background-size:30.7rem 8.4rem !important;
 }
 .userOpt{
 	font-style:italic;
@@ -401,7 +407,7 @@ input[type=text].w40{
 #container{
 	width:32rem;
 	margin:0 auto;
-	height:58rem;
+	height:56.9rem;
 	overflow:hidden;
 }
 #pizzaCircle{
@@ -426,60 +432,60 @@ input[type=text].w40{
 	margin:1.5rem 0 0 1.5rem;
 }
 #cheeseTopping{
-	background: url('../images/Toppings-small.png') 0 0;
-	height:30px;
-	width:50px;
+	background: url('../images/Toppings.png') 0 0;
+	height:3rem;
+	width:5rem;
 }
-#cheeseTopping:hover,.chSelect{
-	background:url('../images/Toppings-small.png') 0 30px !important;
+.chSelect{
+	background-position:0 3rem !important;
 }
 #pepperoniTopping{
-	background: url('../images/Toppings-small.png') 245px 0;
-	height:30px;
-	width:40px;
+	background: url('../images/Toppings.png') 24.5rem 0;
+	height:3rem;
+	width:4rem;
 }
-#pepperoniTopping:hover,.peSelect{
-	background: url('../images/Toppings-small.png') 245px 30px !important;
+.peSelect{
+	background-position: 24.5rem 3rem !important;
 }
 #sausageTopping{
-	background: url('../images/Toppings-small.png') 195px 0;
-	height:30px;
-	width:40px;
+	background: url('../images/Toppings.png') 19.5rem 0;
+	height:3rem;
+	width:4rem;
 }
-#sausageTopping:hover,.saSelect{
-	background: url('../images/Toppings-small.png') 195px 30px !important;
+.saSelect{
+	background-position: 19.5rem 3rem !important;
 }
 #p3ppersTopping{
-	background: url('../images/Toppings-small.png') 145px 0;
-	height:30px;
-	width:40px;
+	background: url('../images/Toppings.png') 14.5rem 0;
+	height:3rem;
+	width:4rem;
 }
-#p3ppersTopping:hover,.p3Select{
-	background: url('../images/Toppings-small.png') 145px 30px !important;
+.p3Select{
+	background-position: 14.5rem 3rem !important;
 }
 #olivesTopping{
-	background: url('../images/Toppings-small.png') 110px 0;
-	height:30px;
-	width:40px;
+	background: url('../images/Toppings.png') 11rem 0;
+	height:3rem;
+	width:4rem;
 }
-#olivesTopping:hover,.olSelect{
-	background: url('../images/Toppings-small.png') 110px 30px !important;
+.olSelect{
+	background-position: 11rem 3rem !important;
 }
 #onionsTopping{
-	background: url('../images/Toppings-small.png') 70px 0;
-	height:30px;
-	width:35px;
+	background: url('../images/Toppings.png') 7rem 0;
+	height:3rem;
+	width:3.5rem;
 }
-#onionsTopping:hover,.onSelect{
-	background: url('../images/Toppings-small.png') 70px 30px !important;
+.onSelect{
+	background-position: 7rem 3rem !important;
 }
 #mushroomsTopping{
-	background: url('../images/Toppings-small.png') 30px 0;
-	height:30px;
-	width:30px;
+	background: url('../images/Toppings.png') 3rem 0;
+	height:3rem;
+	width:3rem;
 }
-#mushroomsTopping:hover,.muSelect{
-	background: url('../images/Toppings-small.png') 30px 30px !important;
+.muSelect{
+	background-position: 3rem 3rem !important;
 }
 #someToppings{
 	margin:0;
@@ -522,484 +528,4 @@ input[type=text].w40{
 #yourEmail{
 	width:90%;
 	position:absolute;
-}
-@media only screen and (min-width:320px){
-html{
-font-size:62.5%;
-}
-}
-@media only screen and (min-width:330px){
-html{
-font-size:64.5%;
-}
-}
-@media only screen and (min-width:340px){
-html{
-font-size:66.5%;
-}
-}
-@media only screen and (min-width:350px){
-html{
-font-size:68.5%;
-}
-}
-@media only screen and (min-width:360px){
-html{
-font-size:70.5%;
-}
-}
-@media only screen and (min-width:370px){
-html{
-font-size:72.5%;
-}
-}
-@media only screen and (min-width:380px){
-html{
-font-size:74.5%;
-}
-}
-@media only screen and (min-width:390px){
-html{
-font-size:76.5%;
-}
-}
-@media only screen and (min-width:400px){
-html{
-font-size:78.5%;
-}
-}
-@media only screen and (min-width:410px){
-html{
-font-size:80.5%;
-}
-}
-@media only screen and (min-width:420px){
-html{
-font-size:82.5%;
-}
-}
-@media only screen and (min-width:430px){
-html{
-font-size:84.5%;
-}
-}
-@media only screen and (min-width:440px){
-html{
-font-size:86.5%;
-}
-}
-@media only screen and (min-width:450px){
-html{
-font-size:88.5%;
-}
-}
-@media only screen and (min-width:460px){
-html{
-font-size:90.5%;
-}
-}
-@media only screen and (min-width:470px){
-html{
-font-size:92.5%;
-}
-}
-@media only screen and (min-width:480px){
-html{
-font-size:94.5%;
-}
-}
-@media only screen and (min-width:490px){
-html{
-font-size:96.5%;
-}
-}
-@media only screen and (min-width:500px){
-html{
-font-size:98.5%;
-}
-}
-@media only screen and (min-width:510px){
-html{
-font-size:100.5%;
-}
-}
-@media only screen and (min-width:520px){
-html{
-font-size:102.5%;
-}
-}
-@media only screen and (min-width:530px){
-html{
-font-size:104.5%;
-}
-}
-@media only screen and (min-width:540px){
-html{
-font-size:106.5%;
-}
-}
-@media only screen and (min-width:550px){
-html{
-font-size:108.5%;
-}
-}
-@media only screen and (min-width:560px){
-html{
-font-size:110.5%;
-}
-}
-@media only screen and (min-width:570px){
-html{
-font-size:112.5%;
-}
-}
-@media only screen and (min-width:580px){
-html{
-font-size:114.5%;
-}
-}
-@media only screen and (min-width:590px){
-html{
-font-size:116.5%;
-}
-}
-@media only screen and (min-width:600px){
-html{
-font-size:118.5%;
-}
-}
-@media only screen and (min-width:610px){
-html{
-font-size:120.5%;
-}
-}
-@media only screen and (min-width:620px){
-html{
-font-size:122.5%;
-}
-}
-@media only screen and (min-width:630px){
-html{
-font-size:124.5%;
-}
-}
-@media only screen and (min-width:640px){
-html{
-font-size:126.5%;
-}
-}
-@media only screen and (min-width:650px){
-html{
-font-size:128.5%;
-}
-}
-@media only screen and (min-width:660px){
-html{
-font-size:130.5%;
-}
-}
-@media only screen and (min-width:670px){
-html{
-font-size:132.5%;
-}
-}
-@media only screen and (min-width:680px){
-html{
-font-size:134.5%;
-}
-}
-@media only screen and (min-width:690px){
-html{
-font-size:136.5%;
-}
-}
-@media only screen and (min-width:700px){
-html{
-font-size:138.5%;
-}
-}
-@media only screen and (min-width:710px){
-html{
-font-size:140.5%;
-}
-}
-@media only screen and (min-width:720px){
-html{
-font-size:142.5%;
-}
-}
-@media only screen and (min-width:730px){
-html{
-font-size:144.5%;
-}
-}
-@media only screen and (min-width:740px){
-html{
-font-size:146.5%;
-}
-}
-@media only screen and (min-width:750px){
-html{
-font-size:148.5%;
-}
-}
-@media only screen and (min-width:760px){
-html{
-font-size:150.5%;
-}
-}
-@media only screen and (min-width:770px){
-html{
-font-size:152.5%;
-}
-}
-@media only screen and (min-width:780px){
-html{
-font-size:154.5%;
-}
-}
-@media only screen and (min-width:790px){
-html{
-font-size:156.5%;
-}
-}
-@media only screen and (min-width:800px){
-html{
-font-size:158.5%;
-}
-}
-@media only screen and (min-width:810px){
-html{
-font-size:160.5%;
-}
-}
-@media only screen and (min-width:820px){
-html{
-font-size:162.5%;
-}
-}
-@media only screen and (min-width:830px){
-html{
-font-size:164.5%;
-}
-}
-@media only screen and (min-width:840px){
-html{
-font-size:166.5%;
-}
-}
-@media only screen and (min-width:850px){
-html{
-font-size:168.5%;
-}
-}
-@media only screen and (min-width:860px){
-html{
-font-size:170.5%;
-}
-}
-@media only screen and (min-width:870px){
-html{
-font-size:172.5%;
-}
-}
-@media only screen and (min-width:880px){
-html{
-font-size:174.5%;
-}
-}
-@media only screen and (min-width:890px){
-html{
-font-size:176.5%;
-}
-}
-@media only screen and (min-width:900px){
-html{
-font-size:178.5%;
-}
-}
-@media only screen and (min-width:910px){
-html{
-font-size:180.5%;
-}
-}
-@media only screen and (min-width:920px){
-html{
-font-size:182.5%;
-}
-}
-@media only screen and (min-width:930px){
-html{
-font-size:184.5%;
-}
-}
-@media only screen and (min-width:940px){
-html{
-font-size:186.5%;
-}
-}
-@media only screen and (min-width:950px){
-html{
-font-size:188.5%;
-}
-}
-@media only screen and (min-width:960px){
-html{
-font-size:190.5%;
-}
-}
-@media only screen and (min-width:970px){
-html{
-font-size:192.5%;
-}
-}
-@media only screen and (min-width:980px){
-html{
-font-size:194.5%;
-}
-}
-@media only screen and (min-width:990px){
-html{
-font-size:196.5%;
-}
-}
-@media only screen and (min-width:1000px){
-html{
-font-size:198.5%;
-}
-}
-@media only screen and (min-width:1010px){
-html{
-font-size:200.5%;
-}
-}
-@media only screen and (min-width:1020px){
-html{
-font-size:202.5%;
-}
-}
-@media only screen and (min-width:1030px){
-html{
-font-size:204.5%;
-}
-}
-@media only screen and (min-width:1040px){
-html{
-font-size:206.5%;
-}
-}
-@media only screen and (min-width:1050px){
-html{
-font-size:208.5%;
-}
-}
-@media only screen and (min-width:1060px){
-html{
-font-size:210.5%;
-}
-}
-@media only screen and (min-width:1070px){
-html{
-font-size:212.5%;
-}
-}
-@media only screen and (min-width:1080px){
-html{
-font-size:214.5%;
-}
-}
-@media only screen and (min-width:1090px){
-html{
-font-size:216.5%;
-}
-}
-@media only screen and (min-width:1100px){
-html{
-font-size:218.5%;
-}
-}
-@media only screen and (min-width:1110px){
-html{
-font-size:220.5%;
-}
-}
-@media only screen and (min-width:1120px){
-html{
-font-size:222.5%;
-}
-}
-@media only screen and (min-width:1130px){
-html{
-font-size:224.5%;
-}
-}
-@media only screen and (min-width:1140px){
-html{
-font-size:226.5%;
-}
-}
-@media only screen and (min-width:1150px){
-html{
-font-size:228.5%;
-}
-}
-@media only screen and (min-width:1160px){
-html{
-font-size:230.5%;
-}
-}
-@media only screen and (min-width:1170px){
-html{
-font-size:232.5%;
-}
-}
-@media only screen and (min-width:1180px){
-html{
-font-size:234.5%;
-}
-}
-@media only screen and (min-width:1190px){
-html{
-font-size:236.5%;
-}
-}
-@media only screen and (min-width:1200px){
-html{
-font-size:238.5%;
-}
-}
-@media only screen and (min-width:1210px){
-html{
-font-size:240.5%;
-}
-}
-@media only screen and (min-width:1220px){
-html{
-font-size:242.5%;
-}
-}
-@media only screen and (min-width:1230px){
-html{
-font-size:244.5%;
-}
-}
-@media only screen and (min-width:1240px){
-html{
-font-size:246.5%;
-}
-}
-@media only screen and (min-width:1250px){
-html{
-font-size:248.5%;
-}
-}
-@media only screen and (min-width:1260px){
-html{
-font-size:250.5%;
-}
-}
-@media only screen and (min-width:1270px){
-html{
-font-size:252.5%;
-}
 }
