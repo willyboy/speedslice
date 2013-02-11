@@ -684,15 +684,20 @@ function switchSlides(active,newSlide){
 	prevSlide=active;
 	if(active<newSlide){
 		$("section:eq("+newSlide+")").show(0,function(){
-			$("section:eq("+active+")").animate({"margin-top":"-"+sectionHeight+"px"},500,"swing",function(){
-				$(this).hide().css("margin-top",0);
+			var mySection=$("section:eq("+active+")");
+			$(mySection).addClass("slideUp");
+			$(mySection).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e) { 
+				$(mySection).hide().css("margin-top",0).removeClass("slideUp"); 
 			});
 		});
 	}
 	else{
-		$("section:eq("+newSlide+")").css("margin-top","-"+sectionHeight+"px").show(0,function(){
-			$("section:eq("+newSlide+")").animate({"margin-top":"0px"},500,"swing",function(){
-				$("section:eq("+active+")").hide().css("margin-top",0);
+		var myNewSection=$("section:eq("+newSlide+")");
+		$(myNewSection).css("margin-top","-"+sectionHeight+"px").show(0,function(){
+			$(this).addClass("slideDown");
+			$(this).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(e) { 
+				$(this).css("margin-top",0).removeClass("slideDown");
+				$("section:eq("+active+")").hide();
 			});
 		});
 	}
