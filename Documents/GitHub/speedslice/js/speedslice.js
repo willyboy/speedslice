@@ -19,6 +19,7 @@ function onLoad() {
 }
 function onDeviceReady() {
 	document.addEventListener("menubutton", onMenuKeyDown, false);
+	onMenuKeyDown();
 }
 $(document).ready(function(e) {
 	$(window).on("resize",function(){
