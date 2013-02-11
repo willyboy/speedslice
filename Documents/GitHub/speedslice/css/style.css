@@ -104,8 +104,9 @@ h5{
 }
 [src='images/Gear.png']{
 	cursor:pointer;
-	width:5rem;
-	height:5rem;
+	width:3.5rem;
+	height:3.5rem;
+	margin:0.75rem;
 	display:none;
 }
 [src='images/Bike.png']{
