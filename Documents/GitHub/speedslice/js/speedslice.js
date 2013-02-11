@@ -786,7 +786,7 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 }
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
-	$(mO).show().children("li").show();
+	$(mO).toggle().children("li").show();
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
