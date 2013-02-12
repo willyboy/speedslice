@@ -14,6 +14,7 @@ host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
+lastSlides=new Array();
 function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -683,6 +684,7 @@ function rightPizza(){
 function switchSlides(active,newSlide){
 	var sectionHeight=$("section:first").height();
 	prevSlide=active;
+	lastSlides.push(prevSlide);
 	if(active<newSlide){
 		$("section:eq("+newSlide+")").show(0,function(){
 			var mySection=$("section:eq("+active+")");
@@ -800,6 +802,11 @@ function onMenuKeyDown(){
 	}
 }
 function onBackButton(){
-	switchSlides($("section:visible").index(),prevSlide);
+	if(lastSlides.length!=0){
+		switchSlides($("section:visible").index(),lastSlides.pop());
+	}
+	else{
+		navigator.app.exitApp();	
+	}
 }
 (function(a){a.fn.mousewheel=function(a){return this[a?"on":"trigger"]("wheel",a)},a.event.special.wheel={setup:function(){a.event.add(this,b,c,{})},teardown:function(){a.event.remove(this,b,c)}};var b=a.browser.mozilla?"DOMMouseScroll"+(a.browser.version<"1.9"?" mousemove":""):"mousewheel";function c(b){switch(b.type){case"mousemove":return a.extend(b.data,{clientX:b.clientX,clientY:b.clientY,pageX:b.pageX,pageY:b.pageY});case"DOMMouseScroll":a.extend(b,b.data),b.delta=-b.detail/3;break;case"mousewheel":b.delta=b.wheelDelta/120}b.type="wheel";return a.event.handle.call(this,b,b.delta)}})(jQuery);
