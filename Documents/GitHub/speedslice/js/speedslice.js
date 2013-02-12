@@ -19,7 +19,7 @@ function onLoad() {
 }
 function onDeviceReady() {
 	document.addEventListener("menubutton", onMenuKeyDown, false);
-	onMenuKeyDown();
+	document.addEventListener("backbutton", onBackButton, false);
 }
 $(document).ready(function(e) {
 	$(window).on("resize",function(){
@@ -798,5 +798,8 @@ function onMenuKeyDown(){
 		case 10: $(mO).children("li:eq(2)").hide();
 		break;
 	}
+}
+function onBackButton(){
+	switchSlides($("section:visible").index(),prevSlide);
 }
 (function(a){a.fn.mousewheel=function(a){return this[a?"on":"trigger"]("wheel",a)},a.event.special.wheel={setup:function(){a.event.add(this,b,c,{})},teardown:function(){a.event.remove(this,b,c)}};var b=a.browser.mozilla?"DOMMouseScroll"+(a.browser.version<"1.9"?" mousemove":""):"mousewheel";function c(b){switch(b.type){case"mousemove":return a.extend(b.data,{clientX:b.clientX,clientY:b.clientY,pageX:b.pageX,pageY:b.pageY});case"DOMMouseScroll":a.extend(b,b.data),b.delta=-b.detail/3;break;case"mousewheel":b.delta=b.wheelDelta/120}b.type="wheel";return a.event.handle.call(this,b,b.delta)}})(jQuery);
