@@ -684,7 +684,7 @@ function rightPizza(){
 function switchSlides(active,newSlide){
 	var sectionHeight=$("section:first").height();
 	if(prevSlide!=lastSlides.pop()){
-		lastSlides.push(prevSlide);
+		lastSlides.push(active);
 	}
 	prevSlide=active;	
 	if(active<newSlide){
