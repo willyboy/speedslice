@@ -681,12 +681,12 @@ function rightPizza(){
 		$("#pizzaName").attr("readonly",1);
 	}
 }
-function switchSlides(active,newSlide){
+function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
-	if(prevSlide!=lastSlides.pop()){
-		lastSlides.push(active);
-	}
-	prevSlide=active;	
+	prevSlide=active;
+	if(typeof backButton!="undefined"){
+		lastSlides.push(prevSlide);
+	}		
 	if(active<newSlide){
 		$("section:eq("+newSlide+")").show(0,function(){
 			var mySection=$("section:eq("+active+")");
@@ -805,7 +805,7 @@ function onMenuKeyDown(){
 }
 function onBackButton(){
 	if(lastSlides.length!=0){
-		switchSlides($("section:visible").index(),lastSlides[lastSlides.length-1]);
+		switchSlides($("section:visible").index(),lastSlides.pop());
 	}
 	else{
 		navigator.app.exitApp();	
