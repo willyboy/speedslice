@@ -124,7 +124,7 @@ h5{
 }
 .slideUp{
 	-webkit-animation-name: slideUp;
-	-webkit-animation-duration: .25s;
+	-webkit-animation-duration: 250ms;
 	-webkit-animation-timing-function: linear;
 	-webkit-animation-iteration-count: 1;
 	-webkit-animation-play-state: running;
@@ -132,7 +132,7 @@ h5{
 }
 .slideDown{
 	-webkit-animation-name: slideDown;
-	-webkit-animation-duration: .25s;
+	-webkit-animation-duration: 250ms;
 	-webkit-animation-timing-function: linear;
 	-webkit-animation-iteration-count: 1;
 	-webkit-animation-play-state: running;
