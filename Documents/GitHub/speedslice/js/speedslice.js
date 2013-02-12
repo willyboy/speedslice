@@ -684,7 +684,7 @@ function rightPizza(){
 function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
 	prevSlide=active;
-	if(typeof backButton!="undefined"){
+	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
 	}		
 	if(active<newSlide){
@@ -805,7 +805,7 @@ function onMenuKeyDown(){
 }
 function onBackButton(){
 	if(lastSlides.length!=0){
-		switchSlides($("section:visible").index(),lastSlides.pop());
+		switchSlides($("section:visible").index(),lastSlides.pop(),1);
 	}
 	else{
 		navigator.app.exitApp();	
