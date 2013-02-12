@@ -683,8 +683,10 @@ function rightPizza(){
 }
 function switchSlides(active,newSlide){
 	var sectionHeight=$("section:first").height();
-	prevSlide=active;
-	lastSlides.push(prevSlide);
+	if(prevSlide!=lastSlides.pop()){
+		lastSlides.push(prevSlide);
+	}
+	prevSlide=active;	
 	if(active<newSlide){
 		$("section:eq("+newSlide+")").show(0,function(){
 			var mySection=$("section:eq("+active+")");
@@ -803,7 +805,7 @@ function onMenuKeyDown(){
 }
 function onBackButton(){
 	if(lastSlides.length!=0){
-		switchSlides($("section:visible").index(),lastSlides.pop());
+		switchSlides($("section:visible").index(),lastSlides[lastSlides.length-1]);
 	}
 	else{
 		navigator.app.exitApp();	
