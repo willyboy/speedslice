@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SpeedSlice: The fastest way to order pizza</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jqueryui.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
+<script type="text/javascript" src="phonegap.js"></script>
+<script type="text/javascript" src="js/speedslice.js"></script> 
+<script type="text/javascript">
+document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/5.12)+"%";
+</script>
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/style.css">
+<link href="css/jqueryui.css" rel="stylesheet" />
+<!--[if IE]><style type="text/css">.placeholder{color:#aaa;}</style><![endif]-->
+</head>
+<body onLoad="onLoad()">
+	<div id="container">
+    	<section id="createPizza">
+        	<header>
+                <img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+            <div>
+            	<div class="transBkgd clearFix">
+                    <div class="fR pizzArrow" id="pRight">&gt;</div>
+                    <div class="pizzArrow fL" id="pLeft">&lt;</div>
+                    <div id="pizzaCircle">
+                    	<ul id="someToppings">
+                    		<li id="ch" data-topping="1">Cheese</li>
+                        </ul>
+                    </div>
+                    <div id="pizzaToppings">
+                    	<div id="cheeseTopping" class="topping chSelect"></div>
+                        <div id="pepperoniTopping" class="topping"></div>
+                        <div id="sausageTopping" class="topping"></div>
+                        <div id="p3ppersTopping" class="topping"></div>
+                        <div id="olivesTopping" class="topping"></div>
+                        <div id="onionsTopping" class="topping"></div>
+                        <div id="mushroomsTopping" class="topping"></div>
+                    </div>
+                    <div class="ribbon-wrapper">
+                        <div class="ribbon" id="addPizza">
+                            <div class="ribbon-content">Add to Order</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="orderSummary">
+                	<div class="tapAddTxt">Tap to add</div>
+                    <div class="infoWrapper">
+                        <div>
+                            <h3 id="h3Ord">Order Summary</h3>
+                        </div>
+                        <div>
+                        	<h4>Name your pizza:</h4><input type="text" id="pizzaName" placeholder="Enter Name" name="2" value="Cheese">
+                        </div>
+                        <div>
+                        	<h4>Deliver to:</h4><input type="text" id="addressTo" onFocus="selectAddress(0); addrRtrnTo='selectPizza'; event.preventDefault()" placeholder="Enter Address">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer>
+            	<div class="pntr h1Style" onClick="orderPizzaPage()">order <span class="rightArrow">&gt;&gt;</span></div>
+            </footer>
+        </section>
+        <section id="delOptsSec">
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+        	<div class="center" id="delOpts">
+                <div class="next bigRed delLoc">Add New Location</div>
+			</div>           
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Delivery Address</h1>
+            </footer>
+        </section>
+        <section id="deliveryLoc">
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+        	<div class="infoWrapper">
+                <div>
+                    <h4>Place name:</h4><input type="text" id="addrNick" placeholder="Location Name">
+                </div>
+                <div>
+                    <h4>Deliver to:</h4><input type="text" id="addr" placeholder="Address Line 1">
+                </div>
+                <div>
+                    <input type="text" id="addr2" placeholder="Address Line 2">
+                </div>
+                <div>
+                    <input type="text" id="city" placeholder="City">
+                </div>
+                <div>
+                	<select id="state">
+                        <option value="AK">AK</option>
+                        <option value="AL">AL</option>
+                        <option value="AR">AR</option>
+                        <option value="AZ">AZ</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DC">DC</option>
+                        <option value="DE">DE</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="IA">IA</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="MA">MA</option>
+                        <option value="MD">MD</option>
+                        <option value="ME">ME</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MO">MO</option>
+                        <option value="MS">MS</option>
+                        <option value="MT">MT</option>
+                        <option value="NC">NC</option>
+                        <option value="ND">ND</option>
+                        <option value="NE">NE</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NV">NV</option>
+                        <option value="NY">NY</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VA">VA</option>
+                        <option value="VT">VT</option>
+                        <option value="WA">WA</option>
+                        <option value="WI">WI</option>
+                        <option value="WV">WV</option>
+                        <option value="WY">WY</option>
+                  </select>
+                </div>
+                <div>
+                    <input type="text" id="zip" placeholder="ZIP Code">
+                </div>
+                <div>
+                	<input type="text" id="phone" placeholder="Phone Number">
+                    <div id="deleteAddress" onClick="deleteAddress()" class="nD">Delete Address</div>
+                </div>
+			</div>
+            <div class="next bigRed" onClick="setNewAddress()">Next</div>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Delivery Address</h1>
+            </footer>
+        </section>
+        <section id="userInfo">
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+        	<div class="infoWrapper">
+                <div>
+                    <h4>First Name:</h4><input type="text" id="fName">
+                </div>
+                <div>
+                    <h4>Last Name:</h4><input type="text" id="lName">
+                </div>
+                <div>
+                    <h4>Email</h4><input type="email" id="emailAdd">
+                </div>
+                <div>
+                    <h4>Password</h4><input type="password" id="pWord">
+                </div>
+			</div>
+            <div class="next bigRed" onClick="createAccount(this)">Next</div>
+            <div class="userOpt">
+            	Already a member? Click <a href="">here</a> to sign in.
+            </div>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Your Info</h1>
+            </footer>
+        </section>
+        <section id="signIn">
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+        	<div class="infoWrapper">
+                <div>
+                    <h4>Email</h4><input type="email" id="emailLogIn">
+                </div>
+                <div>
+                    <h4>Password</h4><input type="password" id="pWordLogIn">
+                </div>
+			</div>
+            <div class="next bigRed" onClick="logIn(this)">Next</div>
+            <div class="userOpt">
+            	Don't have an account?<br>
+				Click <a href="">here</a> to sign up.
+            </div>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Sign In</h1>
+            </footer>
+        </section>
+        <section id="cardInfo">
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+        	<div class="infoWrapper">
+                <div>
+                    <h4>Credit Number</h4><input type="text" id="cNum" pattern="\d*">
+                </div>
+                <div>
+                    <h4>Expiration</h4><input id="expMo" type="text" size="2" value="12">/
+    <input id="expYr" type="text" size="4" value="2012">
+                </div>
+                <div>
+                	<h4>Security code</h4><input id="csc" type="text" size="4" pattern="\d*">
+                </div>
+                <div>
+                	<h4>Billing ZIP</h4><input id="cardZip" type="text" size="5" pattern="\d*">
+                </div>
+			</div>
+            <div class="w94 infoWrapper">
+            	<div class="bigRed">Tip</div>
+            </div>
+            <div class="next tip bigRed">15%</div><div class="next tip bigRed">20%</div><div class="next tip bigRed">Cash</div>
+            <div class="next bigRed" onClick="addCard()">Next</div>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Payment Info</h1>
+            </footer>
+        </section>
+        <section id="pickSpot">
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+            <h2>Pick Your Spot!</h2>
+        	<div class="infoWrapper" id="orderOptions">
+            	<div class="bigRed">Tap to Order</div>
+			</div>
+            <footer>
+            	<h5 onClick="switchSlides(6,0)"><span class="fL smChev">&laquo;</span><img class="fL" src="images/Bike.png" height="30" width="30"><span class="fL pl10">Back</span></h5>
+            </footer>
+            <div class="nD" id="confirmOrder" title="Confirm Order"></div>
+        </section>
+        <section id="profile">
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+  			<div class="pl10 pntr">
+                	<span class="fL aChev">&laquo;</span><h2 class="fL"><img src="images/Bike.png"><span class="pl10" id="welcome">Welcome, User</span></h2>
+            </div>
+            <div class="infoWrapper">
+                <div>
+                    <h4>Name</h4><div class="rInfo" id="nameChange"></div>
+                </div>
+                <div>
+                    <h4>Email</h4><div class="rInfo" id="yourEmail"></div>
+                </div>
+                <div>
+                    <h4>Payment Info</h4><div class="rInfo" onClick="updateCard()" id="accntCard"> <span class="cRed pntr">&gt;&gt;</span></div>
+                </div>
+                <div>
+                    <h4>Saved Addresses</h4><div class="rInfo cRed pntr" onClick="viewAddresses()">&gt;&gt;</div>
+                </div>
+            </div>
+            <div class="infoWrapper w94">
+                <div>
+                    <h4 class="w94 lh15"><a href="https://www.facebook.com/SpeedSlice" target="_new">Like us on Facebook</a></h4>
+                </div>
+                <div onClick="switchSlides(7,10)">
+                    <h4 class="lh15 pntr">About SpeedSlice</h4><div class="rInfo cRed pntr">&gt;&gt;</div>
+                </div>
+            </div>
+            <div class="infoWrapper w94">
+                <div onClick="switchSlides(7,9)">
+                    <h4 class="lh15 pntr w60">Terms and Conditions</h4><div class="rInfo cRed pntr">&gt;&gt;</div>
+                </div>
+            </div>
+            <div class="next bigRed fL mt20 w94" onClick="switchSlides(7,0)">Order a Pizza</div>
+            <footer>
+            	<h1>Account Info</h1>
+            </footer>
+        </section>
+        <section id="successfulOrder">
+        	<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+            <div class="infoWrapper">
+                <p>Order successful</p>
+                <p>Ref #: <span id="refNum"></span></p>
+                <p>Order ID: <span id="successID"></span></p>
+            </div>
+            <div class="next bigRed" onClick="switchSlides(8,0)">Return to order page</div>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Order Completed</h1>
+            </footer>
+        </section>
+        <section id="privPolicy"><!--10-->
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+            <div class="infoWrapper">
+            	<div class="bigRed">Terms and Conditions</div>                
+                <div id="legalContentWrapper">
+	                <div class="h380 aSlider"><div class="h380 pntr"><div id='legalSlider'></div></div></div>
+                	<div id="legalContent">
+                    	<p class="legal2">SpeedSlice.com and SpeedSlice mobile applications</p>
+                        <p class="legal1">PLEASE READ THESE TERMS AND CONDITIONS OF USE CAREFULLY BEFORE USING THIS SITE</p>
+                        <p>SpeedSlice owns and operates this website and associated mobile applications and the related mobile sites and/or selected other domains as well as our blog (blog.speedslice.com) (collectively, the "Sites"). As used in this Agreement, "SpeedSlice," "we," "us," or "our" shall mean SpeedSlice, LLC, its subsidiaries and affiliates, and their officers, directors, employees, agents or representatives.</p>
+                        <p>By accessing or using the Sites or using any service provided by or referenced in the Sites, you signify your assent to the terms and conditions of use and the privacy policies contained on or referenced in the Sites (the "Agreement"). If you do not agree to this Agreement, please do not use the site. As a condition of this Agreement, you further acknowledge that we may, in our sole discretion, modify this Agreement at any time. All modifications to this Agreement will be effective immediately upon our posting of any modifications on this site, and you hereby agree to any modifications. You affirm that you will review this Agreement periodically, so that you are aware of any and all modifications made to this Agreement.</p>
+                        <p class="legal1">RESTRICTIONS ON USE OF MATERIALS</p>
+                        <p>The Sites, including, but not limited to, the text, content, photographs, images, video, audio, graphics, and any software (including any files or images incorporated in or generated by the software, or any data accompanying the software) available on or through the Sites, or contained on the Sites ("Materials") are owned and operated by SpeedSlice. The Sites and the Materials are protected by copyright, trademark, trade dress, domain name, patent, trade secret, international treaties and/or other proprietary rights and laws of the United States and other countries. By accessing and using the Sites, you acknowledge and agree to abide by all applicable intellectual property laws, as well as any additional notices or restrictions contained on the Sites. No Materials from the site may be copied, reproduced, republished, uploaded, posted, transmitted or distributed in any way, except that you may download one copy of the Materials on any single computer for your non-commercial use only, provided that you keep intact all copyright and other proprietary notices. Modification of the Materials or unauthorized use of the Materials for any other purpose is a violation of SpeedSlice’ trademark, copyright, trade dress and other proprietary rights. The use of any such Material on any other site or networked computer environment is prohibited. Except as otherwise indicated on the Sites and except for the trademarks, service marks and trade names of other companies that are or may be displayed on the Sites, all trademarks, service marks and trade names are proprietary to SpeedSlice. Nothing contained on the Sites should be construed as granting, by implication, estoppel or otherwise, any license or right to use any of the Materials or proprietary content without the express written permission of SpeedSlice or such other party as may own the proprietary rights.
+By accessing or using the Sites, you acknowledge that third party service providers or vendors may impose additional terms and conditions of use set forth elsewhere in this Agreement or on such third party’s site. Your use of Materials provided by such third party service providers or vendors is also subject to those additional terms and conditions of use.
+In the event that you download any software from the Sites, the software, including any files, images incorporated in or generated by the software, and data accompanying the software (collectively, the "Software") is non-exclusively licensed to you by SpeedSlice. SpeedSlice does not transfer title to the Software to you. SpeedSlice retains full and complete title to the Software, and all intellectual property rights therein. You shall not redistribute, sell, decompile, reverse engineer, disassemble, or otherwise reduce the Software to a human-perceivable form.</p>
+						<p class="legal1">COPYRIGHT NOTICE</p>
+                        <p>Unless otherwise noted, all Materials are owned, licensed or controlled by SpeedSlice or the party credited as the provider of the Materials ("Third Party Provider"). You agree that you will not sell, license, rent, modify, print, copy, reproduce, download, transmit, distribute, disseminate, publicly display, publicly perform, publish, edit, adapt, compile, decompile, reverse engineer, disassemble or create derivative works from any Materials or otherwise transfer any of the Materials to any third person without the express written permission of SpeedSlice or the appropriate Third Party Provider. Except as specifically permitted by this Agreement, any use of the Materials contained or provided through this Website is strictly prohibited.</p>
+                        <p class="legal1">TRADEMARKS/SERVICE MARKS</p>
+                        <p>The trademarks, service marks, domain names and trade dress displayed on the Sites, whether registered or unregistered, are owned by SpeedSlice unless otherwise noted, and are protected by trademark laws in the United States and other countries. SpeedSlice’ marks, names, logos and trade dress include, but are not limited to, the following: SpeedSlice; SpeedSlice.com Website trade dress. The use or misuse of these trademarks/service marks or any other Materials, except as permitted herein, is expressly prohibited and may be in violation of trademark laws, unfair competition laws and/or other relevant laws. Please be advised that SpeedSlice actively and aggressively enforces its intellectual property rights to the fullest extent of the law.</p>
+                        <p class="legal1">DISCLAIMER</p>
+                        <p>THE MATERIALS IN THE SITES ARE PROVIDED "AS IS" AND WITHOUT WARRANTIES OF ANY KIND EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMISSIBLE PURSUANT TO APPLICABLE LAW, SpeedSlice AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AGENTS OR REPRESENTATIVES DISCLAIM WITH RESPECT TO THIS WEBSITE AND THE MATERIALS HEREIN ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. SpeedSlice DOES NOT REPRESENT OR WARRANT THAT THE FUNCTIONS CONTAINED IN THE MATERIALS WILL BE UNINTERRUPTED OR ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT THE SITES OR THE SERVER THAT MAKES IT AVAILABLE ARE FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS. SpeedSlice DOES NOT WARRANT OR MAKE ANY REPRESENTATIONS REGARDING THE USE OR THE RESULTS OF THE USE OF THE MATERIALS IN THE SITES IN TERMS OF THEIR CORRECTNESS, ACCURACY, RELIABILITY, TIMELINESS, COMPLETENESS, CURRENTNESS, OR OTHERWISE. YOU (AND NOT SpeedSlice) ASSUME THE ENTIRE COST OF ALL NECESSARY SERVICING, REPAIR, OR CORRECTION. APPLICABLE LAW MAY NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO THE ABOVE EXCLUSION MAY NOT APPLY TO YOU.</p>
+                        <p class="legal1">LIMITATION OF LIABILITY</p>
+                        <p>Under no circumstances, including, but not limited to, negligence, shall SpeedSlice or its officers, directors, employees, agents or representatives be liable to you or any third party for any special, consequential, incidental, direct, indirect, or punitive damages or any other loss or injury that result from the use of, or the inability to use, the Materials in the Sites, even if SpeedSlice or a SpeedSlice authorized representative has been advised of the possibility of such damages. In no event shall SpeedSlice have any liability to you for damages, losses and causes of action (whether in contract, tort (including, but not limited to, negligence), or otherwise) for accessing or using the Sites or engaging the services of or purchasing product(s) of a third party through or after accessing the Sites.</p>
+                        <p class="legal1">USE OF LINKS</p>
+                        <p>The Sites may contain links to other websites which are developed, sponsored and/or maintained by third parties. SpeedSlice does not review, monitor, operate or control any such third party website accessible through these links, and is not responsible for the content available on or through such third party websites. By providing access to the linked websites, SpeedSlice is not recommending or endorsing the products or services provided by the sponsor or owner of those websites. SpeedSlice makes no guarantees, representations or warranties as to, and shall have no liability for, any electronic content delivered by any third party, including, without limitation, the accuracy or subject matter of any electronic content, or the use of any personal information you provide to any such website. You acknowledge and agree that use of such links is entirely at your own risk. SpeedSlice reserves the right to discontinue links to any other website at any time and for any reason.</p>
+                        <p class="legal1">USER CONTENT AND INTERACTIVE AREAS</p>
+                        <p>We may provide interactive opportunities on the Sites, including, without limitation, user ratings and reviews, saved favorites, liked items and bookmarked restaurants, (collectively, "Interactive Areas") for the enjoyment of our users.
+You represent and warrant that you are the owner or otherwise have the right to provide any information, comments, reviews, ratings or other materials or content submitted, posted or otherwise transmitted to the Sites ("User Content"). In addition, in consideration of the Sites accepting User Content, you hereby grant to SpeedSlice an irrevocable, transferable, paid up, royalty-free, perpetual, non-exclusive worldwide sub-licensable license to use, copy, print, display, modify, edit, remove, publicly perform, translate and create derivative works from and distribute or otherwise use and reproduce User Content on the Sites and in all forms of media now known or hereafter invented, including but not limited to such uses as on and in the Sites throughout the world in all forms of media now known or hereafter invented in perpetuity (collectively, the "Uses") and the right to, in SpeedSlice' sole option and discretion, attribute such User Content to the user submitting the User Content. In consideration of submitting User Content, you consent to the Uses of the User Content without further consideration, compensation, attribution, notification or other additional consideration and to SpeedSlice’ disclosure of any information related to your use of the Site in any capacity in connection with SpeedSlice' display of your User Content on the Site. You also agree to indemnify and hold SpeedSlice harmless from any claim or demand, including reasonable attorneys' fees, made by any party arising out of the Uses of the User Content that you submit on our Sites. You waive any rights you may have in having the User Content edited, altered or changed in any manner not acceptable to you.<br>
+						Any submissions or postings by users to certain parts of the Sites, including, without limitation, Interactive Areas, will be public and posted in public areas on our Sites. SpeedSlice and any contract or operational providers that conduct, operate and/or manage any portion of the Sites will not be responsible for the action of any users or third parties with respect to any information, materials or content posted, uploaded or transmitted on the Sites.
+                        <br>
+                        By participating in any of the aforementioned activities, all users agree to follow the Sites' standards of conduct. The Sites reserve the right to change, delete or remove, in part or in full, any postings in Interactive Areas and to terminate or suspend access to such areas for conduct that we believe, in our sole discretion, interferes with other peoples' enjoyment of our Sites. The Sites will also cooperate with local, state and/or federal authorities to comply with applicable law.<br>
+We do our best to encourage comfort and discourage disruptive communication. We also discourage disruptive statements that incite others to violate our standards. We encourage your participation in upholding our standards. You are responsible for all content that you post, transmit, upload or otherwise make available through our Sites. You agree not to use the Interactive Areas or the Sites to make available any content that:
+						<ul>
+                        	<li>is unlawful, harmful to adults or minors, threatening, abusive, harassing, tortious, defamatory, vulgar, obscene, libelous, invasive of another's privacy, hateful, or racially, ethnically or otherwise objectionable;</li>
+                            <li>infringes any patent, trademark, trade secret, copyright, right of privacy or publicity or other proprietary rights of any person;</li>
+                            <li>contains unauthorized advertising or solicits other users; or</li>
+                            <li>is intended by the user to interrupt, destroy or limit the functionality or integrity of any computer software, hardware or Materials on this website.</li>
+                        </ul>
+						The Sites may allow you to rate and post reviews of restaurants and other businesses ("Ratings and Reviews"). Such Ratings and Reviews are governed by the terms of this Agreement, including, without limitation, your agreement regarding your use of Interactive Areas. Ratings and Reviews do not reflect the views of the Sites or SpeedSlice. The Sites do not assume responsibility or liability for any Ratings and Reviews or for any claims, damages or losses resulting from the use of this service or the Materials contained therein. Ratings and Reviews that are submitted to the Sites shall be owned exclusively and in perpetuity by the Sites. Such exclusive ownership means that SpeedSlice has the unrestricted, perpetual and exclusive right to use, reproduce, modify, translate, transmit, distribute or otherwise exploit any and all materials and communications. There shall be no obligation to give credit or pay any consideration to you for any Ratings and Reviews. The Sites reserve the right to delete or modify any Ratings and Reviews that we determine to violate the terms of this Agreement or general standards of conduct at any time and at our sole discretion or for any other or no reason. We strive to maintain a high level of integrity with our user-submitted Ratings and Reviews, and any submission that is determined to be disingenuous in any way, or could otherwise diminish the integrity of our Ratings and Reviews, will be removed.
+                        </p>
+                        <p class="legal1">PRIVACY POLICY</p>
+                        <p>The terms of the Privacy Policy located elsewhere on the Sites are incorporated into this document by this reference to that Privacy Policy.
+                        </p>
+                        <p class="legal1">PROCEDURE FOR MAKING COPYRIGHT INFRINGEMENT CLAIMS</p>
+                        <p>
+                        	SpeedSlice respects the intellectual property of others, and we ask all of our users to do the same. If you believe that your copyrighted work has been copied and is accessible on the Sites or a website through which our services may be accessed in a way that constitutes copyright infringement, please provide SpeedSlice’ Copyright Agent with the following information required by the Online Copyright Infringement Liability Limitation Act of the Digital Millennium Copyright Act, 17 U.S.C. 512:
+                            <ol>
+                            	<li>A physical or electronic signature of a person authorized to act on behalf of the owner of an exclusive right that is allegedly infringed;</li>
+                                <li>Identification of the copyright work claimed to have been infringed, or, if multiple copyrighted works at a single online site are covered by a single notification, a representative list of such works at that site;</li>
+                                <li>Identification of the material that is claimed to be infringing or to be the subject of infringing activity and that is to be removed or access to which is to be disabled, and information reasonably sufficient to permit us to locate the material, e.g., the specific web page address on the Sites;</li>
+                                <li>Information reasonably sufficient to permit us to contact the complaining party;</li>
+                                <li>A statement that the complaining party has a good-faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or the law; and</li>
+                                <li>A statement that the information in the notification is accurate, and under penalty of perjury, that the complaining party is authorized to act on behalf of the owner of an exclusive right that is allegedly infringed.</li>
+                            </ol>
+                            For copyright inquiries under the Digital Millennium Copyright Act please contact: SpeedSlice North America, LLC, Attention: Legal Department at legal@speedslice.com.
+                        </p>
+                        <p class="legal1">NO UNLAWFUL OR PROHIBITED USE/MONITORING OF WEBSITE</p>
+                        <p>By using and accessing this Website, you agree that you will not use the site for any unlawful purpose or engage in any use prohibited by this Agreement. You further agree that you will not use the Website in any manner that could damage, disable, overburden or impair any SpeedSlice server, or the network(s) connected to any SpeedSlice server, or interfere with any other party’s use and enjoyment of the Sites. You may not attempt, through any means, to gain unauthorized access to any part of the Sites or any service, other account, computer system or network connected to any SpeedSlice server.
+SpeedSlice reserves the right, in its sole discretion, to monitor any and all use of the Sites.
+						</p>
+                        <p class="legal1">VIOLATIONS OF AND CHANGES TO THE AGREEMENT</p>
+                        <p>SpeedSlice reserves the right to seek all remedies available at law and in equity for violations of the Agreement, including the right to block access from a particular Internet address to the Sites.
+SpeedSlice reserves the right, in its sole discretion, to revise and amend the Agreement at any time. You acknowledge and agree that you are bound by any changes or modifications to this Agreement upon publication of such changes or modifications on our site. Accordingly, we recommend that you review the Agreement before providing us with any information. Our privacy policy was last updated on January 28, 2013.
+						</p>
+                        <p class="legal1">GOVERNING LAW</p>
+                        <p>You acknowledge and agree that your access to and use of the Sites is subject to all applicable international, federal, state and local laws and regulations. The terms, conditions and policies contained in this Agreement shall be governed by and construed in accordance with the laws of the Commonwealth of Massachusetts, without regard to any principles of conflicts of law, and all claims, disputes or disagreements which may arise out of the interpretation, performance or in any way relating to your use of the Sites, shall be submitted exclusively to the jurisdiction of the State or federal courts located in Suffolk County, Massachusetts.  You acknowledge and agree that you will irrevocably consent and submit to the exclusive personal jurisdiction of those courts for the purpose of litigating any such action; and you will irrevocably waive any jurisdictional, venue or inconvenient forum objections to such court. Any waiver by SpeedSlice of any provision of this Agreement must be in writing.</p>
+                    </div>
+                </div>                
+            </div>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Privacy Policy</h1>
+            </footer>
+        </section>
+        <section id="aboutSpeedslice"><!--11-->
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+            <div class="infoWrapper">
+            	<div class="bigRed">About SpeedSlice</div>                
+                <div id="abtContentWrapper">
+                	<div id="abtContent">
+                        <p>SpeedSlice is the ultimate app for finding local pizza joints that are open and delivering to you.  whether you’re having an office pizza party, having a night in, or stumbling home from the bar at 2am, we’re going to give you insanely convenient web and mobile apps to find pizza joints that’ll deliver what you want right away.</p>
+                        <p>We’re currently in beta mode. This means our restaurant coverage is limited, but we’re constantly working on expanding. Right now, we’ve got the best coverage in our hometown of Boston, (and Cambridge, too!)</p>
+                        <p>Because we’re so new (and scrappy), we had to make choices about what features to add, so here goes:</p>
+                        <ul>
+                            <li><span class="b">all pizzas you order will be large pizzas</span>, defined however the place you order from defines ‘large’</li>
+                            <li>The toppings we offer are limited right now, but we’ve got the most popular ones covered :)</li>
+                            <li>We’re going to be adding features and toppings as we go!</li>
+                            <li>All peppers are green peppers</li>
+                            <li>All olives are green olives</li>
+                        </ul>
+                        <p>That’s it for now! Contact us anytime with questions, concerns or ideas: <a href="mailto:support@speedslice.com">support@speedslice.com</a>. We’d love to hear from you!</p>
+                    </div>
+                    <div class="h380 aSlider"><div class="h380 pntr"><div id='aboutSlider'></div></div></div>
+                </div>                
+            </div>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>About SpeedSlice</h1>
+            </footer>
+        </section>
+        <section id="faq"><!--12-->
+       		<header>
+            	<img class="vBottom fL" src="images/Gear.png">
+            	<h1>SpeedSlice</h1>
+            </header>
+            <footer>
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>FAQ</h1>
+            </footer>
+        </section>
+    </div>
+    <ul id='menuOptions'>
+   		<li>Order a Pizza</li>
+        <li>Account Information</li>
+        <li>About SpeedSlice</li>
+        <li>Terms and Conditions</li>
+        <li>Help</li>
+    </ul>
+    <select class="nD" id="pizzaID">
+    	<option value="2" data-toppings="Cheese">Cheese</option>
+        <option value="9" data-toppings="Cheese,Pepperoni">Pepperoni</option>
+        <option></option>
+    </select>   
+</body>
+</html>

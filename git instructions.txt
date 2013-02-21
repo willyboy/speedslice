@@ -1,0 +1,4 @@
+git add -filename-
+git commit -m "message"
+git push -u (loc) master
+git pull (if having probs)
