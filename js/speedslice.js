@@ -15,6 +15,7 @@ loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
 lastSlides=new Array();
+scrollBarNmbr=0;
 function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -33,15 +34,20 @@ $(document).ready(function(e) {
 			getPizzaList();
 			getCardInfo();
 			getUserInfo();
-			showGear();
 		}
 	});
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/Gear.png']").on("tap",function(){
+		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
-			if($(this).parentsUntil("section").parent("section").index()!=7){
-				switchSlides($(this).parentsUntil("section").parent("section").index(),7);
+			if(sctnInd!=7){
+				switchSlides(sctnInd,7);
+			}
+		}
+		else{
+			if(sctnInd!=4){
+				switchSlides(sctnInd,4);
 			}
 		}
 	});
@@ -131,7 +137,7 @@ $(document).ready(function(e) {
 						});
 						if(!hasPizzaAlready){
 							addUserPizza();
-							$("#pizzaName").parent("div").after("<div><h4>"+thePiz.val()+":</h4><input type='text' value='1' name='qUpdate'></div>");
+							$("#pizzaName").parent("div").after("<div><h4>"+thePiz.val()+":</h4><input type='text' class='w40' value='1' name='qUpdate'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
 						}
 					}
 				}
@@ -147,12 +153,14 @@ $(document).ready(function(e) {
 			notLoggedInToppings=notLoggedInToppings.substr(0,notLoggedInToppings.length-1);
 			$("#pizzaID").append("<option data-toppings='"+notLoggedInToppings+"'>"+$("#pizzaName").val()+"</option>");
 		}
+		checkCustomScrolling();
 	});
-	$("#pizzaID").on("change",function(){
-		changePizza(this);
+	$("#tapOrder").on("tap",function(){
+		orderPizzaPage();
 	});
     $("#pizzaToppings").on("tap",".topping:not(#cheeseTopping):not(#pRight):not(#pLeft)",function(){
-		//$("#pizzaName").val("").attr("name","");
+		//check this with logged in
+		$("#pizzaName").val("").attr("name","");
 		theID=$(this).attr("id");
 		switch(theID.substr(0,2)){
 			case "pe":
@@ -198,7 +206,6 @@ $(document).ready(function(e) {
 							$("#successID").text(data.cs_order_id);
 							$("#confirmOrder").dialog("close");
 						});
-						
 					},
 					"class":"cRed"
 				}
@@ -271,7 +278,8 @@ function getDeliveryOpts(){
 			$(".delLoc:not(:first)").remove();
 			$.each(data,function(index,value){
 				$("#delOpts").append('<div class="next bigRed delLoc"><div class="editButton">EDIT</div>'+value+'</div>');
-			});				
+			});
+			checkCustomScrolling();
 		}
 	});
 }
@@ -337,12 +345,14 @@ function orderPizzaPage(curSlide){
 				$.each(data,function(index,value){
 					$("#orderOptions").append("<div><h4 class='orderOpt' data-order='"+value.Tray_Order+"' data-restID='"+value.RestaurantID+"'>"+value.Rest_Name+"<span class='fR pl10'>$"+value.Total_Price+"</span></h4></div>");
 				});
+				checkCustomScrolling();
 			}
 			else{
 				$("#orderOptions").append("<div><h4 id='noRests'>"+data.error+"</h4></div>");
 			}
 		}).error(function(){
 			$("#loader").remove();
+			$("#orderOptions").append("<div><h4 id='noRests'>Unknown error occurred. Please try again in a couple of minutes.</h4></div>");
 		});	
 	}
 	return true;
@@ -405,11 +415,11 @@ function emptyLine(addrLine,addrID){
 	}
 }
 function selectAddress(active){
+	$("#addressTo").blur();
 	if(dontFocus){
 		dontFocus=false;
 		return;
-	}
-	$("#addressTo").blur();
+	}	
 	if($("#delOpts").children(".delLoc").length==1){
 		switchSlides(active,2);
 	}
@@ -430,13 +440,16 @@ function logIn(theDiv){
 				case 401:$("#pWordLogIn").parent("div").after("<div id='badLogin' class='cRed'>Invalid email or password</div>");
 				break;
 				default: 
+				loggedIn=1;
 				getDeliveryOpts();
 				getPizzaList();	
 				getCardInfo();
 				showUserInfo(data);
-				showGear();
 				if(!orderPizzaPage(4)){
 					switchSlides(4,0);
+				}
+				else{
+					switchSlides(4,7);
 				}
 				break;
 			}
@@ -445,9 +458,6 @@ function logIn(theDiv){
 		loader=$("#loader").remove();
 		$("#pWordLogin").parent("div").after("<div id='badLogin' class='cRed'>Invalid email or password</div>");
 	});
-}
-function showGear(){
-	$("[src='images/Gear.png']").show();
 }
 function createAccount(theDiv){
 	var PW=document.getElementById('pWord').value;
@@ -459,16 +469,20 @@ function createAccount(theDiv){
 	$.post(host+"CreateAccount.php",info,function(data){
 		loader=$("#loader").remove();
 		loggedIn=1;
-		showGear();
 		if(!isNaN(data)){
 			$("#emailAdd").removeClass("redBrdr");
-			switchSlides(3,5);//check me
-			cardReturnTo="order";
-			$.post(host+"SetAddress.php",address);
-			addUserPizza();
-			getUserInfo();
-			getCardInfo();
-			getDeliveryOpts();
+			if($(".delLoc").length==1){
+				switchSlides(3,0);
+			}
+			else{//should be tested
+				switchSlides(3,5);//check me
+				cardReturnTo="order";
+				$.post(host+"SetAddress.php",address);
+				addUserPizza();
+				getUserInfo();
+				getCardInfo();
+				getDeliveryOpts();
+			}
 		}
 		else{
 			$("#emailAdd").addClass("redBrdr");
@@ -520,22 +534,20 @@ function currentToppings(){
 function getPizzaList(){
 	$.getJSON(host+"GetUserPizzas.php",function(data){
 		if(data!=null){
-			$("#pizzaToppings,.tapAddTxt").hide();
 			populatePizzaList(data);
-			rightPizza();
 		}
 	}).error(function(){
 		populatePizzaList({});
 	});
 }
 function populatePizzaList(data){
-	$("#pizzaID").children("option:not([value=9]):not([value=2])").remove();
+	$("#pizzaID").children().remove();
 	if($("[name=qUpdate]").length>1){
 		var qLength=$("[name=qUpdate]").length-1;	
 	}
 	$.each(data,function(index,value){
 		//relies on most recent pizza being the highest num, also on only one pizza being added at a time (so should use swirly loader)
-		if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
+		//if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
 			$("#pizzaID").append("<option value='"+value.PizzaID+"' data-toppings='"+value.Toppings+"'>"+value.PizzaName+"</option>");
 			if(typeof qLength !="undefined"){
 				if($("#pizzaName").val()==value.PizzaName){
@@ -550,13 +562,13 @@ function populatePizzaList(data){
 					$("[name=qUpdate]").attr("name","q"+value.PizzaID);
 				}
 			}
-		}
+		//}
 		//ie
 		if(index==0){
 			$("#pizzaName").removeClass("placeholder");	
 		}
 	});
-	$("#pizzaID").append("<option selected='selected'></option>");	
+	$("#pizzaID").append("<option selected></option>");	
 }
 function addCard(){
 	if($(".tipSelected").length==0){
@@ -656,10 +668,15 @@ function leftPizza(){
 	}
 	if(pizzaIndex==0 || numOptions==1){
 		$("#pizzaToppings,.tapAddTxt").show();
+		$("#pizzaName").parent("div").show();
+		$("#savedPizzaName").hide();
 	}
 	else{
 		$("#pizzaToppings,.tapAddTxt").hide();
+		$("#pizzaName").parent("div").hide();
+		$("#savedPizzaName").show();
 	}	
+	$("#savedPizzaName").text($("#pizzaName").val());
 }
 function rightPizza(){
 	pizzaIndex=document.getElementById("pizzaID").selectedIndex;
@@ -674,12 +691,15 @@ function rightPizza(){
 	}
 	if((pizzaIndex+2)==numOptions || numOptions==1){
 		$("#pizzaToppings,.tapAddTxt").show();
-		$("#pizzaName").removeAttr("readonly");
+		$("#pizzaName").parent("div").show();
+		$("#savedPizzaName").hide();
 	}
 	else{
 		$("#pizzaToppings,.tapAddTxt").hide();
-		$("#pizzaName").attr("readonly",1);
+		$("#pizzaName").parent("div").hide();
+		$("#savedPizzaName").show();
 	}
+	$("#savedPizzaName").text($("#pizzaName").val());
 }
 function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
@@ -706,6 +726,18 @@ function switchSlides(active,newSlide,backButton){
 			});
 		});
 	}
+}
+function checkCustomScrolling(){
+	var visiSct=$("section:visible");
+	var lastDiv=$("section:visible>div:last");
+	if(($(lastDiv).position().top+$(lastDiv).height())>$(visiSct).children("footer").position().top && $(visiSct).has(".aSlider").length==0){
+		createCustomScroller(visiSct);
+	}
+}
+function createCustomScroller(sctnForScroller){
+	$(sctnForScroller).children("div").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' />");
+	$("#custom-scrollbar-content"+scrollBarNmbr).append('<div class="h380 aSlider nD"><div class="h380 pntr"><div id="custom-scrollbar-slider'+scrollBarNmbr+'" style="position: relative; top: 3px;" class="ui-draggable"></div></div></div>');
+	customScrolling('custom-scrollbar-wrapper'+scrollBarNmbr,'custom-scrollbar-content'+scrollBarNmbr,'custom-scrollbar-slider'+scrollBarNmbr);
 }
 function customScrolling(theContainer,innerContainer,sliderHandle){
 	$("#"+sliderHandle).draggable({scroll:false,axis:"y",containment:"parent",drag:function(e,u){ 

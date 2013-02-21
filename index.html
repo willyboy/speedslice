@@ -14,7 +14,6 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/style.css">
 <link href="css/jqueryui.css" rel="stylesheet" />
-<!--[if IE]><style type="text/css">.placeholder{color:#aaa;}</style><![endif]-->
 </head>
 <body onLoad="onLoad()">
 	<div id="container">
@@ -25,6 +24,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             </header>
             <div>
             	<div class="transBkgd clearFix">
+                	<div id="savedPizzaName"></div>
                     <div class="fR pizzArrow" id="pRight">&gt;</div>
                     <div class="pizzArrow fL" id="pLeft">&lt;</div>
                     <div id="pizzaCircle">
@@ -48,22 +48,22 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                     </div>
                 </div>
                 <div id="orderSummary">
-                	<div class="tapAddTxt">Tap to add</div>
+                	<div class="tapAddTxt">Tap toppings to add</div>
                     <div class="infoWrapper">
                         <div>
                             <h3 id="h3Ord">Order Summary</h3>
                         </div>
                         <div>
-                        	<h4>Name your pizza:</h4><input type="text" id="pizzaName" placeholder="Enter Name" name="2" value="Cheese">
+                        	<h4>Name your pizza:</h4><input type="text" id="pizzaName" placeholder="Enter Name">
                         </div>
                         <div>
-                        	<h4>Deliver to:</h4><input type="text" id="addressTo" onFocus="selectAddress(0); addrRtrnTo='selectPizza'; event.preventDefault()" placeholder="Enter Address">
+                        	<h4 class='downArrow'>Deliver to:</h4><input type="text" id="addressTo" onFocus="selectAddress(0); addrRtrnTo='selectPizza';" placeholder="Enter Address">
                         </div>
                     </div>
                 </div>
             </div>
             <footer>
-            	<div class="pntr h1Style" onClick="orderPizzaPage()">order <span class="rightArrow">&gt;&gt;</span></div>
+            	<div class="pntr h1Style" id="tapOrder">order <span class="rightArrow">&gt;&gt;</span></div>
             </footer>
         </section>
         <section id="delOptsSec">
@@ -185,7 +185,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
 			</div>
             <div class="next bigRed" onClick="createAccount(this)">Next</div>
             <div class="userOpt">
-            	Already a member? Click <a href="">here</a> to sign in.
+            	Already a member? Click <a onClick="switchSlides(3,4)" class="pntr">here</a> to sign in.
             </div>
             <footer>
             	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Your Info</h1>
@@ -207,7 +207,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             <div class="next bigRed" onClick="logIn(this)">Next</div>
             <div class="userOpt">
             	Don't have an account?<br>
-				Click <a href="">here</a> to sign up.
+				Click <a onClick="switchSlides(4,3)" class="pntr">here</a> to sign up.
             </div>
             <footer>
             	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Sign In</h1>
@@ -236,7 +236,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             <div class="w94 infoWrapper">
             	<div class="bigRed">Tip</div>
             </div>
-            <div class="next tip bigRed">15%</div><div class="next tip bigRed">20%</div><div class="next tip bigRed">Cash</div>
+            <div class="next tip bigRed">15%</div><div class="next tip bigRed tipSelected">20%</div><div class="next tip bigRed">Cash</div>
             <div class="next bigRed" onClick="addCard()">Next</div>
             <footer>
             	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Payment Info</h1>
@@ -433,9 +433,7 @@ SpeedSlice reserves the right, in its sole discretion, to revise and amend the A
         <li>Help</li>
     </ul>
     <select class="nD" id="pizzaID">
-    	<option value="2" data-toppings="Cheese">Cheese</option>
-        <option value="9" data-toppings="Cheese,Pepperoni">Pepperoni</option>
-        <option></option>
+        <option selected></option>
     </select>   
 </body>
 </html>
