@@ -23,14 +23,13 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             	<h1>SpeedSlice</h1>
             </header>
             <div>
-            	<div class="transBkgd clearFix">
-                	<div id="savedPizzaName"></div>
+            	<div class="transBkgd clearFix">                	
                     <div class="fR pizzArrow" id="pRight">&gt;</div>
                     <div class="pizzArrow fL" id="pLeft">&lt;</div>
                     <div id="pizzaCircle">
-                    	<ul id="someToppings">
-                    		<li id="ch" data-topping="1">Cheese</li>
-                        </ul>
+                        <input class="pizzaCircleContent" type="text" id="pizzaName" placeholder="Custom Pizza">
+                        <div class="tapAddTxt">Tap to Name Your Pizza</div>
+                        <div id="savedPizzaName" class="pizzaCircleContent"></div>
                     </div>
                     <div id="pizzaToppings">
                     	<div id="cheeseTopping" class="topping chSelect"></div>
@@ -43,18 +42,18 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                     </div>
                     <div class="ribbon-wrapper">
                         <div class="ribbon" id="addPizza">
-                            <div class="ribbon-content">Add to Order</div>
+                            <div class="ribbon-content">Add Pizza to Order</div>
                         </div>
                     </div>
                 </div>
                 <div id="orderSummary">
                 	<div class="tapAddTxt">Tap toppings to add</div>
                     <div class="infoWrapper">
+                        <ul id="someToppings">	
+                            <li id="ch" data-topping="1">Cheese</li>
+                        </ul>
                         <div>
                             <h3 id="h3Ord">Order Summary</h3>
-                        </div>
-                        <div>
-                        	<h4>Name your pizza:</h4><input type="text" id="pizzaName" placeholder="Enter Name">
                         </div>
                         <div>
                         	<h4 class='downArrow'>Deliver to:</h4><input type="text" id="addressTo" onFocus="selectAddress(0); addrRtrnTo='selectPizza';" placeholder="Enter Address">
@@ -63,7 +62,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                 </div>
             </div>
             <footer>
-            	<div class="pntr h1Style" id="tapOrder">order <span class="rightArrow">&gt;&gt;</span></div>
+            	<div class="pntr h1Style" onClick="orderPizzaPage()"><span id="orderText" class="nD">order</span><span id="createText">create account</span> <span class="rightArrow">&gt;&gt;</span></div>
             </footer>
         </section>
         <section id="delOptsSec">
@@ -237,7 +236,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             	<div class="bigRed">Tip</div>
             </div>
             <div class="next tip bigRed">15%</div><div class="next tip bigRed tipSelected">20%</div><div class="next tip bigRed">Cash</div>
-            <div class="next bigRed" onClick="addCard()">Next</div>
+            <div class="next bigRed" onClick="addCard()" id="addCardButton">Next</div>
             <footer>
             	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Payment Info</h1>
             </footer>

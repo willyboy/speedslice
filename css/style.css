@@ -28,8 +28,21 @@
 :-ms-input-placeholder {
     color:rgba(96,71,60,0.8);
 }
+#pizzaName::-webkit-input-placeholder {
+    color:rgb(252,176,60);
+}
+#pizzaName:-moz-placeholder {
+    color:rgb(252,176,60);
+}
+#pizzaName::-moz-placeholder {
+    color:rgb(252,176,60);
+}
+#pizzaName:-ms-input-placeholder {
+    color:rgb(252,176,60);
+}
 html{
 	font-size:62.5%;
+	-webkit-font-smoothing: antialiased;
 }
 a{
 	color:rgb(252,176,60);
@@ -39,6 +52,7 @@ a:hover,a:active{
 }
 body{
 	font-size:1.6rem;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h1,h2,h3,h4,h5,h6,.h1Style,.center{
 	margin:0;
@@ -112,6 +126,9 @@ h5{
 	width:4rem;
 	height:4rem;
 }
+.u{
+	text-decoration:underline;
+}
 .fL{
 	float:left;
 }
@@ -155,6 +172,8 @@ h4.orderOpt{
 	font-size:4.6rem;
 	margin:6.5rem 2rem 2rem 2rem;
 	cursor:pointer;	
+}
+.pizzArrow,.ribbon{
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
@@ -174,7 +193,7 @@ h4.orderOpt{
 	background:rgb(254,249,241);
 	color:rgb(96,71,60);
 }
-.infoWrapper > div:not(:last-child):not(#abtContentWrapper):not(#legalContentWrapper){
+.infoWrapper > div:not(:last-child):not(#abtContentWrapper):not(#legalContentWrapper),.infoWrapper>#someToppings{
 	border-bottom:1px dashed rgb(96,71,60);	
 }
 .infoWrapper input[type=text],.infoWrapper input[type=password],.infoWrapper input[type=email],.infoWrapper select{
@@ -185,10 +204,10 @@ h4.orderOpt{
 	outline:none;
 	
 }
-.infoWrapper,.infoWrapper div,.infoWrapper input,.infoWrapper h4,.infoWrapper h3{
+.infoWrapper,.infoWrapper div,.infoWrapper input,.infoWrapper h4,.infoWrapper h3,.infoWrapper>#someToppings{
 	float:left;
 }
-.infoWrapper>div:not(#abtContentWrapper):not(#legalContentWrapper),#abtContent>p,#legalContent>p{
+.infoWrapper>div:not(#abtContentWrapper):not(#legalContentWrapper),#abtContent>p,#legalContent>p,.infoWrapper>#someToppings{
 	width:96%;
 	padding:1rem .5rem;
 }
@@ -200,8 +219,7 @@ h4.orderOpt{
 }
 .tapAddTxt{
 	text-align: center;
-	font-size: 1.2rem;
-	margin-top: .5rem;
+	font-size: 1rem;
 	color: white;
 }
 .next{
@@ -265,7 +283,7 @@ h4.orderOpt{
 	margin-right:5%;
 }
 .ribbon {
-	font-size: 1.6rem !important;
+	font-size: 1.4rem !important;
 	width: 40%;
 	position: relative;
 	background:#806C63;
@@ -273,6 +291,10 @@ h4.orderOpt{
 	text-align: center;
 	padding: .6rem 3.2rem;
 	margin: 0 auto 1.5rem;
+}
+.ribbon-content{
+	width:110%;
+	margin-left:-5%;
 }
 .ribbon:before, .ribbon:after {
 	content: "";
@@ -418,7 +440,7 @@ input[type=text].w40{
 	color: red;
 	text-align: center;	
 }
-#deliveryLoc>.infoWrapper>div{
+#deliveryLoc>.infoWrapper>div,.infoWrapper>#someToppings{
 	padding:1rem .5rem;
 }
 #deliveryLoc>.infoWrapper{
@@ -445,7 +467,6 @@ input[type=text].w40{
 	box-shadow:0 0 2.5rem -.5rem black inset;
 	border:1rem solid #FFF;
 	margin:0 auto;
-	background:rgb(252,176,60);	
 	color:white;
 }
 #orderOptions,.w94{
@@ -516,13 +537,15 @@ input[type=text].w40{
 }
 #someToppings{
 	margin:0;
-	padding:1rem 0 0 0;
+	padding:0;
 	list-style:none;
-	text-align:center;	
 }
-#someToppings:not(:empty){
-	min-height:15rem;
-	border-radius:10rem;
+#someToppings>li{
+	float:left;
+	margin-left:1rem;
+	font-size:1.2rem;
+	text-transform:uppercase;
+	color:rgb(252,176,60);
 }
 #h3Ord{
 	width:100%;
@@ -558,6 +581,7 @@ input[type=text].w40{
 	width:90%;
 	position:absolute;
 }
+/*android*/
 #menuOptions{
 	position: absolute;
 	list-style: none;
@@ -577,13 +601,37 @@ input[type=text].w40{
 	border-bottom: 1px solid rgb(195,40,46);
 	padding: 5px;	
 }
+/*end android*/
+#pizzaName{
+	width:90%;
+	font-size:2.3rem;
+	background:none;
+	border:none;
+	outline:none;
+	margin-left:1rem;
+}
+#pizzaName.redBrdr{
+	margin-left: 0.6rem;
+	padding: 0 0.5rem;
+	border-radius: 20px;
+}
+#savedPizzaName{
+	text-align: center;
+}
+.pizzaCircleContent{
+	font-family: Lobster;
+	font-size: 3rem;
+	letter-spacing: 0.2rem;
+	color: rgb(252,176,60);
+	margin-top: 30%;
+}
 h4.downArrow:after{
 	content:"";
-	border:1.5rem solid transparent;
+	border:1rem solid transparent;
 	border-top:1.5rem solid rgb(195,40,46);;
 	margin-top:0.2rem;
 	position:absolute;
-	margin-left:17.8rem;
+	margin-left:18.6rem;
 }
 /*android
 .aChev{

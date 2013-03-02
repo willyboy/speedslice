@@ -30,10 +30,15 @@ $(document).ready(function(e) {
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
 		if(loggedIn){
+			$("#orderText,#createText").toggle();
 			getDeliveryOpts();
 			getPizzaList();
 			getCardInfo();
 			getUserInfo();
+			if(typeof localStorage.getItem("LastAddress")!="undefined"){
+				address.addrNick=localStorage.LastAddress;//ie placeholder
+				$("#addressTo").val(address.addrNick);
+			}
 		}
 	});
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
@@ -94,7 +99,7 @@ $(document).ready(function(e) {
 		//fix bug where pizza can have same name and different toppings
 		thePiz=$("#pizzaName");
 		//ie
-		if($(thePiz).val()=="" || $(thePiz).val=="Enter Name"){
+		if($(thePiz).val()=="" || $(thePiz).val=="Custom Pizza"){
 			$("#pizzaName").addClass("redBrdr");
 			return false;
 		}
@@ -103,11 +108,11 @@ $(document).ready(function(e) {
 			$("#pizzaID").children("option").each(function(index, element) {
 				if($("#pizzaName").val()==$(element).text()){
 					if(loggedIn){
-						if($("[name=q"+thePiz.attr("name")+"]").length!=0){
-							$("[name=q"+thePiz.attr("name")+"]").val(parseInt($("[name=q"+thePiz.attr("name")+"]").val())+1);
+						if($("[name=q"+$(element).val()+"]").length!=0){
+							$("[name=q"+$(element).val()+"]").val(parseInt($("[name=q"+$(element).val()+"]").val())+1);
 						}
 						else{
-							$("#pizzaName").parent("div").after("<div><h4>"+thePiz.val()+":</h4><input type='text' value='1' class='w40' name='q"+thePiz.attr("name")+"'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
+							$("#addressTo").parent("div").before("<div><h4>"+thePiz.val()+":</h4><input type='text' value='1' class='w40' name='q"+$(element).val()+"'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
 						}
 					}
 					else{
@@ -119,7 +124,7 @@ $(document).ready(function(e) {
 							}
 							else{
 								if(ind==$("#orderSummary>.infoWrapper>div>h4").length-1){
-									$("#pizzaName").parent("div").after("<div><h4>"+$(element).text()+":</h4><input type='text' value='1' class='w40' name='qUpdate'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
+									$("#addressTo").parent("div").before("<div><h4>"+$(element).text()+":</h4><input type='text' value='1' class='w40' name='qUpdate'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
 								}
 							}
                         });	
@@ -137,7 +142,7 @@ $(document).ready(function(e) {
 						});
 						if(!hasPizzaAlready){
 							addUserPizza();
-							$("#pizzaName").parent("div").after("<div><h4>"+thePiz.val()+":</h4><input type='text' class='w40' value='1' name='qUpdate'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
+							$("#addressTo").parent("div").before("<div><h4>"+thePiz.val()+":</h4><input type='text' class='w40' value='1' name='qUpdate'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
 						}
 					}
 				}
@@ -145,7 +150,7 @@ $(document).ready(function(e) {
 		}
 		else{//first time user
 			addUserPizza();
-			$("#pizzaName").parent("div").after("<div><h4>"+thePiz.val()+":</h4><input type='text' value='1' name='qUpdate'></div>");
+			$("#addressTo").parent("div").before("<div><h4>"+thePiz.val()+":</h4><input type='text' value='1' name='qUpdate'></div>");
 			notLoggedInToppings="";
 			$("#someToppings").children("li").each(function(index, element) {
                 notLoggedInToppings+=$(element).text()+",";
@@ -158,30 +163,21 @@ $(document).ready(function(e) {
 	$("#tapOrder").on("tap",function(){
 		orderPizzaPage();
 	});
-    $("#pizzaToppings").on("tap",".topping:not(#cheeseTopping):not(#pRight):not(#pLeft)",function(){
+    $("#pizzaToppings").on("tap",".topping:not(#cheeseTopping)",function(){
 		//check this with logged in
-		$("#pizzaName").val("").attr("name","");
-		theID=$(this).attr("id");
-		switch(theID.substr(0,2)){
-			case "pe":
-				toppingsOnOff("pe","Pepperoni",theID,2);
-			break;
-			case "sa":
-				toppingsOnOff("sa","Sausage",theID,3);
-			break;
-			case "p3":
-				toppingsOnOff("p3","Peppers",theID,4);
-			break;
-			case "ol":
-				toppingsOnOff("ol","Olives",theID,5);
-			break;
-			case "on":
-				toppingsOnOff("on","Onion",theID,6);
-			break;
-			case "mu":
-				toppingsOnOff("mu","Mushroom",theID,7);
-			break;
+		var removeName=false;
+		$("#orderSummary>.infoWrapper>div:not(:first)").each(function(index, element) {
+			var theH4=$(element).children("h4").text();
+            theH4=theH4.substr(0,theH4.length-1);
+			if(theH4.toUpperCase()==$("#pizzaName").val().toUpperCase()){
+				removeName=true;
+			}
+        });
+		if(removeName){
+			$("#pizzaName").val("").attr("name","");
 		}
+		var theID=$(this).attr("id");
+		addTopping(theID);
 	});
 	$("#orderOptions").on("tap",".orderOpt",function(){
 		$("#confirmOrder").empty().append($(this).html());
@@ -199,12 +195,20 @@ $(document).ready(function(e) {
 					text:"Confirm",
 					click:function(){
 						$("#confirmOrder").empty().append($(loader).clone());
+						$(".ui-button").hide();
 						$.post(host+"PlaceOrder.php",{"RestaurantID":$(theSelection).attr("data-restID"),"TrayOrder":$(theSelection).attr("data-order"),"AddressName":$("#addressTo").val(),"Price":$(theSelection).children(".fR").text()},function(data){
 							switchSlides(6,8);
-							data=$.parseJSON(data);
-							$("#refNum").text(data.refnum);
-							$("#successID").text(data.cs_order_id);
-							$("#confirmOrder").dialog("close");
+							try{
+								data=$.parseJSON(data);
+								$("#refNum").text(data.refnum);
+								$("#successID").text(data.cs_order_id);
+								$("#confirmOrder").dialog("close");
+							}
+							catch(er){
+								orderError();
+							}
+						}).error(function(){
+							orderError();
 						});
 					},
 					"class":"cRed"
@@ -216,7 +220,7 @@ $(document).ready(function(e) {
 		if($(this).index()==0){
 			switchSlides(1,2);	
 			$("#deleteAddress").hide();
-			$("#addr,#addr2,#addrNick,#zip,#phone,#city").val("");
+			clearAddressForm();
 		}
 		else{
 			address.addrNick=$(this).text().substr(4);//ie placeholder
@@ -283,9 +287,35 @@ function getDeliveryOpts(){
 		}
 	});
 }
+function orderError(){
+	$("#confirmOrder").empty().append("<span class='cRed'>Order failed. Please try again later.</span>");
+	$(".ui-button").show();
+}
+function addTopping(theID){
+	switch(theID.substr(0,2)){
+		case "pe":
+			toppingsOnOff("pe","Pepperoni",theID,2);
+		break;
+		case "sa":
+			toppingsOnOff("sa","Sausage",theID,3);
+		break;
+		case "p3":
+			toppingsOnOff("p3","Peppers",theID,4);
+		break;
+		case "ol":
+			toppingsOnOff("ol","Olives",theID,5);
+		break;
+		case "on":
+			toppingsOnOff("on","Onion",theID,6);
+		break;
+		case "mu":
+			toppingsOnOff("mu","Mushroom",theID,7);
+		break;
+	}
+}
 function toppingsOnOff(theSmallID,topping,theID,topID){
 	if($("#"+theSmallID).length==0){
-		$("#pizzaCircle").children("ul").append("<li id='"+theSmallID+"' data-topping='"+topID+"'>"+topping+"</li>");
+		$("#someToppings").append("<li id='"+theSmallID+"' data-topping='"+topID+"'>"+topping+"</li>");
 		$("#"+theID).addClass(theSmallID+"Select");
 	}
 	else{
@@ -308,7 +338,7 @@ function orderPizzaPage(curSlide){
 		return false;	
 	}
 	if($("input[name^=q]").length==0){
-		$("#addressTo").parent("div").after("<div class='cRed' id='noPizzas'>Please add at least 1 pizza to order");	
+		$("#addressTo").parent("div").after("<div class='cRed' id='noPizzas'>Please add at least 1 pizza to order</div>");	
 		return false;
 	}
 	if(!loggedIn){
@@ -339,6 +369,7 @@ function orderPizzaPage(curSlide){
             pizzasString+=$(element).attr("name").substr(1)+"q"+$(element).val()+",";
         });
 		pizzasString=pizzasString.substr(0,(pizzasString.length-1));
+		localStorage.setItem("LastAddress",address.addrNick);
 		$.getJSON(host+"FindPizzaPlaces.php?PizzaID="+pizzasString+"&AddressName="+address.addrNick,function(data){
 			$("#loader").remove();
 			if(typeof data.error=="undefined"){
@@ -383,11 +414,14 @@ function setNewAddress(){
 	}
 	switch(addrRtrnTo){
 		case "selectPizza":	switchSlides(2,0);
+		$("#addressTo").val($("#addrNick").val()).removeClass("redBrdr");
 		break;
 		case "account": switchSlides(2,7);
 		break;
+		case "card":switchSlides(3,6);
+		$("#noCards").remove();
+		break;
 	}
-	$("#addressTo").val($("#addrNick").val()).removeClass("redBrdr");
 	if(loggedIn){
 		$.post(host+"SetAddress.php",address,function(data){
 			getDeliveryOpts();	
@@ -401,8 +435,11 @@ function deleteAddress(){
 			$(element).remove();	
 		}
     });
-	$("#addr,#addr2,#addrNick,#zip,#phone,#city").val("");
+	clearAddressForm();
 	switchSlides(2,1);
+}
+function clearAddressForm(){
+	$("#addr,#addr2,#addrNick,#zip,#phone,#city").val("");	
 }
 function emptyLine(addrLine,addrID){
 	if(addrLine==""){
@@ -428,7 +465,7 @@ function selectAddress(active){
 	}
 }
 function logIn(theDiv){
-	$(theDiv).append(loader);
+	$(theDiv).append($(loader).clone());
 	var PW=document.getElementById('pWordLogIn').value;
 	var email=document.getElementById('emailLogIn').value;
 	var userAndPW="Email="+email+"&Password="+PW;
@@ -441,10 +478,12 @@ function logIn(theDiv){
 				break;
 				default: 
 				loggedIn=1;
+				$("#orderText,#createText").toggle();
 				getDeliveryOpts();
 				getPizzaList();	
 				getCardInfo();
 				showUserInfo(data);
+				addUserPizza();
 				if(!orderPizzaPage(4)){
 					switchSlides(4,0);
 				}
@@ -465,13 +504,15 @@ function createAccount(theDiv){
 	var fName=document.getElementById('fName').value;
 	var lName=document.getElementById('lName').value;
 	var info="Email="+email+"&Password="+PW+"&fName="+fName+"&lName="+lName;
-	$(theDiv).append(loader);
+	$(theDiv).append($(loader).clone());
 	$.post(host+"CreateAccount.php",info,function(data){
 		loader=$("#loader").remove();
-		loggedIn=1;
 		if(!isNaN(data)){
+			loggedIn=1;
+			$("#orderText,#createText").toggle();
 			$("#emailAdd").removeClass("redBrdr");
-			if($(".delLoc").length==1){
+			var dVal=$("#addressTo").val();
+			if(dVal.length==0 || dVal=="Enter Address"){
 				switchSlides(3,0);
 			}
 			else{//should be tested
@@ -505,17 +546,19 @@ function addUserPizza(){//same pizza different name doesn't get added to array, 
 		for (k in additionalPizzas){
 			count++;
 		}
+		var theCount=0;
 		$.each(additionalPizzas,function(index,value){
 			$.post(host+"CreatePizza.php",{"Toppings":value,"PizzaName":index},function(data){
-				if(index==(count-1)){
+				if(theCount==(count-1)){
 					populatePizzaList($.parseJSON(data));	
 				}
-			});	
+			});
+			theCount++;	
 		});
 		delete(additionalPizzas);
 		return false;
 	}
-	if($("#pizzaName").attr("name")==""){//name is the pizzaid, if no pizza id, needs to be saved
+	if(($("#pizzaName").attr("name")=="" || typeof $("#pizzaName").attr("name")=="undefined") && $("#pizzaName").val()!=""){//name is the pizzaid, if no pizza id, needs to be saved
 		toppings=currentToppings();
 		//validate pizzaname
 		$.post(host+"CreatePizza.php",{"Toppings":toppings,"PizzaName":$("#pizzaName").val()},function(data){
@@ -586,15 +629,32 @@ function addCard(){
 		$("#cNum").addClass("redBrdr");
 		return false;	
 	}
-	$.post(host+"Card.php",cardData);
-	//if from account
-	//if from pizza order
-	switch(cardReturnTo){
-		case "account": switchSlides(5,7);
-		break;
-		case "order": orderPizzaPage();
-		break;	
-	}
+	$("#noCards").remove();
+	$("#addCardButton").append($(loader).clone());
+	$.post(host+"Card.php",cardData,function(data){
+		$("#loader").remove();
+		switch(data){
+			case "":switch(cardReturnTo){
+				case "account": switchSlides(5,7);
+				break;
+				case "order": orderPizzaPage();
+				break;	
+			}
+			break;
+			case "address": addrRtrnTo="card";
+				$("#cardInfo>.infoWrapper:first>div:last").after("<div class='cRed' id='noCards'>Please make sure one of your addresses matches your <span onclick=\"switchSlides($('section:visible').index(),3); clearAddressForm();\" class='u pntr'>billing address.</span></div>");
+			break;
+			default: 
+				var errorLoc=$("#cardInfo>.infoWrapper:first>div:last");
+				if(data.indexOf("OrdrinException")!=-1){
+					$(errorLoc).after("<div class='cRed' id='noCards'>Error: Please re-enter card information and try again.</div>");
+				}
+				else{
+					$(errorLoc).after("<div class='cRed' id='noCards'>Error: "+data+"</div>");
+				}
+			break;
+		}
+	});
 }
 function changePizza(theChoice){
 	theOpt=$("#pizzaID option[value="+$(theChoice).val()+"]");
@@ -605,12 +665,12 @@ function changePizza(theChoice){
 		pizTop=$(theOpt).attr("data-toppings").split(",");
 		$.each(pizTop,function(ind,top){
 			if(top=="Peppers" && $("#p3ppersTopping").attr("class").indexOf("Select")==-1){
-				$("#p3ppersTopping").tap();	
+				addTopping("p3ppersTopping");
 			}
 			else{
 				top=top.toLowerCase();
 				if($("#"+top+"Topping").attr("class").indexOf("Select")==-1){
-					$("#"+top+"Topping").tap();
+					addTopping(top+"Topping");
 				}
 			}
 		});
@@ -668,12 +728,12 @@ function leftPizza(){
 	}
 	if(pizzaIndex==0 || numOptions==1){
 		$("#pizzaToppings,.tapAddTxt").show();
-		$("#pizzaName").parent("div").show();
+		$("#pizzaName").show();
 		$("#savedPizzaName").hide();
 	}
 	else{
 		$("#pizzaToppings,.tapAddTxt").hide();
-		$("#pizzaName").parent("div").hide();
+		$("#pizzaName").hide();
 		$("#savedPizzaName").show();
 	}	
 	$("#savedPizzaName").text($("#pizzaName").val());
@@ -691,12 +751,12 @@ function rightPizza(){
 	}
 	if((pizzaIndex+2)==numOptions || numOptions==1){
 		$("#pizzaToppings,.tapAddTxt").show();
-		$("#pizzaName").parent("div").show();
+		$("#pizzaName").show();
 		$("#savedPizzaName").hide();
 	}
 	else{
 		$("#pizzaToppings,.tapAddTxt").hide();
-		$("#pizzaName").parent("div").hide();
+		$("#pizzaName").hide();
 		$("#savedPizzaName").show();
 	}
 	$("#savedPizzaName").text($("#pizzaName").val());
