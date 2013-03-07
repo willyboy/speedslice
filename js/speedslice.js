@@ -58,6 +58,7 @@ $(document).ready(function(e) {
 	});
 	$("#menuOptions").on("tap","li",function(e){
 		e.stopPropagation();
+		e.preventDefault();
 		var visSctn=$("section:visible").index();
 		switch($(this).index()){
 			case 0: switchSlides(visSctn,0);
