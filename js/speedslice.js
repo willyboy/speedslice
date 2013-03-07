@@ -57,7 +57,7 @@ $(document).ready(function(e) {
 			}
 		}
 	});
-	$("body").on("tap","#menuOptions>li",function(e){
+	$("#menuOptions").on("tap","li",function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		var visSctn=$("section:visible").index();
@@ -766,7 +766,9 @@ function rightPizza(){
 }
 function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
+	active=$("section:visible").index();
 	prevSlide=active;
+	$("#menuOptions").hide();
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
 	}		
