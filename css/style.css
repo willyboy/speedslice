@@ -52,7 +52,7 @@ a:hover,a:active{
 }
 body{
 	font-size:1.6rem;
-	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;;
 }
 h1,h2,h3,h4,h5,h6,.h1Style,.center{
 	margin:0;
@@ -116,7 +116,7 @@ h5{
 	font-family:Lobster;
 	cursor:pointer;
 }
-[src='images/Gear.png']{
+[src='images/redGear.svg']{
 	cursor:pointer;
 	width:3.5rem;
 	height:3.5rem;
@@ -154,7 +154,7 @@ h5{
 	-webkit-animation-play-state: running;
 	-webkit-animation-fill-mode: forwards;
 }
-.smChev,footer .aChev{
+.smChev,footer .aChev,header .aChev{
 	font-size: 5rem;
 	font-weight: normal;
 	line-height: 0.5;
@@ -631,9 +631,19 @@ h4.downArrow:after{
 	border-top:1.5rem solid rgb(195,40,46);;
 	margin-top:0.2rem;
 	position:absolute;
-	margin-left:18.6rem;
+	margin-left:16.6rem;
 }
-/*android
-.aChev{
-	display:none;
-}*/
+/*android*/
+header .aChev{
+	margin-top:.9rem;
+}
+#pickSpot>footer .smChev{
+	font-size:7rem;
+}
+#pickSpot>footer .pl10{
+	font-size:3.4rem;
+}
+header>h1{
+	margin-left:5rem;
+	margin-right:0;
+}

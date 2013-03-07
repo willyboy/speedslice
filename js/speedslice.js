@@ -44,7 +44,7 @@ $(document).ready(function(e) {
 	});
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
-	$("[src='images/Gear.png']").on("tap",function(){
+	$("[src='images/redGear.svg']").on("tap",function(){
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
 			if(sctnInd!=7){
@@ -57,7 +57,7 @@ $(document).ready(function(e) {
 			}
 		}
 	});
-	$("#menuOptions").on("tap","li",function(e){
+	$("body").on("tap","#menuOptions>li",function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		var visSctn=$("section:visible").index();
