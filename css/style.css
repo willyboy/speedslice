@@ -77,7 +77,7 @@ h4{
 	font-size: 1.4rem;
 }
 section{
-	background: rgb(195,40,46);/*url('../images/PizzaBackgroundSmall.jpg') no-repeat;*/
+	background: url('../images/PizzaBackgroundSmall.jpg') no-repeat;
 	background-position: -10px 0px;
 	/*background-attachment: fixed;*/
 	-webkit-background-size: cover;

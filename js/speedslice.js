@@ -30,6 +30,7 @@ $(document).ready(function(e) {
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
 		if(loggedIn){
+			setTimeout("navigator.splashscreen.hide()",1000);
 			$("#orderText,#createText").toggle();
 			getDeliveryOpts();
 			getPizzaList();
