@@ -10,7 +10,7 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-host="http://pizzadelivery.piecewise.com/Final/";
+host="https://speedslice.com/app/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
@@ -337,7 +337,7 @@ function orderPizzaPage(curSlide){
 	$("#noRests").parent().remove();
 	$("#noPizzas").remove();
 	//ie
-	if(address.addrNick!="" && address.addrNick!="Enter Address"){
+	if(address.addrNick!="" && address.addrNick!="ADDRESS"){
 		$("#addressTo").removeClass("redBrdr");	
 	}
 	else{
@@ -519,7 +519,7 @@ function createAccount(theDiv){
 			$("#orderText,#createText").toggle();
 			$("#emailAdd").removeClass("redBrdr");
 			var dVal=$("#addressTo").val();
-			if(dVal.length==0 || dVal=="Enter Address"){
+			if(dVal.length==0 || dVal=="ADDRESS"){
 				switchSlides(3,0);
 			}
 			else{//should be tested
@@ -591,13 +591,13 @@ function getPizzaList(){
 	});
 }
 function populatePizzaList(data){
-	$("#pizzaID").children().remove();
+	$("#pizzaID").children("option:not([value=9]):not([value=2])" ).remove();
 	if($("[name=qUpdate]").length>1){
 		var qLength=$("[name=qUpdate]").length-1;	
 	}
 	$.each(data,function(index,value){
 		//relies on most recent pizza being the highest num, also on only one pizza being added at a time (so should use swirly loader)
-		//if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
+		if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
 			$("#pizzaID").append("<option value='"+value.PizzaID+"' data-toppings='"+value.Toppings+"'>"+value.PizzaName+"</option>");
 			if(typeof qLength !="undefined"){
 				if($("#pizzaName").val()==value.PizzaName){
@@ -612,7 +612,7 @@ function populatePizzaList(data){
 					$("[name=qUpdate]").attr("name","q"+value.PizzaID);
 				}
 			}
-		//}
+		}
 		//ie
 		if(index==0){
 			$("#pizzaName").removeClass("placeholder");	
@@ -681,9 +681,6 @@ function changePizza(theChoice){
 				}
 			}
 		});
-	}
-	else{
-		$(".topping:first").tap();
 	}	
 }
 function updateCard(){
