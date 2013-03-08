@@ -273,6 +273,10 @@ $(document).ready(function(e) {
 	}).on("swiperight",function(){
 		rightPizza();
 	});
+	$("body").on("tap","#overlay",function(e){
+		$("#menuOptions").hide();
+		$("#overlay").remove();		
+	});
 });
 function makeActive(cntnrStr,rdOnlyStr){
 	$(rdOnlyStr).removeAttr("readonly");
@@ -768,9 +772,6 @@ function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
 	active=$("section:visible").index();
 	prevSlide=active;
-	if($("#menuOptions:visible").length>0){
-		$("#menuOptions").hide();
-	}
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
 	}		
