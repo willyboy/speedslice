@@ -768,7 +768,9 @@ function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
 	active=$("section:visible").index();
 	prevSlide=active;
-	$("#menuOptions").hide();
+	if($("#menuOptions:visible").length>0){
+		$("#menuOptions").hide();
+	}
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
 	}		
@@ -889,6 +891,12 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
+	if($("#overlay").length==0){
+		$("body").append("<div id='overlay'></div>");
+	}
+	else{
+		setTimeout("$('#overlay').remove()",400);
+	}
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
