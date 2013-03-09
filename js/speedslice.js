@@ -25,19 +25,13 @@ function onDeviceReady() {
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	document.addEventListener("backbutton", onBackButton, false);
 }
-function adjustSectionsForDimensions(addScrollBars){
-	$("section>header").next("div").each(function(index, element) {
-		var headHeight=$(element).prev("header").height();
-		var footHeight=$(element).next("footer").height();
-		var newHeight=$(window).height()-footHeight-headHeight+"px";
-		$(element).css("height",newHeight);
-		if(scrollBarNmbr==0){
-			createCustomScroller($(element));
-		}
-		$(element).children("div").children("div").find(".h380").css("height",newHeight);
-	});	
-}
 $(document).ready(function(e) {
+	window.plugins.share.show({
+		subject: 'I like turtles',
+		text: 'http://www.mndaily.com'},
+		function() {}, // Success function
+		function() {alert('Share failed')} // Failure function
+	);
 	if($(window).height()<$("section:first").height()){
 		$("section").css({"background-position":0}).add("#container").css({height:$(window).height(),minHeight:$(window).height()});	
 		adjustSectionsForDimensions();
@@ -938,5 +932,17 @@ function onBackButton(){
 	else{
 		navigator.app.exitApp();	
 	}
+}
+function adjustSectionsForDimensions(addScrollBars){
+	$("section>header").next("div").each(function(index, element) {
+		var headHeight=$(element).prev("header").height();
+		var footHeight=$(element).next("footer").height();
+		var newHeight=$(window).height()-footHeight-headHeight+"px";
+		$(element).css("height",newHeight);
+		if(scrollBarNmbr==0){
+			createCustomScroller($(element));
+		}
+		$(element).children("div").children("div").find(".h380").css("height",newHeight);
+	});	
 }
 (function(a){a.fn.mousewheel=function(a){return this[a?"on":"trigger"]("wheel",a)},a.event.special.wheel={setup:function(){a.event.add(this,b,c,{})},teardown:function(){a.event.remove(this,b,c)}};var b=a.browser.mozilla?"DOMMouseScroll"+(a.browser.version<"1.9"?" mousemove":""):"mousewheel";function c(b){switch(b.type){case"mousemove":return a.extend(b.data,{clientX:b.clientX,clientY:b.clientY,pageX:b.pageX,pageY:b.pageY});case"DOMMouseScroll":a.extend(b,b.data),b.delta=-b.detail/3;break;case"mousewheel":b.delta=b.wheelDelta/120}b.type="wheel";return a.event.handle.call(this,b,b.delta)}})(jQuery);
