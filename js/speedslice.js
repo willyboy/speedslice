@@ -17,6 +17,7 @@ lastY=0;
 dontFocus=false;
 lastSlides=new Array();
 scrollBarNmbr=0;
+touchStarted=false;
 function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -45,7 +46,6 @@ $(document).ready(function(e) {
 		adjustSectionsForDimensions();
 		$("section,#container").css({height:$(window).height(),minHeight:$(window).height()});
 		$("html").css("font-size",($(window).width()/5.12)+"%");
-		
 	});
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
@@ -830,6 +830,7 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		$("#"+innerContainer).css("margin-top",(-$("#"+innerContainer).height()*(u.position.top/$(".aSlider:first").height()))+"px");}
 	});
 	$("#"+theContainer).on("touchmove",function(e){
+		touchStarted=true;
 		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 		var elm = $(this).offset();
 		var y = touch.pageY;
@@ -838,8 +839,11 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		}
 		lastY=y;
 	}).on("touchend",function(e){
-		e.preventDefault();
-		e.stopPropagation();
+		if(touchStarted){
+			e.preventDefault();
+			e.stopPropagation();
+			touchStarted=false;
+		}
 	}).mousewheel(function(e){
 		scrollDiv(e,e.originalEvent.wheelDelta,"#"+innerContainer,"#"+sliderHandle,0,$(".aSlider:first").height());
 	});
