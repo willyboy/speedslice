@@ -30,7 +30,7 @@ function adjustSectionsForDimensions(addScrollBars){
 		var footHeight=$(element).next("footer").height();
 		var newHeight=$(window).height()-footHeight-headHeight+"px";
 		$(element).css("height",newHeight);
-		if(addScrollBars){
+		if(scrollBarNmbr==0){
 			createCustomScroller($(element));
 		}
 		$(element).children("div").children("div").find(".h380").css("height",newHeight);
@@ -39,10 +39,10 @@ function adjustSectionsForDimensions(addScrollBars){
 $(document).ready(function(e) {
 	if($(window).height()<$("section:first").height()){
 		$("section").css({"background-position":0}).add("#container").css({height:$(window).height(),minHeight:$(window).height()});	
-		adjustSectionsForDimensions(true);
+		adjustSectionsForDimensions();
 	}
 	$(window).on("resize",function(){
-		adjustSectionsForDimensions(false);
+		adjustSectionsForDimensions();
 		$("section,#container").css({height:$(window).height(),minHeight:$(window).height()});
 		$("html").css("font-size",($(window).width()/5.12)+"%");
 		

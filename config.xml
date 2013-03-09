@@ -18,4 +18,5 @@
 	<icon src="images/App_Icon.png" gap:role="default" />
 	<preference name="splash-screen-duration" value="3000" />
     <gap:splash src="images/splash.png" />
+	<preference name="webviewbounce" value="false" />
 </widget>
