@@ -10,7 +10,8 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-host="https://speedslice.com/app/Final/";
+//host="https://speedslice.com/app/Final/";
+host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
@@ -23,9 +24,28 @@ function onDeviceReady() {
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	document.addEventListener("backbutton", onBackButton, false);
 }
+function adjustSectionsForDimensions(addScrollBars){
+	$("section>header").next("div").each(function(index, element) {
+		var headHeight=$(element).prev("header").height();
+		var footHeight=$(element).next("footer").height();
+		var newHeight=$(window).height()-footHeight-headHeight+"px";
+		$(element).css("height",newHeight);
+		if(addScrollBars){
+			createCustomScroller($(element));
+		}
+		$(element).children("div").children("div").find(".h380").css("height",newHeight);
+	});	
+}
 $(document).ready(function(e) {
+	if($(window).height()<$("section:first").height()){
+		$("section").css({"background-position":0}).add("#container").css({height:$(window).height(),minHeight:$(window).height()});	
+		adjustSectionsForDimensions(true);
+	}
 	$(window).on("resize",function(){
+		adjustSectionsForDimensions(false);
+		$("section,#container").css({height:$(window).height(),minHeight:$(window).height()});
 		$("html").css("font-size",($(window).width()/5.12)+"%");
+		
 	});
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
@@ -792,7 +812,7 @@ function switchSlides(active,newSlide,backButton){
 		});
 	}
 }
-function checkCustomScrolling(){
+function checkCustomScrolling(sectionToCheck){
 	var visiSct=$("section:visible");
 	var lastDiv=$("section:visible>div:last");
 	if(($(lastDiv).position().top+$(lastDiv).height())>$(visiSct).children("footer").position().top && $(visiSct).has(".aSlider").length==0){
@@ -800,9 +820,10 @@ function checkCustomScrolling(){
 	}
 }
 function createCustomScroller(sctnForScroller){
-	$(sctnForScroller).children("div").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' />");
+	$(sctnForScroller).children("div").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' class='clearFix' />");
 	$("#custom-scrollbar-content"+scrollBarNmbr).append('<div class="h380 aSlider nD"><div class="h380 pntr"><div id="custom-scrollbar-slider'+scrollBarNmbr+'" style="position: relative; top: 3px;" class="ui-draggable"></div></div></div>');
 	customScrolling('custom-scrollbar-wrapper'+scrollBarNmbr,'custom-scrollbar-content'+scrollBarNmbr,'custom-scrollbar-slider'+scrollBarNmbr);
+	scrollBarNmbr++;
 }
 function customScrolling(theContainer,innerContainer,sliderHandle){
 	$("#"+sliderHandle).draggable({scroll:false,axis:"y",containment:"parent",drag:function(e,u){ 

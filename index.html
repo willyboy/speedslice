@@ -10,7 +10,8 @@
 <script type="text/javascript" src="phonegap.js"></script>
 <script type="text/javascript" src="js/speedslice.js"></script> 
 <script type="text/javascript">
-document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/5.12)+"%";
+console.log(window.innerWidth);
+document.getElementsByTagName("html").item(0).style.fontSize=(window.outerWidth/5.12)+"%";
 </script>
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/style.css">

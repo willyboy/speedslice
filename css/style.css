@@ -93,6 +93,9 @@ section{
 section:not(:first-child){
 	display:none;
 }
+section>header+div{
+	overflow:hidden;	
+}
 footer{
 	border-top:1rem solid rgb(252,176,60);
 	background:rgb(195,40,46);
@@ -102,6 +105,7 @@ footer{
 	width:100%;
 	left:0;
 	bottom:0;
+	z-index:10000;
 }
 header{
 	background:rgba(0,0,0,0.3);
