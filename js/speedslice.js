@@ -62,7 +62,6 @@ $(document).ready(function(e) {
 	$("#menuOptions").on("tap","li",function(e){
 		e.stopPropagation();
 		e.preventDefault();
-		$("body").prepend("overly issue");
 		var visSctn=$("section:visible").index();
 		switch($(this).index()){
 			case 0: switchSlides(visSctn,0);
@@ -277,6 +276,8 @@ $(document).ready(function(e) {
 		rightPizza();
 	});
 	$("body").on("tap","#overlay",function(e){
+				$("body").prepend("overly issue");
+
 		$("#menuOptions").hide();
 		$("#overlay").remove();		
 	});
