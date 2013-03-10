@@ -26,14 +26,6 @@ function onDeviceReady() {
 	document.addEventListener("backbutton", onBackButton, false);
 }
 $(document).ready(function(e) {
-	var share = new Share();
-	share.show({
-		subject: 'I like turtles',
-		text: 'http://www.mndaily.com'},
-		function() {}, // Success function
-		function() {alert('Share failed')} // Failure function
-	
-	);
 	if($(window).height()<$("section:first").height()){
 		$("section").css({"background-position":0}).add("#container").css({height:$(window).height(),minHeight:$(window).height()});	
 		adjustSectionsForDimensions();
