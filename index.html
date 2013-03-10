@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=0" />
 <title>SpeedSlice: The fastest way to order pizza</title>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jqueryui.min.js"></script>
@@ -9,7 +10,7 @@
 <script type="text/javascript" src="phonegap.js"></script>
 <script type="text/javascript" src="js/speedslice.js"></script> 
 <script type="text/javascript">
-document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/5.12)+"%";
+document.getElementsByTagName("html").item(0).style.fontSize=(window.outerWidth/5.12)+"%";
 </script>
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/style.css">
@@ -19,7 +20,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
 	<div id="container">
     	<section id="createPizza">
         	<header>
-                <img class="vBottom fL" src="images/redGear.svg">
+                <img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
             <div>
@@ -56,7 +57,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                             <h3 id="h3Ord">Order Summary</h3>
                         </div>
                         <div>
-                        	<h4 class='downArrow'>Deliver to:</h4><input type="text" id="addressTo" onFocus="selectAddress(0); addrRtrnTo='selectPizza';" placeholder="Enter Address">
+                        	<h4 class='downArrow'>DELIVER TO:</h4><input type="text" id="addressTo" onFocus="selectAddress(0); addrRtrnTo='selectPizza';" placeholder="ADDRESS">
                         </div>
                     </div>
                 </div>
@@ -67,19 +68,21 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
         </section>
         <section id="delOptsSec">
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
         	<div class="center" id="delOpts">
                 <div class="next bigRed delLoc">Add New Location</div>
 			</div>           
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Delivery Address</h1>
+            	<h1>Delivery Address</h1>
             </footer>
         </section>
         <section id="deliveryLoc">
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
         	<div class="infoWrapper">
@@ -160,12 +163,13 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
 			</div>
             <div class="next bigRed" onClick="setNewAddress()">Next</div>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Delivery Address</h1>
+            	<h1>Delivery Address</h1>
             </footer>
         </section>
         <section id="userInfo">
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+	            <span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
         	<div class="infoWrapper">
@@ -187,12 +191,13 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             	Already a member? Click <a onClick="switchSlides(3,4)" class="pntr">here</a> to sign in.
             </div>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Your Info</h1>
+            	<h1>Your Info</h1>
             </footer>
         </section>
         <section id="signIn">
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+	            <span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
         	<div class="infoWrapper">
@@ -209,12 +214,13 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
 				Click <a onClick="switchSlides(4,3)" class="pntr">here</a> to sign up.
             </div>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Sign In</h1>
+            	<h1>Sign In</h1>
             </footer>
         </section>
         <section id="cardInfo">
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
         	<div class="infoWrapper">
@@ -238,12 +244,12 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             <div class="next tip bigRed">15%</div><div class="next tip bigRed tipSelected">20%</div><div class="next tip bigRed">Cash</div>
             <div class="next bigRed" onClick="addCard()" id="addCardButton">Next</div>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Payment Info</h1>
+            	<h1>Payment Info</h1>
             </footer>
         </section>
         <section id="pickSpot">
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
             <h2>Pick Your Spot!</h2>
@@ -257,7 +263,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
         </section>
         <section id="profile">
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
   			<div class="pl10 pntr">
@@ -297,7 +303,8 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
         </section>
         <section id="successfulOrder">
         	<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
             <div class="infoWrapper">
@@ -307,12 +314,13 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             </div>
             <div class="next bigRed" onClick="switchSlides(8,0)">Return to order page</div>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Order Completed</h1>
+            	<h1>Order Completed</h1>
             </footer>
         </section>
         <section id="privPolicy"><!--10-->
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+            	<img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
             <div class="infoWrapper">
@@ -383,12 +391,13 @@ SpeedSlice reserves the right, in its sole discretion, to revise and amend the A
                 </div>                
             </div>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>Privacy Policy</h1>
+            	<h1>Privacy Policy</h1>
             </footer>
         </section>
         <section id="aboutSpeedslice"><!--11-->
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+                <img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
             <div class="infoWrapper">
@@ -411,16 +420,17 @@ SpeedSlice reserves the right, in its sole discretion, to revise and amend the A
                 </div>                
             </div>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>About SpeedSlice</h1>
+            	<h1>About SpeedSlice</h1>
             </footer>
         </section>
         <section id="faq"><!--12-->
        		<header>
-            	<img class="vBottom fL" src="images/redGear.svg">
+            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+                <img class="vBottom fR" src="images/redGear.svg">
             	<h1>SpeedSlice</h1>
             </header>
             <footer>
-            	<span class="pl10 aChev fL pntr" title="Back">&laquo;</span><h1>FAQ</h1>
+            	<h1>FAQ</h1>
             </footer>
         </section>
     </div>
@@ -431,6 +441,8 @@ SpeedSlice reserves the right, in its sole discretion, to revise and amend the A
         <li>Terms and Conditions</li>
     </ul>
     <select class="nD" id="pizzaID">
+    	<option value="2" data-toppings="Cheese">Cheese</option>
+        <option value="9" data-toppings="Cheese,Pepperoni">Pepperoni</option>
         <option selected></option>
     </select>   
 </body>
