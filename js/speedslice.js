@@ -62,6 +62,7 @@ $(document).ready(function(e) {
 	$("#menuOptions").on("tap","li",function(e){
 		e.stopPropagation();
 		e.preventDefault();
+		$("body").prepend("overly issue");
 		var visSctn=$("section:visible").index();
 		switch($(this).index()){
 			case 0: switchSlides(visSctn,0);
@@ -896,7 +897,7 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
-	if($("#overlay").length==0){$("body").prepend("overly issue");
+	if($("#overlay").length==0){
 		$("body").append("<div id='overlay'></div>");
 	}
 	else{
