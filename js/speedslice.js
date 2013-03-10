@@ -10,12 +10,14 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
+//host="https://speedslice.com/app/Final/";
 host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
 lastSlides=new Array();
 scrollBarNmbr=0;
+touchStarted=false;
 function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -29,8 +31,8 @@ $(document).ready(function(e) {
 	});
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
+		setTimeout("navigator.splashscreen.hide()",1000);
 		if(loggedIn){
-			setTimeout("navigator.splashscreen.hide()",1000);
 			$("#orderText,#createText").toggle();
 			getDeliveryOpts();
 			getPizzaList();
@@ -273,6 +275,10 @@ $(document).ready(function(e) {
 	}).on("swiperight",function(){
 		rightPizza();
 	});
+	$("body").on("tap","#overlay",function(e){
+		$("#menuOptions").hide();
+		$("#overlay").remove();		
+	});
 });
 function makeActive(cntnrStr,rdOnlyStr){
 	$(rdOnlyStr).removeAttr("readonly");
@@ -333,7 +339,7 @@ function orderPizzaPage(curSlide){
 	$("#noRests").parent().remove();
 	$("#noPizzas").remove();
 	//ie
-	if(address.addrNick!="" && address.addrNick!="Enter Address"){
+	if(address.addrNick!="" && address.addrNick!="ADDRESS"){
 		$("#addressTo").removeClass("redBrdr");	
 	}
 	else{
@@ -515,7 +521,7 @@ function createAccount(theDiv){
 			$("#orderText,#createText").toggle();
 			$("#emailAdd").removeClass("redBrdr");
 			var dVal=$("#addressTo").val();
-			if(dVal.length==0 || dVal=="Enter Address"){
+			if(dVal.length==0 || dVal=="ADDRESS"){
 				switchSlides(3,0);
 			}
 			else{//should be tested
@@ -587,13 +593,13 @@ function getPizzaList(){
 	});
 }
 function populatePizzaList(data){
-	$("#pizzaID").children().remove();
+	$("#pizzaID").children("option:not([value=9]):not([value=2])" ).remove();
 	if($("[name=qUpdate]").length>1){
 		var qLength=$("[name=qUpdate]").length-1;	
 	}
 	$.each(data,function(index,value){
 		//relies on most recent pizza being the highest num, also on only one pizza being added at a time (so should use swirly loader)
-		//if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
+		if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
 			$("#pizzaID").append("<option value='"+value.PizzaID+"' data-toppings='"+value.Toppings+"'>"+value.PizzaName+"</option>");
 			if(typeof qLength !="undefined"){
 				if($("#pizzaName").val()==value.PizzaName){
@@ -608,7 +614,7 @@ function populatePizzaList(data){
 					$("[name=qUpdate]").attr("name","q"+value.PizzaID);
 				}
 			}
-		//}
+		}
 		//ie
 		if(index==0){
 			$("#pizzaName").removeClass("placeholder");	
@@ -677,9 +683,6 @@ function changePizza(theChoice){
 				}
 			}
 		});
-	}
-	else{
-		$(".topping:first").tap();
 	}	
 }
 function updateCard(){
@@ -766,6 +769,7 @@ function rightPizza(){
 }
 function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
+	active=$("section:visible").index();
 	prevSlide=active;
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
@@ -790,7 +794,7 @@ function switchSlides(active,newSlide,backButton){
 		});
 	}
 }
-function checkCustomScrolling(){
+function checkCustomScrolling(sectionToCheck){
 	var visiSct=$("section:visible");
 	var lastDiv=$("section:visible>div:last");
 	if(($(lastDiv).position().top+$(lastDiv).height())>$(visiSct).children("footer").position().top && $(visiSct).has(".aSlider").length==0){
@@ -798,15 +802,17 @@ function checkCustomScrolling(){
 	}
 }
 function createCustomScroller(sctnForScroller){
-	$(sctnForScroller).children("div").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' />");
+	$(sctnForScroller).children("div").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' class='clearFix' />");
 	$("#custom-scrollbar-content"+scrollBarNmbr).append('<div class="h380 aSlider nD"><div class="h380 pntr"><div id="custom-scrollbar-slider'+scrollBarNmbr+'" style="position: relative; top: 3px;" class="ui-draggable"></div></div></div>');
 	customScrolling('custom-scrollbar-wrapper'+scrollBarNmbr,'custom-scrollbar-content'+scrollBarNmbr,'custom-scrollbar-slider'+scrollBarNmbr);
+	scrollBarNmbr++;
 }
 function customScrolling(theContainer,innerContainer,sliderHandle){
 	$("#"+sliderHandle).draggable({scroll:false,axis:"y",containment:"parent",drag:function(e,u){ 
 		$("#"+innerContainer).css("margin-top",(-$("#"+innerContainer).height()*(u.position.top/$(".aSlider:first").height()))+"px");}
 	});
 	$("#"+theContainer).on("touchmove",function(e){
+		touchStarted=true;
 		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 		var elm = $(this).offset();
 		var y = touch.pageY;
@@ -815,8 +821,11 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		}
 		lastY=y;
 	}).on("touchend",function(e){
-		e.preventDefault();
-		e.stopPropagation();
+		if(touchStarted){
+			e.preventDefault();
+			e.stopPropagation();
+			touchStarted=false;
+		}
 	}).mousewheel(function(e){
 		scrollDiv(e,e.originalEvent.wheelDelta,"#"+innerContainer,"#"+sliderHandle,0,$(".aSlider:first").height());
 	});
@@ -887,6 +896,12 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
+	if($("#overlay").length==0){
+		$("body").append("<div id='overlay'></div>");
+	}
+	else{
+		setTimeout("$('#overlay').remove()",400);
+	}
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
