@@ -10,14 +10,12 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-//host="https://speedslice.com/app/Final/";
 host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 dontFocus=false;
 lastSlides=new Array();
 scrollBarNmbr=0;
-touchStarted=false;
 function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -26,19 +24,13 @@ function onDeviceReady() {
 	document.addEventListener("backbutton", onBackButton, false);
 }
 $(document).ready(function(e) {
-	if($(window).height()<$("section:first").height()){
-		$("section").css({"background-position":0}).add("#container").css({height:$(window).height(),minHeight:$(window).height()});	
-		adjustSectionsForDimensions();
-	}
 	$(window).on("resize",function(){
-		adjustSectionsForDimensions();
-		$("section,#container").css({height:$(window).height(),minHeight:$(window).height()});
 		$("html").css("font-size",($(window).width()/5.12)+"%");
 	});
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
-		setTimeout("navigator.splashscreen.hide()",1000);
 		if(loggedIn){
+			setTimeout("navigator.splashscreen.hide()",1000);
 			$("#orderText,#createText").toggle();
 			getDeliveryOpts();
 			getPizzaList();
@@ -281,10 +273,6 @@ $(document).ready(function(e) {
 	}).on("swiperight",function(){
 		rightPizza();
 	});
-	$("body").on("tap","#overlay",function(e){
-		$("#menuOptions").hide();
-		$("#overlay").remove();		
-	});
 });
 function makeActive(cntnrStr,rdOnlyStr){
 	$(rdOnlyStr).removeAttr("readonly");
@@ -345,7 +333,7 @@ function orderPizzaPage(curSlide){
 	$("#noRests").parent().remove();
 	$("#noPizzas").remove();
 	//ie
-	if(address.addrNick!="" && address.addrNick!="ADDRESS"){
+	if(address.addrNick!="" && address.addrNick!="Enter Address"){
 		$("#addressTo").removeClass("redBrdr");	
 	}
 	else{
@@ -527,7 +515,7 @@ function createAccount(theDiv){
 			$("#orderText,#createText").toggle();
 			$("#emailAdd").removeClass("redBrdr");
 			var dVal=$("#addressTo").val();
-			if(dVal.length==0 || dVal=="ADDRESS"){
+			if(dVal.length==0 || dVal=="Enter Address"){
 				switchSlides(3,0);
 			}
 			else{//should be tested
@@ -599,13 +587,13 @@ function getPizzaList(){
 	});
 }
 function populatePizzaList(data){
-	$("#pizzaID").children("option:not([value=9]):not([value=2])" ).remove();
+	$("#pizzaID").children().remove();
 	if($("[name=qUpdate]").length>1){
 		var qLength=$("[name=qUpdate]").length-1;	
 	}
 	$.each(data,function(index,value){
 		//relies on most recent pizza being the highest num, also on only one pizza being added at a time (so should use swirly loader)
-		if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
+		//if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
 			$("#pizzaID").append("<option value='"+value.PizzaID+"' data-toppings='"+value.Toppings+"'>"+value.PizzaName+"</option>");
 			if(typeof qLength !="undefined"){
 				if($("#pizzaName").val()==value.PizzaName){
@@ -620,7 +608,7 @@ function populatePizzaList(data){
 					$("[name=qUpdate]").attr("name","q"+value.PizzaID);
 				}
 			}
-		}
+		//}
 		//ie
 		if(index==0){
 			$("#pizzaName").removeClass("placeholder");	
@@ -689,6 +677,9 @@ function changePizza(theChoice){
 				}
 			}
 		});
+	}
+	else{
+		$(".topping:first").tap();
 	}	
 }
 function updateCard(){
@@ -775,7 +766,6 @@ function rightPizza(){
 }
 function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
-	active=$("section:visible").index();
 	prevSlide=active;
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
@@ -800,7 +790,7 @@ function switchSlides(active,newSlide,backButton){
 		});
 	}
 }
-function checkCustomScrolling(sectionToCheck){
+function checkCustomScrolling(){
 	var visiSct=$("section:visible");
 	var lastDiv=$("section:visible>div:last");
 	if(($(lastDiv).position().top+$(lastDiv).height())>$(visiSct).children("footer").position().top && $(visiSct).has(".aSlider").length==0){
@@ -808,17 +798,15 @@ function checkCustomScrolling(sectionToCheck){
 	}
 }
 function createCustomScroller(sctnForScroller){
-	$(sctnForScroller).children("div").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' class='clearFix' />");
+	$(sctnForScroller).children("div").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' />");
 	$("#custom-scrollbar-content"+scrollBarNmbr).append('<div class="h380 aSlider nD"><div class="h380 pntr"><div id="custom-scrollbar-slider'+scrollBarNmbr+'" style="position: relative; top: 3px;" class="ui-draggable"></div></div></div>');
 	customScrolling('custom-scrollbar-wrapper'+scrollBarNmbr,'custom-scrollbar-content'+scrollBarNmbr,'custom-scrollbar-slider'+scrollBarNmbr);
-	scrollBarNmbr++;
 }
 function customScrolling(theContainer,innerContainer,sliderHandle){
 	$("#"+sliderHandle).draggable({scroll:false,axis:"y",containment:"parent",drag:function(e,u){ 
 		$("#"+innerContainer).css("margin-top",(-$("#"+innerContainer).height()*(u.position.top/$(".aSlider:first").height()))+"px");}
 	});
 	$("#"+theContainer).on("touchmove",function(e){
-		touchStarted=true;
 		var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 		var elm = $(this).offset();
 		var y = touch.pageY;
@@ -827,11 +815,8 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		}
 		lastY=y;
 	}).on("touchend",function(e){
-		if(touchStarted){
-			e.preventDefault();
-			e.stopPropagation();
-			touchStarted=false;
-		}
+		e.preventDefault();
+		e.stopPropagation();
 	}).mousewheel(function(e){
 		scrollDiv(e,e.originalEvent.wheelDelta,"#"+innerContainer,"#"+sliderHandle,0,$(".aSlider:first").height());
 	});
@@ -902,12 +887,6 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
-	if($("#overlay").length==0){
-		$("body").append("<div id='overlay'></div>");
-	}
-	else{
-		setTimeout("$('#overlay').remove()",400);
-	}
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
@@ -926,17 +905,5 @@ function onBackButton(){
 	else{
 		navigator.app.exitApp();	
 	}
-}
-function adjustSectionsForDimensions(addScrollBars){
-	$("section>header").next("div").each(function(index, element) {
-		var headHeight=$(element).prev("header").height();
-		var footHeight=$(element).next("footer").height();
-		var newHeight=$(window).height()-footHeight-headHeight+"px";
-		$(element).css("height",newHeight);
-		if(scrollBarNmbr==0){
-			createCustomScroller($(element));
-		}
-		$(element).children("div").children("div").find(".h380").css("height",newHeight);
-	});	
 }
 (function(a){a.fn.mousewheel=function(a){return this[a?"on":"trigger"]("wheel",a)},a.event.special.wheel={setup:function(){a.event.add(this,b,c,{})},teardown:function(){a.event.remove(this,b,c)}};var b=a.browser.mozilla?"DOMMouseScroll"+(a.browser.version<"1.9"?" mousemove":""):"mousewheel";function c(b){switch(b.type){case"mousemove":return a.extend(b.data,{clientX:b.clientX,clientY:b.clientY,pageX:b.pageX,pageY:b.pageY});case"DOMMouseScroll":a.extend(b,b.data),b.delta=-b.detail/3;break;case"mousewheel":b.delta=b.wheelDelta/120}b.type="wheel";return a.event.handle.call(this,b,b.delta)}})(jQuery);
