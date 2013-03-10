@@ -896,7 +896,7 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
-	if($("#overlay").length==0){
+	if($("#overlay").length==0){$("body").prepend("overly issue");
 		$("body").append("<div id='overlay'></div>");
 	}
 	else{
