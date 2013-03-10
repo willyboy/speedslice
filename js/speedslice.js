@@ -75,7 +75,7 @@ $(document).ready(function(e) {
 			case 4: //switchSlides($("section:visible").index(),7);
 			break;
 		}
-		onMenuKeyDown();
+		$("#menuOptions").hide();
 	});
 	$(".aChev").on("tap",function(){
 		switchSlides($(this).parentsUntil("section").parent("section").index(),prevSlide);
