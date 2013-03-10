@@ -75,8 +75,8 @@ $(document).ready(function(e) {
 			case 4: //switchSlides($("section:visible").index(),7);
 			break;
 		}
-		$("#overlay").remove();
-		$("#menuOptions").hide();
+		onMenuKeyDown();/*$("#overlay").remove();
+		$("#menuOptions").hide();*/
 	});
 	$(".aChev").on("tap",function(){
 		switchSlides($(this).parentsUntil("section").parent("section").index(),prevSlide);
@@ -276,12 +276,10 @@ $(document).ready(function(e) {
 	}).on("swiperight",function(){
 		rightPizza();
 	});
-	$("body").on("tap","#overlay",function(e){
-				$("body").prepend("overly issue");
-
+	/*$("body").on("tap","#overlay",function(e){
 		$("#menuOptions").hide();
 		$("#overlay").remove();		
-	});
+	});*/
 });
 function makeActive(cntnrStr,rdOnlyStr){
 	$(rdOnlyStr).removeAttr("readonly");
@@ -899,12 +897,12 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
-	if($("#overlay").length==0){
+	/*if($("#overlay").length==0){
 		$("body").append("<div id='overlay'></div>");
 	}
 	else{
 		setTimeout("$('#overlay').remove()",400);
-	}
+	}*/
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
