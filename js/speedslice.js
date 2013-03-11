@@ -896,7 +896,7 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 	$(sliderHandle).css("top",slidePixels+"px"); 
 }
 function onMenuKeyDown(){
-	$("body").prepend("menu pressed");
+	try{
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
 	/*if($("#overlay").length==0){
@@ -914,6 +914,10 @@ function onMenuKeyDown(){
 		break;
 		case 10: $(mO).children("li:eq(2)").hide();
 		break;
+	}
+	}
+	catch(ex){
+		$("body").prepend(ex);
 	}
 }
 function onBackButton(){
