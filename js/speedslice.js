@@ -823,11 +823,11 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		}
 		lastY=y;
 	}).on("touchend",function(e){
-		if(touchStarted){
+		//if(touchStarted){
 			e.preventDefault();
 			e.stopPropagation();
-			touchStarted=false;
-		}
+			//touchStarted=false;
+		//}
 	}).mousewheel(function(e){
 		scrollDiv(e,e.originalEvent.wheelDelta,"#"+innerContainer,"#"+sliderHandle,0,$(".aSlider:first").height());
 	});
