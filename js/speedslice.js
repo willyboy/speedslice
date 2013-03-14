@@ -898,16 +898,22 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 }
 function onMenuKeyDown(){
 	var mO=$("#menuOptions");
-	$(mO).toggle().children("li").show();
+	if($(mo).is(":visible")){
+		$(mo).hide();
+	}
+	else{
+		$(mo).show();
+	}
+	$(mO).children("li").show();
 	if($("#overlay").length==0){
 		$("body").append("<div id='overlay'></div>");
 	}
 	else{
 		setTimeout("$('#overlay').remove()",400);
 	}
-	/*if(!loggedIn){
+	if(!$("#yourEmail").text()!=""){
 		$(mo).children("li:eq(1)").hide();	
-	}*/
+	}
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
