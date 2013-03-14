@@ -897,23 +897,18 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 	$(sliderHandle).css("top",slidePixels+"px"); 
 }
 function onMenuKeyDown(){
+	event.preventDefault();
 	var mO=$("#menuOptions");
-	if($(mo).is(":visible")){
-		$(mo).hide();
-	}
-	else{
-		$(mo).show();
-	}
-	$(mO).children("li").show();
+	$(mO).toggle().children("li").show();
 	if($("#overlay").length==0){
 		$("body").append("<div id='overlay'></div>");
 	}
 	else{
 		setTimeout("$('#overlay').remove()",400);
 	}
-	if(!$("#yourEmail").text()!=""){
+	/*if(!$("#yourEmail").text()!=""){
 		$(mo).children("li:eq(1)").hide();	
-	}
+	}*/
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
