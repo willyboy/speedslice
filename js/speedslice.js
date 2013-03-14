@@ -897,6 +897,7 @@ function adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight){
 	$(sliderHandle).css("top",slidePixels+"px"); 
 }
 function onMenuKeyDown(){
+	$("body").prepend("keypress");
 	event.preventDefault();
 	var mO=$("#menuOptions");
 	$(mO).toggle().children("li").show();
