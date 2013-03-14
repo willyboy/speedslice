@@ -75,9 +75,9 @@ $(document).ready(function(e) {
 			case 4: //switchSlides($("section:visible").index(),7);
 			break;
 		}
-		//onMenuKeyDown();
-		$("#overlay").remove();
-		$("#menuOptions").hide();
+		onMenuKeyDown();
+		/*$("#overlay").remove();
+		$("#menuOptions").hide();*/
 	});
 	$(".aChev").on("tap",function(){
 		//bad line
