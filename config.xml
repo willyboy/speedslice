@@ -13,9 +13,11 @@
 		email="support@speedslice.com">
 		William Neely
 	</author>
+	<preference name="phonegap-version" value="2.3.0" />
 	<preference name="permissions" value="none"/>
 	<preference name="fullscreen" value="true" />
 	<icon src="images/App_Icon.png" gap:role="default" />
-
+	<preference name="splash-screen-duration" value="3000" />
     <gap:splash src="images/splash.png" />
+	<preference name="webviewbounce" value="false" />
 </widget>
