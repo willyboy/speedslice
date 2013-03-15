@@ -918,6 +918,8 @@ function onMenuKeyDown(){
 		case 10: $(mO).children("li:eq(2)").hide();
 		break;
 	}
+	$("body").css("height",($("body").height()-1)+"px");
+	$("body").css("height",($("body").height()+1)+"px");
 }
 function onBackButton(){
 	$("#menuOptions").hide();
