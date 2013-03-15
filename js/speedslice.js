@@ -918,8 +918,6 @@ function onMenuKeyDown(){
 		case 10: $(mO).children("li:eq(2)").hide();
 		break;
 	}
-	document.removeEventListener("menubutton",onMenuKeyDown,false);
-	document.addEventListener("menubutton", onMenuKeyDown, false);
 }
 function onBackButton(){
 	$("#menuOptions").hide();
