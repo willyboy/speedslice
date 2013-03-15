@@ -13,7 +13,7 @@
 		email="support@speedslice.com">
 		William Neely
 	</author>
-	<preference name="orientation" value="landscape" />
+	<preference name="orientation" value="portrait" />
 	<preference name="phonegap-version" value="2.3.0" />
 	<preference name="permissions" value="none"/>
 	<preference name="fullscreen" value="true" />
