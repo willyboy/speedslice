@@ -132,7 +132,7 @@ $(document).ready(function(e) {
 							}
 							else{
 								if(ind==$("#orderSummary>.infoWrapper>div>h4").length-1){
-									$("#addressTo").parent("div").before("<div><h4>"+$(element).text()+":</h4><input type='text' value='1' class='w40' name='qUpdate'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
+									$("#addressTo").parent("div").before("<div><h4>"+$(element).text()+":</h4><input type='text' value='1' class='w40' name='"+(parseInt($(element).val())=="NaN" ? "qUpdate":"q"+$(element).val())+"'><div class='removePizza'><div class='stretchX'>X</div></div></div>");
 								}
 							}
                         });	
@@ -208,9 +208,14 @@ $(document).ready(function(e) {
 							switchSlides(6,8);
 							try{
 								data=$.parseJSON(data);
-								$("#refNum").text(data.refnum);
-								$("#successID").text(data.cs_order_id);
-								$("#confirmOrder").dialog("close");
+								if(typeof data.error=="undefined"){
+									$("#refNum").text(data.refnum);
+									$("#successID").text(data.cs_order_id);
+									$("#confirmOrder").dialog("close");
+								}
+								else{
+									orderError(data.error);
+								}
 							}
 							catch(er){
 								orderError();
@@ -299,8 +304,8 @@ function getDeliveryOpts(){
 		}
 	});
 }
-function orderError(){
-	$("#confirmOrder").empty().append("<span class='cRed'>Order failed. Please try again later.</span>");
+function orderError(theError){
+	$("#confirmOrder").empty().append("<span class='cRed'>"+(typeof theError!="undefined" ? theError:"Order failed. Please try again later.")+"</span>");
 	$(".ui-button").show();
 }
 function addTopping(theID){
@@ -772,7 +777,12 @@ function rightPizza(){
 }
 function switchSlides(active,newSlide,backButton){
 	var sectionHeight=$("section:first").height();
-	active=$("section:visible").index();
+	if($("section:visible").length==1){
+		active=$("section:visible").index();
+	}
+	else{
+		$("section").removeClass("slideUp").removeClass("slideDown");			
+	}
 	prevSlide=active;
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
