@@ -783,7 +783,8 @@ function switchSlides(active,newSlide,backButton){
 		active=$("section:visible").index();
 	}
 	else{
-		$("section").removeClass("slideUp").removeClass("slideDown").hide().eq(active).show();		
+		$("section").hide().removeClass("slideUp slideDown").eq(newSlide).show();
+		return;		
 	}
 	prevSlide=active;
 	if(typeof backButton=="undefined"){
@@ -808,6 +809,7 @@ function switchSlides(active,newSlide,backButton){
 			});
 		});
 	}
+	$("section:eq("+newSlide+")").show();
 }
 function checkCustomScrolling(sectionToCheck){
 	var visiSct=$("section:visible");
