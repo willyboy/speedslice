@@ -698,12 +698,14 @@ function updateCard(){
 	cardReturnTo="account";	
 }
 function getCardInfo(){
-	$.getJSON(host+"Card.php",function(data){		
-		$("#cNum").val("****"+data.First.cc_last5);
-		$("#accntCard").prepend(data.First.type+" "+data.First.cc_last5);
-		$("#expMo").val(data.First.expiry_month);
-		$("#expYr").val(data.First.expiry_year);
-		$("#cardZip").val(data.First.bill_zip);		
+	$.getJSON(host+"Card.php",function(data){	
+		if(data.First.cc_last5!=""){	
+			$("#cNum").val("****"+data.First.cc_last5);
+			$("#accntCard").prepend(data.First.type+" "+data.First.cc_last5);
+			$("#expMo").val(data.First.expiry_month);
+			$("#expYr").val(data.First.expiry_year);
+			$("#cardZip").val(data.First.bill_zip);		
+		}
 	});
 }
 function viewAddresses(){
@@ -781,7 +783,7 @@ function switchSlides(active,newSlide,backButton){
 		active=$("section:visible").index();
 	}
 	else{
-		$("section").removeClass("slideUp").removeClass("slideDown");			
+		$("section").removeClass("slideUp").removeClass("slideDown").hide().eq(active).show();		
 	}
 	prevSlide=active;
 	if(typeof backButton=="undefined"){
