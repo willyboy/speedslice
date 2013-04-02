@@ -786,7 +786,7 @@ function rightPizza(){
 	$("#savedPizzaName").text($("#pizzaName").val());
 }
 function switchSlides(active,newSlide,backButton){
-	var sectionHeight=$("section:first").height();
+	/*var sectionHeight=$("section:first").height();
 	if($("section:visible").length==1){
 		active=$("section:visible").index();
 	}
@@ -794,11 +794,12 @@ function switchSlides(active,newSlide,backButton){
 		$("section").hide().removeClass("slideUp slideDown").eq(newSlide).show();
 		prevSlide=active;
 		return;
-	}
+	}*/
 	prevSlide=active;
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
-	}		
+	}
+	$("section").hide().eq(newSlide).show();/*		
 	if(active<newSlide){
 		$("section:eq("+newSlide+")").show(0,function(){
 			var mySection=$("section:eq("+active+")");
@@ -817,8 +818,8 @@ function switchSlides(active,newSlide,backButton){
 				$("section:eq("+active+")").hide();
 			});
 		});
-	}
-	$("section:eq("+newSlide+")").show();
+	}*/
+	
 }
 function checkCustomScrolling(sectionToCheck){
 	var visiSct=$("section:visible");
