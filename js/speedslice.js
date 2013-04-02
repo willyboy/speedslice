@@ -27,12 +27,15 @@ function onDeviceReady() {
 }
   var lastclickpoint='';
   var curclickpoint='';
+  var timeBetweenClicks=false;
   var isJQMGhostClick = function(e){
       curclickpoint = e.clientX+'x'+e.clientY;
-      if (lastclickpoint === curclickpoint) {
+      if (lastclickpoint === curclickpoint || timeBetweenClicks) {
         lastclickpoint = '';
         return true;
       } else {
+		timeBetweenClicks=true;
+		setTimeout("timeBetweenClicks=false",100);
         lastclickpoint = curclickpoint;
         return false;
       }
