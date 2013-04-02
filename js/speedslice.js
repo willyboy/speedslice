@@ -28,13 +28,16 @@ function onDeviceReady() {
   //check if click event firing twice on same position.
   var lastclickpoint='';
   var curclickpoint='';
-  var isJQMGhostClick = function(event){
-      curclickpoint = event.clientX+'x'+event.clientY;
-	  $("body").prepend(lastclickpoint).prepend("<br>"+curclickpoint);
+  var isJQMGhostClick = function(e){
+      curclickpoint = e.clientX+'x'+e.clientY;
       if (lastclickpoint === curclickpoint) {
+		  	  $("body").prepend(lastclickpoint).prepend("<br>"+curclickpoint);
+
         lastclickpoint = '';
         return true;
       } else {
+		  	  $("body").prepend("wtf<br>");
+
         //alert(lastclickpoint);
         lastclickpoint = curclickpoint;
         return false;
@@ -61,7 +64,7 @@ $(document).ready(function(e) {
 	});
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
-	$("[src='images/redGear.svg']").on("tap",function(){
+	$("[src='images/redGear.svg']").on("tap",function(e){
 		if(isJQMGhostClick(e)) { return; }
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
