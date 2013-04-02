@@ -66,6 +66,7 @@ $(document).ready(function(e) {
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/redGear.svg']").on("tap",function(e){
 		if(isJQMGhostClick(e)) { $("body").prepend("this is weird");return; }
+		$("body").prepend("this works?")
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
 			if(sctnInd!=7){
