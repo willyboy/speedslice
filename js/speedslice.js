@@ -61,7 +61,7 @@ $(document).ready(function(e) {
 	});
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
-	$("[src='images/redGear.svg']").on("tap",function(e){
+	$("[src='images/redGear.svg']").on("vclick",function(e){
 		if(isJQMGhostClick(e)) { return; }
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
@@ -75,7 +75,7 @@ $(document).ready(function(e) {
 			}
 		}
 	});
-	$("#menuOptions").on("tap","li",function(e){
+	$("#menuOptions").on("vclick","li",function(e){
 		if(isJQMGhostClick(e)) { return; }
 		e.stopPropagation();
 		e.preventDefault();
@@ -96,7 +96,7 @@ $(document).ready(function(e) {
 		/*$("#overlay").remove();
 		$("#menuOptions").hide();*/
 	});
-	$("#addressTo").on("tap",function(e){
+	$("#addressTo").on("vclick",function(e){
 		if(isJQMGhostClick(e)) { return; }
 		e.preventDefault();
 		selectAddress(0); 
@@ -104,23 +104,23 @@ $(document).ready(function(e) {
 	}).on("click",function(e){
 		e.preventDefault();
 	});
-	$(".aChev").on("tap",function(e){
+	$(".aChev").on("vclick",function(e){
 		if(isJQMGhostClick(e)) { return; }
 		if(lastSlides.length!=0){
 			switchSlides($("section:visible").index(),lastSlides.pop(),1);
 		}
 	});
-	$("#pRight").on("tap",function(){
+	$("#pRight").on("vclick",function(){
 		rightPizza();
 	});
-	$("#pLeft").on("tap",function(){
+	$("#pLeft").on("vclick",function(){
 		leftPizza();	
 	});
-	$(".tip").on("tap",function(){
+	$(".tip").on("vclick",function(){
 		$(".tipSelected").removeClass("tipSelected");
 		$(this).addClass("tipSelected");		
 	});
-	$("#orderSummary").on("tap",".removePizza",function(){
+	$("#orderSummary").on("vclick",".removePizza",function(){
 		var pizName=$(this).prev("input").prev("h4").text();
 		pizName=pizName.substr(0,pizName.length-1);
 		if(typeof additionalPizzas[pizName] != "undefined"){
@@ -130,7 +130,7 @@ $(document).ready(function(e) {
 		dontFocus=true;
 		setTimeout("dontFocus=false",400);
 	});
-	$("#addPizza.ribbon").on("tap",function(){
+	$("#addPizza.ribbon").on("vclick",function(){
 		//fix bug where pizza can have same name and different toppings
 		thePiz=$("#pizzaName");
 		//ie
@@ -195,10 +195,10 @@ $(document).ready(function(e) {
 		}
 		checkCustomScrolling();
 	});
-	$("#tapOrder").on("tap",function(){
+	$("#tapOrder").on("vclick",function(){
 		orderPizzaPage();
 	});
-    $("#pizzaToppings").on("tap",".topping:not(#cheeseTopping)",function(){
+    $("#pizzaToppings").on("vclick",".topping:not(#cheeseTopping)",function(){
 		//check this with logged in
 		var removeName=false;
 		$("#orderSummary>.infoWrapper>div:not(:first)").each(function(index, element) {
@@ -214,7 +214,7 @@ $(document).ready(function(e) {
 		var theID=$(this).attr("id");
 		addTopping(theID);
 	});
-	$("#orderOptions").on("tap",".orderOpt",function(){
+	$("#orderOptions").on("vclick",".orderOpt",function(){
 		$("#confirmOrder").empty().append($(this).html());
 		var theSelection=this;
 		$("#confirmOrder").dialog({modal:true,
@@ -256,7 +256,7 @@ $(document).ready(function(e) {
 			]
 		});
 	});
-	$("#delOpts").on("tap",".delLoc",function(){
+	$("#delOpts").on("vclick",".delLoc",function(){
 		if($(this).index()==0){
 			switchSlides(1,2);	
 			$("#deleteAddress").hide();
@@ -276,7 +276,7 @@ $(document).ready(function(e) {
 		$(this).parent().attr("name","editClick");
 	}).on("mouseup",".editButton",function(){
 		$(this).parent().removeAttr("name");
-	}).on("tap",".editButton",function(e){
+	}).on("vclick",".editButton",function(e){
 		e.stopPropagation();
 		switchSlides(1,2);
 		//code for filling in fields
@@ -310,7 +310,7 @@ $(document).ready(function(e) {
 	}).on("swiperight",function(){
 		rightPizza();
 	});
-	$("body").on("tap","#overlay",function(e){
+	$("body").on("vclick","#overlay",function(e){
 		$("#menuOptions").hide();
 		$("#overlay").remove();		
 	});
