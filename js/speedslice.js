@@ -22,11 +22,23 @@ function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
 function onDeviceReady() {
-	letsGo();
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	document.addEventListener("backbutton", onBackButton, false);
 }
-function letsGo() {
+  //check if click event firing twice on same position.
+  var lastclickpoint, curclickpoint;
+  var isJQMGhostClick = function(event){
+      curclickpoint = event.clientX+'x'+event.clientY;
+      if (lastclickpoint === curclickpoint) {
+        lastclickpoint = '';
+        return true;
+      } else {
+        //alert(lastclickpoint);
+        lastclickpoint = curclickpoint;
+        return false;
+      }
+  }
+$(document).ready(function(e) {
 	$(window).on("resize",function(){
 		$("html").css("font-size",($(window).width()/5.12)+"%");
 	});
@@ -48,6 +60,7 @@ function letsGo() {
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/redGear.svg']").on("tap",function(){
+		if(isJQMGhostClick(e)) { return; }
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
 			if(sctnInd!=7){
@@ -61,6 +74,7 @@ function letsGo() {
 		}
 	});
 	$("#menuOptions").on("tap","li",function(e){
+		if(isJQMGhostClick(e)) { return; }
 		e.stopPropagation();
 		e.preventDefault();
 		var visSctn=$("section:visible").index();
@@ -81,6 +95,7 @@ function letsGo() {
 		$("#menuOptions").hide();*/
 	});
 	$("#addressTo").on("tap",function(e){
+		if(isJQMGhostClick(e)) { return; }
 		e.preventDefault();
 		selectAddress(0); 
 		addrRtrnTo='selectPizza';
@@ -88,6 +103,7 @@ function letsGo() {
 		e.preventDefault();
 	});
 	$(".aChev").on("tap",function(){
+		if(isJQMGhostClick(e)) { return; }
 		if(lastSlides.length!=0){
 			switchSlides($("section:visible").index(),lastSlides.pop(),1);
 		}
@@ -296,7 +312,7 @@ function letsGo() {
 		$("#menuOptions").hide();
 		$("#overlay").remove();		
 	});
-}
+});
 function makeActive(cntnrStr,rdOnlyStr){
 	$(rdOnlyStr).removeAttr("readonly");
 	$(cntnrStr).animate({opacity:1},300);
@@ -800,7 +816,7 @@ function switchSlides(active,newSlide,backButton){
 	if(typeof backButton=="undefined"){
 		lastSlides.push(prevSlide);
 	}
-	$("section").hide().eq(newSlide).show();/*		
+	$("section:eq("+newSlide+")").show();/*		
 	if(active<newSlide){
 		$("section:eq("+newSlide+")").show(0,function(){
 			var mySection=$("section:eq("+active+")");
