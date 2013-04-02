@@ -25,20 +25,14 @@ function onDeviceReady() {
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	document.addEventListener("backbutton", onBackButton, false);
 }
-  //check if click event firing twice on same position.
   var lastclickpoint='';
   var curclickpoint='';
   var isJQMGhostClick = function(e){
       curclickpoint = e.clientX+'x'+e.clientY;
       if (lastclickpoint === curclickpoint) {
-		  	  $("body").prepend(lastclickpoint).prepend("<br>"+curclickpoint);
-
         lastclickpoint = '';
         return true;
       } else {
-		  	  $("body").prepend("wtf<br>");
-
-        //alert(lastclickpoint);
         lastclickpoint = curclickpoint;
         return false;
       }
@@ -65,9 +59,7 @@ $(document).ready(function(e) {
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/redGear.svg']").on("tap",function(e){
-		if(isJQMGhostClick(e)) { $("body").prepend("this is weird");return; }
-		else{
-		$("body").prepend("this works?")
+		if(isJQMGhostClick(e)) { return; }
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
 			if(sctnInd!=7){
@@ -78,7 +70,6 @@ $(document).ready(function(e) {
 			if(sctnInd!=4){
 				switchSlides(sctnInd,4);
 			}
-		}
 		}
 	});
 	$("#menuOptions").on("tap","li",function(e){
@@ -104,20 +95,16 @@ $(document).ready(function(e) {
 	});
 	$("#addressTo").on("tap",function(e){
 		if(isJQMGhostClick(e)) { return; }
-		else{
 		e.preventDefault();
 		selectAddress(0); 
 		addrRtrnTo='selectPizza';
-		}
 	}).on("click",function(e){
 		e.preventDefault();
 	});
 	$(".aChev").on("tap",function(e){
 		if(isJQMGhostClick(e)) { return; }
-		else{
 		if(lastSlides.length!=0){
 			switchSlides($("section:visible").index(),lastSlides.pop(),1);
-		}
 		}
 	});
 	$("#pRight").on("tap",function(){
