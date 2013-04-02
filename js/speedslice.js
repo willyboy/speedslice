@@ -87,7 +87,6 @@ $(document).ready(function(e) {
 		e.preventDefault();
 	});
 	$(".aChev").on("tap",function(){
-		$("body").prepend("a click <br>");
 		if(lastSlides.length!=0){
 			switchSlides($("section:visible").index(),lastSlides.pop(),1);
 		}
