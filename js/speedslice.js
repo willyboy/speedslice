@@ -112,7 +112,7 @@ $(document).ready(function(e) {
 	}).on("click",function(e){
 		e.preventDefault();
 	});
-	$(".aChev").on("tap",function(){
+	$(".aChev").on("tap",function(e){
 		if(isJQMGhostClick(e)) { return; }
 		else{
 		if(lastSlides.length!=0){
