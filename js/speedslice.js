@@ -87,8 +87,10 @@ $(document).ready(function(e) {
 		e.preventDefault();
 	});
 	$(".aChev").on("tap",function(){
-		//bad line
-		switchSlides($(this).parentsUntil("section").parent("section").index(),prevSlide);
+		$("body").prepend("a click <br>");
+		if(lastSlides.length!=0){
+			switchSlides($("section:visible").index(),lastSlides.pop(),1);
+		}
 	});
 	$("#pRight").on("tap",function(){
 		rightPizza();
@@ -791,7 +793,8 @@ function switchSlides(active,newSlide,backButton){
 	}
 	else{
 		$("section").hide().removeClass("slideUp slideDown").eq(newSlide).show();
-		return;		
+		prevSlide=active;
+		return;
 	}
 	prevSlide=active;
 	if(typeof backButton=="undefined"){
