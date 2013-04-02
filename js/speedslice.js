@@ -66,6 +66,7 @@ $(document).ready(function(e) {
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/redGear.svg']").on("tap",function(e){
 		if(isJQMGhostClick(e)) { $("body").prepend("this is weird");return; }
+		else{
 		$("body").prepend("this works?")
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
@@ -77,6 +78,7 @@ $(document).ready(function(e) {
 			if(sctnInd!=4){
 				switchSlides(sctnInd,4);
 			}
+		}
 		}
 	});
 	$("#menuOptions").on("tap","li",function(e){
@@ -102,16 +104,20 @@ $(document).ready(function(e) {
 	});
 	$("#addressTo").on("tap",function(e){
 		if(isJQMGhostClick(e)) { return; }
+		else{
 		e.preventDefault();
 		selectAddress(0); 
 		addrRtrnTo='selectPizza';
+		}
 	}).on("click",function(e){
 		e.preventDefault();
 	});
 	$(".aChev").on("tap",function(){
 		if(isJQMGhostClick(e)) { return; }
+		else{
 		if(lastSlides.length!=0){
 			switchSlides($("section:visible").index(),lastSlides.pop(),1);
+		}
 		}
 	});
 	$("#pRight").on("tap",function(){
