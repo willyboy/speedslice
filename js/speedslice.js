@@ -26,9 +26,11 @@ function onDeviceReady() {
 	document.addEventListener("backbutton", onBackButton, false);
 }
   //check if click event firing twice on same position.
-  var lastclickpoint, curclickpoint;
+  var lastclickpoint='';
+  var curclickpoint='';
   var isJQMGhostClick = function(event){
       curclickpoint = event.clientX+'x'+event.clientY;
+	  $("body").prepend(lastclickpoint).prepend("<br>"+curclickpoint);
       if (lastclickpoint === curclickpoint) {
         lastclickpoint = '';
         return true;
