@@ -79,6 +79,13 @@ $(document).ready(function(e) {
 		/*$("#overlay").remove();
 		$("#menuOptions").hide();*/
 	});
+	$("#addressTo").on("tap",function(e){
+		e.preventDefault();
+		selectAddress(0); 
+		addrRtrnTo='selectPizza';
+	}).on("click",function(e){
+		e.preventDefault();
+	});
 	$(".aChev").on("tap",function(){
 		//bad line
 		switchSlides($(this).parentsUntil("section").parent("section").index(),prevSlide);
