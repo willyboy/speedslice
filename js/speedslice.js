@@ -44,6 +44,7 @@ $(document).ready(function(e) {
 			}
 		}
 	});
+	$("body").append("bob<br>");
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/redGear.svg']").on("tap",function(){
