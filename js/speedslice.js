@@ -65,7 +65,7 @@ $(document).ready(function(e) {
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/redGear.svg']").on("tap",function(e){
-		if(isJQMGhostClick(e)) { return; }
+		if(isJQMGhostClick(e)) { $("body").prepend("this is weird");return; }
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
 			if(sctnInd!=7){
