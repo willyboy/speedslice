@@ -22,10 +22,11 @@ function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
 function onDeviceReady() {
+	letsGo();
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	document.addEventListener("backbutton", onBackButton, false);
 }
-$(document).ready(function(e) {
+function letsGo() {
 	$(window).on("resize",function(){
 		$("html").css("font-size",($(window).width()/5.12)+"%");
 	});
@@ -44,7 +45,6 @@ $(document).ready(function(e) {
 			}
 		}
 	});
-	$("body").append("bob<br>");
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	$("[src='images/redGear.svg']").on("tap",function(){
@@ -296,7 +296,7 @@ $(document).ready(function(e) {
 		$("#menuOptions").hide();
 		$("#overlay").remove();		
 	});
-});
+}
 function makeActive(cntnrStr,rdOnlyStr){
 	$(rdOnlyStr).removeAttr("readonly");
 	$(cntnrStr).animate({opacity:1},300);
