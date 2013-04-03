@@ -31,14 +31,14 @@ $(document).ready(function(e) {
 	});
 	$.get(host+"LoginStatus.php",function(data){
 		loggedIn=(data==1 ? true:false);
-		setTimeout("navigator.splashscreen.hide()",1000);
+		//setTimeout("navigator.splashscreen.hide()",1000);
 		if(loggedIn){
 			$("#orderText,#createText").toggle();
 			getDeliveryOpts();
 			getPizzaList();
 			getCardInfo();
 			getUserInfo();
-			if(typeof localStorage.getItem("LastAddress")!="undefined"){
+			if(localStorage.getItem("LastAddress")!=null){
 				address.addrNick=localStorage.LastAddress;//ie placeholder
 				$("#addressTo").val(address.addrNick);
 			}
