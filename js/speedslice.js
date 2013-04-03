@@ -25,21 +25,6 @@ function onDeviceReady() {
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	document.addEventListener("backbutton", onBackButton, false);
 }
-  var lastclickpoint='';
-  var curclickpoint='';
-  var timeBetweenClicks=false;
-  var isJQMGhostClick = function(e){
-      curclickpoint = e.clientX+'x'+e.clientY;
-      if (lastclickpoint === curclickpoint || timeBetweenClicks) {
-        lastclickpoint = '';
-        return true;
-      } else {
-		timeBetweenClicks=true;
-		setTimeout("timeBetweenClicks=false",100);
-        lastclickpoint = curclickpoint;
-        return false;
-      }
-  }
 $(document).ready(function(e) {
 	$(window).on("resize",function(){
 		$("html").css("font-size",($(window).width()/5.12)+"%");
@@ -61,8 +46,7 @@ $(document).ready(function(e) {
 	});
 	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
-	$("[src='images/redGear.svg']").on("tap",function(e){
-		if(isJQMGhostClick(e)) { return; }
+	$("[src='images/redGear.svg']").on("touchstart",function(e){
 		var sctnInd=$(this).parentsUntil("section").parent("section").index();
 		if(loggedIn){
 			if(sctnInd!=7){
@@ -75,8 +59,7 @@ $(document).ready(function(e) {
 			}
 		}
 	});
-	$("#menuOptions").on("tap","li",function(e){
-		if(isJQMGhostClick(e)) { return; }
+	$("#menuOptions").on("touchstart","li",function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		var visSctn=$("section:visible").index();
@@ -96,31 +79,29 @@ $(document).ready(function(e) {
 		/*$("#overlay").remove();
 		$("#menuOptions").hide();*/
 	});
-	$("#addressTo").on("tap",function(e){
-		if(isJQMGhostClick(e)) { return; }
+	$("#addressTo").on("touchstart",function(e){
 		e.preventDefault();
 		selectAddress(0); 
 		addrRtrnTo='selectPizza';
 	}).on("click",function(e){
 		e.preventDefault();
 	});
-	$(".aChev").on("tap",function(e){
-		if(isJQMGhostClick(e)) { return; }
+	$(".aChev").on("touchstart",function(e){
 		if(lastSlides.length!=0){
 			switchSlides($("section:visible").index(),lastSlides.pop(),1);
 		}
 	});
-	$("#pRight").on("tap",function(){
+	$("#pRight").on("touchstart",function(){
 		rightPizza();
 	});
-	$("#pLeft").on("tap",function(){
+	$("#pLeft").on("touchstart",function(){
 		leftPizza();	
 	});
-	$(".tip").on("tap",function(){
+	$(".tip").on("touchstart",function(){
 		$(".tipSelected").removeClass("tipSelected");
 		$(this).addClass("tipSelected");		
 	});
-	$("#orderSummary").on("tap",".removePizza",function(){
+	$("#orderSummary").on("touchstart",".removePizza",function(){
 		var pizName=$(this).prev("input").prev("h4").text();
 		pizName=pizName.substr(0,pizName.length-1);
 		if(typeof additionalPizzas[pizName] != "undefined"){
@@ -130,7 +111,7 @@ $(document).ready(function(e) {
 		dontFocus=true;
 		setTimeout("dontFocus=false",400);
 	});
-	$("#addPizza.ribbon").on("tap",function(){
+	$("#addPizza.ribbon").on("touchstart",function(){
 		//fix bug where pizza can have same name and different toppings
 		thePiz=$("#pizzaName");
 		//ie
@@ -195,10 +176,10 @@ $(document).ready(function(e) {
 		}
 		checkCustomScrolling();
 	});
-	$("#tapOrder").on("tap",function(){
+	$("#tapOrder").on("touchstart",function(){
 		orderPizzaPage();
 	});
-    $("#pizzaToppings").on("tap",".topping:not(#cheeseTopping)",function(){
+    $("#pizzaToppings").on("touchstart",".topping:not(#cheeseTopping)",function(){
 		//check this with logged in
 		var removeName=false;
 		$("#orderSummary>.infoWrapper>div:not(:first)").each(function(index, element) {
@@ -214,7 +195,7 @@ $(document).ready(function(e) {
 		var theID=$(this).attr("id");
 		addTopping(theID);
 	});
-	$("#orderOptions").on("tap",".orderOpt",function(){
+	$("#orderOptions").on("touchstart",".orderOpt",function(){
 		$("#confirmOrder").empty().append($(this).html());
 		var theSelection=this;
 		$("#confirmOrder").dialog({modal:true,
@@ -256,7 +237,7 @@ $(document).ready(function(e) {
 			]
 		});
 	});
-	$("#delOpts").on("tap",".delLoc",function(){
+	$("#delOpts").on("touchstart",".delLoc",function(){
 		if($(this).index()==0){
 			switchSlides(1,2);	
 			$("#deleteAddress").hide();
@@ -276,7 +257,7 @@ $(document).ready(function(e) {
 		$(this).parent().attr("name","editClick");
 	}).on("mouseup",".editButton",function(){
 		$(this).parent().removeAttr("name");
-	}).on("tap",".editButton",function(e){
+	}).on("touchstart",".editButton",function(e){
 		e.stopPropagation();
 		switchSlides(1,2);
 		//code for filling in fields
@@ -310,7 +291,7 @@ $(document).ready(function(e) {
 	}).on("swiperight",function(){
 		rightPizza();
 	});
-	$("body").on("tap","#overlay",function(e){
+	$("body").on("touchstart","#overlay",function(e){
 		$("#menuOptions").hide();
 		$("#overlay").remove();		
 	});
