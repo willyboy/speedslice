@@ -104,7 +104,7 @@ $(document).ready(function(e) {
 	}).on("click",function(e){
 		e.preventDefault();
 	});
-	$(".aChev").off("tap").on("tap",function(e){
+	$(".aChev").on("touchstart",function(e){
 		if(isJQMGhostClick(e)) { return; }
 		if(lastSlides.length!=0){
 			switchSlides($("section:visible").index(),lastSlides.pop(),1);
