@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -8,9 +8,15 @@
 <script type="text/javascript" src="js/jqueryui.min.js"></script>
 <script type="text/javascript" src="js/jquery.mobile.custom.min.js"></script>
 <script type="text/javascript" src="phonegap.js"></script>
+<script type="text/javascript" src="childbrowser.js"></script>
 <script type="text/javascript" src="js/speedslice.js"></script> 
 <script type="text/javascript">
 document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/5.12)+"%";
+document.ontouchmove = function(e){ 
+//	if(e.target.tagName!="A" && e.target.tagName!="INPUT"){
+    	e.preventDefault(); 
+	//}
+}
 </script>
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/style.css">
@@ -56,14 +62,14 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                         <div>
                             <h3 id="h3Ord">Order Summary</h3>
                         </div>
-                        <div>
+                        <div><div class="tinytxt nD" id="delTxt" style="line-height:0; float:right; margin:-1.6rem 1.5rem 0 0;">Swipe pizza to delete</div>
                         	<h4 class='downArrow'>DELIVER TO:</h4><input type="text" id="addressTo" placeholder="ADDRESS">
                         </div>
                     </div>
                 </div>
             </div>
             <footer>
-            	<div class="pntr h1Style" onClick="orderPizzaPage()"><span id="orderText" class="nD">order</span><span id="createText">create account</span> <span class="rightArrow">&gt;&gt;</span></div>
+            	<div class="pntr h1Style" onClick="orderPizzaPage()"><span id="orderText" class="nD">order</span><span id="createText">next: create account</span> <span class="rightArrow">&gt;&gt;</span></div>
             </footer>
         </section>
         <section id="delOptsSec">
@@ -87,7 +93,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             </header>
         	<div class="infoWrapper">
                 <div>
-                    <h4>Place name:</h4><input type="text" id="addrNick" placeholder="Location Name">
+                    <h4>Place nickname:</h4><input type="text" id="addrNick" placeholder="Name">
                 </div>
                 <div>
                     <h4>Deliver to:</h4><input type="text" id="addr" placeholder="Address Line 1">
@@ -154,10 +160,10 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                   </select>
                 </div>
                 <div>
-                    <input type="text" id="zip" placeholder="ZIP Code">
+                    <input type="text" id="zip" placeholder="ZIP Code" pattern="[0-9]*">
                 </div>
                 <div>
-                	<input type="text" id="phone" placeholder="Phone Number">
+                	<input type="text" id="phone" placeholder="Phone Number" pattern="[0-9]*">
                     <div id="deleteAddress" onClick="deleteAddress()" class="nD">Delete Address</div>
                 </div>
 			</div>
@@ -225,17 +231,17 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             </header>
         	<div class="infoWrapper">
                 <div>
-                    <h4>Credit Number</h4><input type="text" id="cNum" pattern="\d*">
+                    <h4>Card Number</h4><input type="text" id="cNum" pattern="[0-9]*">
                 </div>
                 <div>
-                    <h4>Expiration</h4><input id="expMo" type="text" size="2">/
-    <input id="expYr" type="text" size="4">
+                    <h4>Expiration</h4><input id="expMo" type="text" size="2"  pattern="[0-9]*"><span class="b backslash">/</span>
+    <input id="expYr" type="text" size="4" pattern="[0-9]*">
                 </div>
                 <div>
-                	<h4>Security code</h4><input id="csc" type="text" size="4" pattern="\d*">
+                	<h4>Security code</h4><input id="csc" type="text" size="4" pattern="[0-9]*">
                 </div>
                 <div>
-                	<h4>Billing ZIP</h4><input id="cardZip" type="text" size="5" pattern="\d*">
+                	<h4>Billing ZIP</h4><input id="cardZip" type="text" size="5" pattern="[0-9]*">
                 </div>
 			</div>
             <div class="w94 infoWrapper">
@@ -255,6 +261,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
             <h2>Pick Your Spot!</h2>
         	<div class="infoWrapper" id="orderOptions">
             	<div class="bigRed">Tap to Order</div>
+                <div id="couponCodeDiv"><h4 style="line-height:1;">Coupon code<br><span class="tinytxt">*applied on confirmation</span></h4><input class="fR" type="text" id="couponCode" placeholder="Enter coupon code"></div>
 			</div>
             <footer>
             	<h5 onClick="switchSlides(6,0)"><span class="fL smChev">&laquo;</span><img class="fL" src="images/Bike.png" height="30" width="30"><span class="fL pl10">Back</span></h5>
@@ -276,19 +283,22 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                 <div>
                     <h4>Email</h4><div class="rInfo" id="yourEmail"></div>
                 </div>
-                <div>
-                    <h4>Payment Info</h4><div class="rInfo" onClick="updateCard()" id="accntCard"> <span class="cRed pntr">&gt;&gt;</span></div>
+                <div onClick="updateCard()">
+                    <h4>Payment Info</h4><div class="rInfo" id="accntCard"> <span class="cRed pntr">&gt;&gt;</span></div>
                 </div>
-                <div>
-                    <h4>Saved Addresses</h4><div class="rInfo cRed pntr" onClick="viewAddresses()">&gt;&gt;</div>
+                <div onClick="viewAddresses()">
+                    <h4>Saved Addresses</h4><div class="rInfo cRed pntr">&gt;&gt;</div>
                 </div>
             </div>
             <div class="infoWrapper w94">
                 <div>
-                    <h4 class="w94 lh15"><a href="https://www.facebook.com/SpeedSlice" target="_new">Like us on Facebook</a></h4>
+                    <h4 class="w94 lh15"><a id="facebookLink" href="https://www.facebook.com/SpeedSlice" target="_new">Like us on Facebook</a></h4>
                 </div>
                 <div onClick="switchSlides(7,10)">
                     <h4 class="lh15 pntr">About SpeedSlice</h4><div class="rInfo cRed pntr">&gt;&gt;</div>
+                </div>
+                <div onClick="switchSlides(7,12)">
+                    <h4 class="lh15 pntr">Support</h4><div class="rInfo cRed pntr">&gt;&gt;</div>
                 </div>
             </div>
             <div class="infoWrapper w94">
@@ -311,6 +321,7 @@ document.getElementsByTagName("html").item(0).style.fontSize=(window.innerWidth/
                 <p>Order successful</p>
                 <p>Ref #: <span id="refNum"></span></p>
                 <p>Order ID: <span id="successID"></span></p>
+                <p id="discAmtWrapper" class="nD">Discount received: <span id="discAmt"></span></p>
             </div>
             <div class="next bigRed" onClick="switchSlides(8,0)">Return to order page</div>
             <footer>
@@ -431,6 +442,40 @@ SpeedSlice reserves the right, in its sole discretion, to revise and amend the A
             </header>
             <footer>
             	<h1>FAQ</h1>
+            </footer>
+        </section>
+        <section id="support"><!--13-->
+            <header>
+                <span class="pl10 aChev fL pntr" title="Back">&laquo;</span>
+                <img class="vBottom fR" src="images/redGear.svg">
+                <h1>SpeedSlice</h1>
+            </header>
+            <div class="infoWrapper">
+                <div class="bigRed">SpeedSlice Support</div>                
+                <div id="supportContentWrapper">
+                    <div class="h380 aSlider"><div class="h380 pntr"><div id='supportSlider'></div></div></div>
+                    <div id="supportContent">
+                        <p class="question">Issues with your Order</p>
+                        <p>If you’ve got an issue with your order, we’re here to help. We want you to have a great pizza experience.</p>
+                        <p><span class="b">Your first (and best) move is to call the restaurant that is fulfilling your order.</span> Their contact information is on the confirmation email we sent after you placed your order. If you can’t find this email, be sure to check your spam folder.</p>
+                        <p>If you can’t get in touch with the restaurant, please email us at <a href="mailto:support@speedslice.com">support@speedslice.com</a> and we’ll do our best to remedy the problem.  You can also call us at 617-752-1129.  We may not be able to pick up right away, but we will return your call and figure things out as soon as possible.
+        </p>
+                        <p class="question">I got a Message that told me my Order Wasn’t Confirmed, What’s up with that?</p>
+                        <p>Sometimes in the restaurant industry things go unexpectedly wrong: you have to close early for the day or you are so swamped you can’t take orders. Or a giant pizza monster devours your delivery car.  Really, it could be anything.</p>
+                        <p>When a restaurant doesn’t confirm the order that we sent over within 10 minutes, we tell you, and cancel the order.  If your order wasn’t confirmed, you won’t be charged for that pizza.  You may see a pending charge on your credit card, but it won’t be charged.</p>
+                        <p>Feel free to place another order, as usual - we want you to get that pizza!</p>
+                        <p class="question">Issues with the App</p>
+                        <p>If the app is giving you trouble, or there’s something you’d like to add to it, let us know, we love feedback and want to learn from it. Let us know what browser or phone you’re on when you email <a href="mailto:support@speedslice.com">support@speedslice.com</a> to give us a heads up. Thank you!</p>
+                        <p class="question">I Own a Restaurant and I’d like to be on SpeedSlice</p>
+                        <p>Awesome! Email <a href="mailto:support@speedslice.com">support@speedslice.com</a> with subject “Restaurant” and we’ll get you on board - our onboarding process is simple and more-or-less instant.  You could be accepting orders as early as tonight!  Or fill out the form <a href="https://speedslice.com/restaurants-contact/">here</a></p>
+                        <p>If you have a favorite restaurant that you want on SpeedSlice, we’d be happy to talk with them.  Send us an email at <a href="mailto:support@speedslice.com">support@speedslice.com</a> and we’ll do our best to make it happen!</p>
+                        <p class="question">I’ve got a Business Proposal, who do I talk to?</p>
+                        <p>If you’d like to talk to our head of business development, email <a href="mailto:chris@speeslice.com">chris@speedslice.com</a> and tell us what’s up. We’re very open to new partnerships.</p>
+                    </div>
+                </div>                
+            </div>
+            <footer>
+                <h1>Support Information</h1>
             </footer>
         </section>
     </div>
