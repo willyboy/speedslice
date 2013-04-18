@@ -19,8 +19,9 @@
 	<preference name="permissions" value="none"/>
 	<preference name="fullscreen" value="true" />
 	<icon src="images/App_Icon.png" gap:role="default" />
+	<gap:splash src="images/splash.png" />
 	<preference name="splash-screen-duration" value="4000" />
-    <gap:splash src="images/splash.png" />
+    
 	<gap:plugin name="ChildBrowser" />
 	<preference name="orientation" value="portrait" />
 	<preference name="webviewbounce" value="false" />	
