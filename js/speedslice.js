@@ -10,8 +10,8 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-host="https://speedslice.com/app/Final/";
-//host="http://pizzadelivery.piecewise.com/Final/";
+//host="https://speedslice.com/app/Final/";
+host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 initY=0;
@@ -108,7 +108,7 @@ function loadInfo(){
 		onMenuKeyDown();
 	});
 	$("#addressTo").on("touchstart focus",function(e){
-		e.preventDefault();//set a timeout here
+		e.preventDefault();
 		$(this).blur();
 		addressToTimer=setTimeout("selectAddress(0); addrRtrnTo='selectPizza';",100);
 	}).on("touchmove",function(e){
@@ -136,7 +136,7 @@ function loadInfo(){
 	$("#orderSummary").on("swipe",".removePizza",function(){
 		pizzaToDelete=this;
 		navigator.notification.confirm(
-			"Are you sure you wish to remove "+$(this).children("h4").text().substr(0,$(this).children("h4").text().length-1)+"?",  // message
+			"Are you sure you wish to remove "+$(this).children("h4").text().substr(0,$(this).children("h4").text().length-1)+"?",
 			deletePizza,        
 			'Press "Yes" to delete pizza',
 			'No,Yes'
