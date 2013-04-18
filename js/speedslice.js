@@ -61,10 +61,10 @@ function loadInfo(){
 			}
 		}
 	});	
-	/*customScrolling("abtContentWrapper","abtContent","aboutSlider");
+	customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	customScrolling("supportContentWrapper","supportContent","supportSlider");
-	checkCustomScrolling();*/
+	checkCustomScrolling();
 	$("#facebookLink").on("touchstart",function(e){
 		e.preventDefault();
 		webpageTimer=setTimeout(function(){window.plugins.childBrowser.showWebPage("https://www.facebook.com/SpeedSlice");},150);
@@ -847,7 +847,7 @@ function switchSlides(active,newSlide,backButton){
 	//iphone	
 }
 function checkCustomScrolling(){
-	var visiSct=$("section:visible");
+	/*var visiSct=$("section:visible");
 	var lastDiv=$("section:visible>div:visible:last");
 	if($(lastDiv).position().top>=$(visiSct).children("header").height() && ($(lastDiv).position().top+$(lastDiv).height())>$(visiSct).children("footer").position().top){
 		if($(visiSct).has(".aSlider").length==0){
@@ -856,7 +856,7 @@ function checkCustomScrolling(){
 	}
 	else if($(visiSct).has(".aSlider").length!=0){
 		$(visiSct).find(".aSlider").unwrap().unwrap().remove();
-	}
+	}*/
 }
 function createCustomScroller(sctnForScroller){
 	$(sctnForScroller).children("div,h2").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' class='clearFix' />");
