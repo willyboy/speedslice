@@ -5,14 +5,6 @@
 	font-stretch:normal;
 	font-weight:normal;
 }
-@-webkit-keyframes slideUp{
-	0% {margin-top:0;}
-	100%{margin-top:-56.9rem;}	
-}
-@-webkit-keyframes slideDown{
-	0% {margin-top:-56.9rem;}
-	100%{margin-top:0;}	
-}
 *{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
 }
@@ -78,8 +70,7 @@ h4{
 }
 section{
 	background: url('../images/PizzaBackgroundSmall.jpg') no-repeat;
-	background-position: -10px 0px;
-	/*background-attachment: fixed;*/
+	background-position: 0px 0px;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -94,7 +85,7 @@ section:not(:first-child){
 	display:none;
 }
 section>header+div{
-	overflow:hidden;	
+	overflow:hidden;
 }
 footer{
 	border-top:1rem solid rgb(252,176,60);
@@ -108,6 +99,8 @@ footer{
 	z-index:98;
 }
 header{
+	position:relative;
+	z-index:100;
 	background:rgba(0,0,0,0.3);
 }
 header>h1{
@@ -174,7 +167,7 @@ h4.orderOpt{
 .pizzArrow{
 	color:white;
 	font-size:4.6rem;
-	margin:6.5rem 2rem 2rem 2rem;
+	margin:5.5rem 2rem 2rem 2rem;
 	cursor:pointer;	
 }
 .pizzArrow,.ribbon{
@@ -197,10 +190,10 @@ h4.orderOpt{
 	background:rgb(254,249,241);
 	color:rgb(96,71,60);
 }
-.infoWrapper > div:not(:last-child):not(#abtContentWrapper):not(#legalContentWrapper),.infoWrapper>#someToppings{
+.infoWrapper > div:not(:last-child):not(#abtContentWrapper):not(#legalContentWrapper):not(#supportContentWrapper),.infoWrapper>#someToppings{
 	border-bottom:1px dashed rgb(96,71,60);	
 }
-.infoWrapper input[type=text],.infoWrapper input[type=password],.infoWrapper input[type=email],.infoWrapper select{
+.infoWrapper input[type=text],.infoWrapper input[type=number],.infoWrapper input[type=password],.infoWrapper input[type=email],.infoWrapper select{
 	background:rgb(252,176,60);
 	border:1px solid rgb(96,71,60);	
 	width:47%;
@@ -211,14 +204,14 @@ h4.orderOpt{
 .infoWrapper,.infoWrapper div,.infoWrapper input,.infoWrapper h4,.infoWrapper h3,.infoWrapper>#someToppings{
 	float:left;
 }
-.infoWrapper>div:not(#abtContentWrapper):not(#legalContentWrapper),#abtContent>p,#legalContent>p,.infoWrapper>#someToppings{
+.infoWrapper>div:not(#abtContentWrapper):not(#legalContentWrapper):not(#supportContentWrapper),#abtContent>p,#legalContent>p,#supportContent>p,.infoWrapper>#someToppings{
 	width:96%;
 	padding:1rem .5rem;
 }
-#abtContentWrapper,#legalContentWrapper{
+#abtContentWrapper,#legalContentWrapper,#supportContentWrapper{
 	width:100%;
 }
-#abtContent,#legalContent{
+#abtContent,#legalContent,#supportContent{
 	width:96%;
 }
 .tapAddTxt{
@@ -244,7 +237,7 @@ h4.orderOpt{
 	line-height:1.5;
 }
 .redBrdr{
-	border:2px solid red !important;
+	border:3px solid red !important;
 }
 .clearFix:after,section>div:after {
      content: " ";
@@ -358,28 +351,6 @@ h4.orderOpt{
 .w60{
 	width:60%;
 }
-.removePizza{
-	line-height: 1;
-	width: 1.3rem;
-	background: rgb(195,40,46);
-	text-align: center;
-	color: rgb(254,249,241);
-	border-radius: 1.6rem;
-	font-size: 1.3rem;
-	cursor: pointer;
-	margin: .1rem 0 0 1rem;
-	padding: .2rem;
-}
-.stretchX{
-	transform: scale(1.5,1);
-	-webkit-transform: scale(1.5,1);
-	-ms-transform:scale(1.5,1);
-	-o-transform: scale(1.5,1);
-	-moz-transform: scale(1.5,1);
-	padding-left: .2rem;
-	padding-right: .2rem;
-	font-weight:bold;
-}
 .editButton{
 	background: #7d81be;
 	background: -moz-linear-gradient(top, #7d81be 0%, #c5e9f2 100%);
@@ -411,7 +382,11 @@ h4.orderOpt{
 .ovrFlwHide{
 	overflow:hidden;
 }
-#aboutSlider,#legalSlider{
+p.question{
+	font-weight:bold;
+	font-size:1.6rem;
+}
+#aboutSlider,#legalSlider,#supportSlider{
 	border-radius:1rem; 
 	height:2rem; 
 	width:1rem; 
@@ -422,10 +397,18 @@ h4.orderOpt{
 .h380{
 	height:38rem;
 }
+.backslash{
+	font-size: 2.5rem;
+	line-height: 1.1;
+	margin-left:1%;
+}
+.tinytxt{
+	font-size:1rem;
+}
 input[type=text].w40{
 	width:40%;
 }
-#abtContentWrapper,#legalContentWrapper{
+#abtContentWrapper,#legalContentWrapper,#supportContentWrapper{
 	overflow:hidden;
 	height:38rem;
 }
@@ -554,13 +537,17 @@ input[type=text].w40{
 #h3Ord{
 	width:100%;
 	text-align:center;
-	line-height:1.5;
+	line-height:0;
+	padding:5px 0;
 }
-#expMo,#h3Ord + div{
+#h3Ord + div{
+	width:15%;
+}
+#expMo{
 	width:15%;
 }
 #expYr{
-	width:25%;
+	width:18%;
 	float:right;
 	margin-right:1.5rem;
 }
