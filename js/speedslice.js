@@ -61,10 +61,10 @@ function loadInfo(){
 			}
 		}
 	});	
-	customScrolling("abtContentWrapper","abtContent","aboutSlider");
+	/*customScrolling("abtContentWrapper","abtContent","aboutSlider");
 	customScrolling("legalContentWrapper","legalContent","legalSlider");
 	customScrolling("supportContentWrapper","supportContent","supportSlider");
-	checkCustomScrolling();
+	checkCustomScrolling();*/
 	$("#facebookLink").on("touchstart",function(e){
 		e.preventDefault();
 		webpageTimer=setTimeout(function(){window.plugins.childBrowser.showWebPage("https://www.facebook.com/SpeedSlice");},150);
