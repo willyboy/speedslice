@@ -916,12 +916,12 @@ function scrollDiv(e,upOrDown,innerContainer,sliderHandle,touch,sliderHeight){
 	var heightAdj=sliderHeight-$("footer:first").height()-20;
 	if(upOrDown<0){
 		if((iContMrgnTop-(heightAdj))>-$(innerContainer).height()){
-			$(innerContainer).css({"margin-top":"-="+($(innerContainer).height()/sliderHeight)+"px","padding-bottom":"+="+($(innerContainer).height()/sliderHeight)+"px"});
+			$(innerContainer).css({"margin-top":"-="+(touch ? "15":"30")+"px","padding-bottom":"+="+(touch ? "15":"30")+"px"});
 		}
 	}
 	else{
 		if((iContMrgnTop+(heightAdj))<=(heightAdj-1)){
-			$(innerContainer).css({"margin-top":"+="+($(innerContainer).height()/sliderHeight)+"px","padding-bottom":"-="+($(innerContainer).height()/sliderHeight)+"px"});
+			$(innerContainer).css({"margin-top":"+="+(touch ? "15":"30")+"px","padding-bottom":"-="+(touch ? "15":"30")+"px"});
 		}
 	}
 	adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight);	
