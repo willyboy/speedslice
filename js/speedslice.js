@@ -963,9 +963,9 @@ function onMenuKeyDown(){
 	else{
 		setTimeout("$('#overlay').remove()",400);
 	}
-	if(typeof loggedIn=="undefined"){
+//	if(typeof loggedIn=="undefined" || !loggedIn){
 		$(mo).children("li:eq(1)").hide();	
-	}
+	//}
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
