@@ -10,8 +10,8 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-//host="https://speedslice.com/app/Final/";
-host="http://pizzadelivery.piecewise.com/Final/";
+host="https://speedslice.com/app/Final/";
+//host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 initY=0;
@@ -761,7 +761,7 @@ function getCardInfo(){
 			$("#accntCard").html(data.First.type+" "+data.First.cc_last5+$("#accntCard").html().substring($("#accntCard").html().indexOf("<")));
 			$("#expMo").val(data.First.expiry_month);
 			$("#expYr").val(data.First.expiry_year);
-			$("#cardZip").val(data.First.bill_zip);		
+			$("#cardZip").val(data.First.bill_zip);
 		}
 	});
 }
