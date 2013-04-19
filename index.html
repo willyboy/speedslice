@@ -160,10 +160,10 @@ document.ontouchmove = function(e){
                   </select>
                 </div>
                 <div>
-                    <input type="number" id="zip" placeholder="ZIP Code" pattern="[0-9]*">
+                    <input type="text" id="zip" placeholder="ZIP Code" pattern="\d*">
                 </div>
                 <div>
-                	<input type="number" id="phone" placeholder="Phone Number" pattern="[0-9]*">
+                	<input type="tel" id="phone" placeholder="Phone Number" pattern="\d*">
                     <div id="deleteAddress" onClick="deleteAddress()" class="nD">Delete Address</div>
                 </div>
 			</div>
@@ -231,17 +231,17 @@ document.ontouchmove = function(e){
             </header>
         	<div class="infoWrapper">
                 <div>
-                    <h4>Card Number</h4><input type="number" id="cNum" pattern="[0-9]*">
+                    <h4>Card Number</h4><input type="text" id="cNum" pattern="\d*">
                 </div>
                 <div>
-                    <h4>Expiration</h4><input id="expMo" type="number" size="2"  pattern="[0-9]*"><span class="b backslash">/</span>
-    <input id="expYr" type="number" size="4" pattern="[0-9]*">
+                    <h4>Expiration</h4><input id="expMo" type="text" size="2"  pattern="\d*"><span class="b backslash">/</span>
+    <input id="expYr" type="text" size="4" pattern="\d*">
                 </div>
                 <div>
-                	<h4>Security code</h4><input id="csc" type="number" size="4" pattern="[0-9]*">
+                	<h4>Security code</h4><input id="csc" type="text" size="4" pattern="\d*">
                 </div>
                 <div>
-                	<h4>Billing ZIP</h4><input id="cardZip" type="number" size="5" pattern="[0-9]*">
+                	<h4>Billing ZIP</h4><input id="cardZip" type="text" size="5" pattern="\d*">
                 </div>
 			</div>
             <div class="w94 infoWrapper">
