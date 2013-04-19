@@ -963,7 +963,7 @@ function onMenuKeyDown(){
 	else{
 		setTimeout("$('#overlay').remove()",400);
 	}
-	if(typeof loggedIn=="undefined" || !loggedIn){
+	if(typeof loggedIn=="undefined"){
 		$(mo).children("li:eq(1)").hide();	
 	}
 	switch($("section:visible").index()){
