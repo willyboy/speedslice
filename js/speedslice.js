@@ -894,11 +894,12 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		if(typeof timeoutId!="undefined"){
 			clearInterval(timeoutId);
 		}
-		if (!e.offsetY) {
-			offY = e.pageY - $(e.target).offset().top;
+		var touchSpot=e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+		if (!touchSpot.offsetY) {
+			offY = touchSpot.pageY - $(e.target).offset().top;
 		}
 		else{
-			offY=e.offsetY;
+			offY=touchSpot.offsetY;
 		}
 		timeoutId=setInterval("clickScroll("+offY+",'"+innerContainer+"','#"+sliderHandle+"',"+$(".aSlider:first").height()+")",30);
 	});
