@@ -98,13 +98,13 @@ document.ontouchmove = function(e){
                 <div>
                     <h4>Deliver to:</h4><input type="text" id="addr" placeholder="Address Line 1">
                 </div>
-                <div>
-                    <input type="text" id="addr2" placeholder="Address Line 2">
+                <div><h4>Address Line 2:</h4>
+                    <input type="text" id="addr2">
                 </div>
                 <div>
-                    <input type="text" id="city" placeholder="City">
+                    <h4>City:</h4><input type="text" id="city">
                 </div>
-                <div>
+                <div><h4>State:</h4>
                 	<select id="state">
                         <option value="AK">AK</option>
                         <option value="AL">AL</option>
@@ -159,11 +159,11 @@ document.ontouchmove = function(e){
                         <option value="WY">WY</option>
                   </select>
                 </div>
-                <div>
-                    <input type="text" id="zip" placeholder="ZIP Code" pattern="\d*">
+                <div><h4>ZIP:</h4>
+                    <input type="number" id="zip">
                 </div>
-                <div>
-                	<input type="tel" id="phone" placeholder="Phone Number" pattern="\d*">
+                <div><h4>Phone:</h4>
+                	<input type="number" id="phone">
                     <div id="deleteAddress" onClick="deleteAddress()" class="nD">Delete Address</div>
                 </div>
 			</div>
@@ -231,17 +231,17 @@ document.ontouchmove = function(e){
             </header>
         	<div class="infoWrapper">
                 <div>
-                    <h4>Card Number</h4><input type="text" id="cNum" pattern="\d*">
+                    <h4>Card Number</h4><input type="number" id="cNum">
                 </div>
                 <div>
-                    <h4>Expiration</h4><input id="expMo" type="text" size="2"  pattern="\d*"><span class="b backslash">/</span>
-    <input id="expYr" type="text" size="4" pattern="\d*">
+                    <h4>Expiration</h4><input id="expMo" type="number" size="2" ><span class="b backslash">/</span>
+    <input id="expYr" type="number" size="4">
                 </div>
                 <div>
-                	<h4>Security code</h4><input id="csc" type="text" size="4" pattern="\d*">
+                	<h4>Security code</h4><input id="csc" type="number" size="4">
                 </div>
                 <div>
-                	<h4>Billing ZIP</h4><input id="cardZip" type="text" size="5" pattern="\d*">
+                	<h4>Billing ZIP</h4><input id="cardZip" type="number" size="5">
                 </div>
 			</div>
             <div class="w94 infoWrapper">
