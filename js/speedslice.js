@@ -916,12 +916,12 @@ function scrollDiv(e,upOrDown,innerContainer,sliderHandle,touch,sliderHeight){
 	var heightAdj=sliderHeight-$("footer:first").height()-20;
 	if(upOrDown<0){
 		if((iContMrgnTop-(heightAdj))>-$(innerContainer).height()){
-			$(innerContainer).css({"margin-top":"-="+(touch ? "40":"30")+"px","padding-bottom":"+="+(touch ? "40":"30")+"px"});
+			$(innerContainer).css({"margin-top":"-="+(($(innerContainer).height()*10)/sliderHeight)+"px","padding-bottom":"+="+(($(innerContainer).height()*10)/sliderHeight)+"px"});
 		}
 	}
 	else{
 		if((iContMrgnTop+(heightAdj))<=(heightAdj-1)){
-			$(innerContainer).css({"margin-top":"+="+(touch ? "40":"30")+"px","padding-bottom":"-="+(touch ? "40":"30")+"px"});
+			$(innerContainer).css({"margin-top":"+="+(($(innerContainer).height()*10)/sliderHeight)+"px","padding-bottom":"-="+(($(innerContainer).height()*10)/sliderHeight)+"px"});
 		}
 	}
 	adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight);	
