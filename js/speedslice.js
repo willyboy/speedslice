@@ -195,6 +195,7 @@ function loadInfo(){
 			}
 		});
 		$("#delTxt").show();
+		checkCustomScrolling();
 	});
 	$("#tapOrder").on("touchstart",function(){
 		orderPizzaPage();
