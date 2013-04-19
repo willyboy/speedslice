@@ -847,14 +847,14 @@ function switchSlides(active,newSlide,backButton){
 	//iphone	
 }
 function checkCustomScrolling(){
-	/*var visiSct=$("section:visible");
+	var visiSct=$("section:visible");
 	var lastDiv=$("section:visible>div:visible:last");
 	if($(lastDiv).position().top>=$(visiSct).children("header").height() && ($(lastDiv).position().top+$(lastDiv).height())>$(visiSct).children("footer").position().top){
 		if($(visiSct).has(".aSlider").length==0){
 			createCustomScroller(visiSct);
 		}
 	}
-	else if($(visiSct).has(".aSlider").length!=0){
+	/*else if($(visiSct).has(".aSlider").length!=0){
 		$(visiSct).find(".aSlider").unwrap().unwrap().remove();
 	}*/
 }
