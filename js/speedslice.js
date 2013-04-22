@@ -10,8 +10,8 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-host="https://speedslice.com/app/Final/";
-//host="http://pizzadelivery.piecewise.com/Final/";
+//host="https://speedslice.com/app/Final/";
+host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 initY=0;
@@ -195,7 +195,6 @@ function loadInfo(){
 			}
 		});
 		$("#delTxt").show();
-		checkCustomScrolling();
 	});
 	$("#tapOrder").on("touchstart",function(){
 		orderPizzaPage();
@@ -422,7 +421,7 @@ function orderPizzaPage(curSlide){
 		switchSlides(0,3);	
 	}
 	else{
-		if($("#cNum").val()==""){
+		if($("#expYr").val()==""){
 			if(typeof curSlide!="undefined"){
 				switchSlides(curSlide,5);	
 			}
@@ -761,7 +760,7 @@ function getCardInfo(){
 			$("#accntCard").html(data.First.type+" "+data.First.cc_last5+$("#accntCard").html().substring($("#accntCard").html().indexOf("<")));
 			$("#expMo").val(data.First.expiry_month);
 			$("#expYr").val(data.First.expiry_year);
-			$("#cardZip").val(data.First.bill_zip);
+			$("#cardZip").val(data.First.bill_zip);		
 		}
 	});
 }
@@ -855,9 +854,9 @@ function checkCustomScrolling(){
 			createCustomScroller(visiSct);
 		}
 	}
-	/*else if($(visiSct).has(".aSlider").length!=0){
+	else if($(visiSct).has(".aSlider").length!=0){
 		$(visiSct).find(".aSlider").unwrap().unwrap().remove();
-	}*/
+	}
 }
 function createCustomScroller(sctnForScroller){
 	$(sctnForScroller).children("div,h2").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' class='clearFix' />");
@@ -895,12 +894,11 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		if(typeof timeoutId!="undefined"){
 			clearInterval(timeoutId);
 		}
-		var touchSpot=e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-		if (!touchSpot.offsetY) {
-			offY = touchSpot.pageY - $(e.target).offset().top;
+		if (!e.offsetY) {
+			offY = e.pageY - $(e.target).offset().top;
 		}
 		else{
-			offY=touchSpot.offsetY;
+			offY=e.offsetY;
 		}
 		timeoutId=setInterval("clickScroll("+offY+",'"+innerContainer+"','#"+sliderHandle+"',"+$(".aSlider:first").height()+")",30);
 	});
@@ -918,12 +916,12 @@ function scrollDiv(e,upOrDown,innerContainer,sliderHandle,touch,sliderHeight){
 	var heightAdj=sliderHeight-$("footer:first").height()-20;
 	if(upOrDown<0){
 		if((iContMrgnTop-(heightAdj))>-$(innerContainer).height()){
-			$(innerContainer).css({"margin-top":"-="+(touch ? "15":"30")+"px","padding-bottom":"+="+(touch ? "15":"30")+"px"});
+			$(innerContainer).css({"margin-top":"-="+(touch ? "40":"30")+"px","padding-bottom":"+="+(touch ? "40":"30")+"px"});
 		}
 	}
 	else{
 		if((iContMrgnTop+(heightAdj))<=(heightAdj-1)){
-			$(innerContainer).css({"margin-top":"+="+(touch ? "15":"30")+"px","padding-bottom":"-="+(touch ? "15":"30")+"px"});
+			$(innerContainer).css({"margin-top":"+="+(touch ? "40":"30")+"px","padding-bottom":"-="+(touch ? "40":"30")+"px"});
 		}
 	}
 	adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight);	
@@ -965,9 +963,9 @@ function onMenuKeyDown(){
 	else{
 		setTimeout("$('#overlay').remove()",400);
 	}
-	if(typeof loggedIn=="undefined" || !loggedIn){
-		$(mO).children("li:eq(1)").hide();	
-	}
+	/*if(!loggedIn){
+		$(mo).children("li:eq(1)").hide();	
+	}*/
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
