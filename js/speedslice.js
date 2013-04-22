@@ -706,6 +706,7 @@ function addCard(){
 	$("#addCardButton").append($(loader).clone());
 	$.post(host+"Card.php",cardData,function(data){
 		$("#loader").remove();
+		//needs to be updated to show error without wrapper.
 		switch(data){
 			case "":switch(cardReturnTo){
 				case "account": switchSlides(5,7);
@@ -715,7 +716,7 @@ function addCard(){
 			}
 			break;
 			case "address": addrRtrnTo="card";
-				$("#cardInfo>.infoWrapper:first>div:last").after("<div class='cRed' id='noCards'>Please make sure one of your addresses matches your <span onclick=\"switchSlides($('section:visible').index(),3); clearAddressForm();\" class='u pntr'>billing address.</span></div>");
+				$("#cardInfo .infoWrapper:first>div:last").after("<div class='cRed' id='noCards'>Please make sure one of your addresses matches your <span onclick=\"switchSlides($('section:visible').index(),3); clearAddressForm();\" class='u pntr'>billing address.</span></div>");
 			break;
 			default: 
 				var errorLoc=$("#cardInfo>.infoWrapper:first>div:last");
