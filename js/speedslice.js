@@ -716,10 +716,10 @@ function addCard(){
 			}
 			break;
 			case "address": addrRtrnTo="card";
-				$("#cardInfo .infoWrapper:first>div:last").after("<div class='cRed' id='noCards'>Please make sure one of your addresses matches your <span onclick=\"switchSlides($('section:visible').index(),3); clearAddressForm();\" class='u pntr'>billing address.</span></div>");
+				$("#cardInfo>.infoWrapper:first>div:last").after("<div class='cRed' id='noCards'>Please make sure one of your addresses matches your <span onclick=\"switchSlides($('section:visible').index(),3); clearAddressForm();\" class='u pntr'>billing address.</span></div>");
 			break;
 			default: 
-				var errorLoc=$("#cardInfo>.infoWrapper:first>div:last");
+				var errorLoc=$("#cardInfo .infoWrapper:first>div:last");
 				if(data.indexOf("OrdrinException")!=-1){
 					$(errorLoc).after("<div class='cRed' id='noCards'>Error: Please re-enter card information and try again.</div>");
 				}
