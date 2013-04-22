@@ -854,9 +854,9 @@ function checkCustomScrolling(){
 			createCustomScroller(visiSct);
 		}
 	}
-	else if($(visiSct).has(".aSlider").length!=0){
+	/*else if($(visiSct).has(".aSlider").length!=0){
 		$(visiSct).find(".aSlider").unwrap().unwrap().remove();
-	}
+	}*/
 }
 function createCustomScroller(sctnForScroller){
 	$(sctnForScroller).children("div,h2").wrapAll("<div id='custom-scrollbar-wrapper"+scrollBarNmbr+"' class='ovrFlwHide' />").wrapAll("<div id='custom-scrollbar-content"+scrollBarNmbr+"' class='clearFix' />");
@@ -894,11 +894,12 @@ function customScrolling(theContainer,innerContainer,sliderHandle){
 		if(typeof timeoutId!="undefined"){
 			clearInterval(timeoutId);
 		}
-		if (!e.offsetY) {
-			offY = e.pageY - $(e.target).offset().top;
+		var touchSpot=e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+	    if (!touchSpot.offsetY) {
+			offY = touchSpot.pageY - $(e.target).offset().top;
 		}
 		else{
-			offY=e.offsetY;
+			offY=touchSpot.offsetY;
 		}
 		timeoutId=setInterval("clickScroll("+offY+",'"+innerContainer+"','#"+sliderHandle+"',"+$(".aSlider:first").height()+")",30);
 	});
@@ -916,12 +917,12 @@ function scrollDiv(e,upOrDown,innerContainer,sliderHandle,touch,sliderHeight){
 	var heightAdj=sliderHeight-$("footer:first").height()-20;
 	if(upOrDown<0){
 		if((iContMrgnTop-(heightAdj))>-$(innerContainer).height()){
-			$(innerContainer).css({"margin-top":"-="+(touch ? "40":"30")+"px","padding-bottom":"+="+(touch ? "40":"30")+"px"});
+			$(innerContainer).css({"margin-top":"-="+(touch ? "15":"30")+"px","padding-bottom":"+="+(touch ? "15":"30")+"px"});
 		}
 	}
 	else{
 		if((iContMrgnTop+(heightAdj))<=(heightAdj-1)){
-			$(innerContainer).css({"margin-top":"+="+(touch ? "40":"30")+"px","padding-bottom":"-="+(touch ? "40":"30")+"px"});
+			$(innerContainer).css({"margin-top":"+="+(touch ? "15":"30")+"px","padding-bottom":"-="+(touch ? "15":"30")+"px"});
 		}
 	}
 	adjustSlider(iContMrgnTop,innerContainer,sliderHandle,sliderHeight);	
@@ -963,9 +964,9 @@ function onMenuKeyDown(){
 	else{
 		setTimeout("$('#overlay').remove()",400);
 	}
-	/*if(!loggedIn){
-		$(mo).children("li:eq(1)").hide();	
-	}*/
+	if(!loggedIn){
+		$(mO).children("li:eq(1)").hide();	
+	}
 	switch($("section:visible").index()){
 		case 0: $(mO).children("li:eq(0)").hide();
 		break;
