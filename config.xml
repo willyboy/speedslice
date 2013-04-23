@@ -23,6 +23,7 @@
 	<preference name="splash-screen-duration" value="4000" />
     
 	<gap:plugin name="ChildBrowser" />
+	<gap:plugin name="GenericPush" />
 	<preference name="orientation" value="portrait" />
 	<preference name="webviewbounce" value="false" />	
 	<preference name="show-splash-screen-spinner" value="false" />

@@ -10,8 +10,8 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-host="https://speedslice.com/app/Final/";
-//host="http://pizzadelivery.piecewise.com/Final/";
+//host="https://speedslice.com/app/Final/";
+host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 initY=0;
@@ -26,6 +26,45 @@ function onDeviceReady() {
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	document.addEventListener("backbutton", onBackButton, false);
 	document.addEventListener("offline", checkConnection, false);
+	pushNotification = window.plugins.pushNotification;
+	pushNotification.register(successHandler, errorHandler,{"senderID":"157047801644","ecb":"onNotificationGCM"});
+}
+function successHandler (result) {
+   
+}
+function errorHandler (error) {
+
+}
+ function onNotificationGCM(e) {
+	switch( e.event )
+	{
+		case 'registered':
+		if ( e.regid.length > 0 )
+		{
+			$.post(host+"notifications/HandleRegisterDevice.php",{Device:"Android",DeviceID:e.regID});
+		}
+		break;
+
+		case 'message':
+			// if this flag is set, this notification happened while we were in the foreground.
+			// you might want to play a sound to get the user's attention, throw up a dialog, etc.
+			if (e.foreground)
+			{
+				navigator.notification.alert(e.payload.message,function(){},e.payload.contentTitle,"Okay");
+			}
+			else
+			{   // otherwise we were launched because the user touched a notification in the notification tray.
+				if (e.coldstart)
+					navigator.notification.alert(e.payload.message,function(){},e.payload.contentTitle,"Okay");
+				else
+					navigator.notification.alert(e.payload.message,function(){},e.payload.contentTitle,"Okay");
+			}
+		break;
+
+		case 'error':
+			navigator.notification.alert(e.msg);
+		break;
+	}
 }
 function checkConnection(){
 	if(!navigator.onLine){
