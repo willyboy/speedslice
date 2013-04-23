@@ -10,14 +10,15 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-//host="https://speedslice.com/app/Final/";
-host="http://pizzadelivery.piecewise.com/Final/";
+host="https://speedslice.com/app/Final/";
+//host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 initY=0;
 lastSlides=new Array();
 scrollBarNmbr=0;
 touchStarted=false;
+var pushNotification;
 function onLoad() {
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -27,44 +28,6 @@ function onDeviceReady() {
 	document.addEventListener("backbutton", onBackButton, false);
 	document.addEventListener("offline", checkConnection, false);
 	pushNotification = window.plugins.pushNotification;
-	pushNotification.register(successHandler, errorHandler,{"senderID":"157047801644","ecb":"onNotificationGCM"});
-}
-function successHandler (result) {
-   
-}
-function errorHandler (error) {
-
-}
- function onNotificationGCM(e) {
-	switch( e.event )
-	{
-		case 'registered':
-		if ( e.regid.length > 0 )
-		{
-			$.post(host+"notifications/HandleRegisterDevice.php",{Device:"Android",DeviceID:e.regid});
-		}
-		break;
-
-		case 'message':
-			// if this flag is set, this notification happened while we were in the foreground.
-			// you might want to play a sound to get the user's attention, throw up a dialog, etc.
-			if (e.foreground)
-			{
-				navigator.notification.alert(e.payload.message,function(){},e.payload.contentTitle,"Okay");
-			}
-			else
-			{   // otherwise we were launched because the user touched a notification in the notification tray.
-				if (e.coldstart)
-					navigator.notification.alert(e.payload.message,function(){},e.payload.contentTitle,"Okay");
-				else
-					navigator.notification.alert(e.payload.message,function(){},e.payload.contentTitle,"Okay");
-			}
-		break;
-
-		case 'error':
-			navigator.notification.alert(e.msg);
-		break;
-	}
 }
 function checkConnection(){
 	if(!navigator.onLine){
@@ -826,6 +789,7 @@ function showUserInfo(data){
 		case "C": $(".tip:eq(2)").addClass("tipSelected");
 		break;
 	}
+	pushNotification.register(successHandler, errorHandler,{"senderID":"157047801644","ecb":"onNotificationGCM"});
 }
 function leftPizza(){
 	pizzaIndex=document.getElementById("pizzaID").selectedIndex;
@@ -1026,6 +990,28 @@ function onBackButton(){
 	}
 	else{
 		navigator.app.exitApp();	
+	}
+}
+function successHandler (result) {
+   
+}
+function errorHandler (error) {
+
+}
+ function onNotificationGCM(e) {
+	switch(e.event){
+		case 'registered':
+		if (e.regid.length>0){
+			$.post(host+"notifications/HandleRegisterDevice.php",{Device:"Android",DeviceID:e.regid});
+		}
+		break;
+		
+		case 'message':navigator.notification.alert(e.payload.message,function(){},e.payload.contentTitle,"Okay");
+		break;
+
+		case 'error':
+			navigator.notification.alert(e.msg);
+		break;
 	}
 }
 (function(a){a.fn.mousewheel=function(a){return this[a?"on":"trigger"]("wheel",a)},a.event.special.wheel={setup:function(){a.event.add(this,b,c,{})},teardown:function(){a.event.remove(this,b,c)}};var b=a.browser.mozilla?"DOMMouseScroll"+(a.browser.version<"1.9"?" mousemove":""):"mousewheel";function c(b){switch(b.type){case"mousemove":return a.extend(b.data,{clientX:b.clientX,clientY:b.clientY,pageX:b.pageX,pageY:b.pageY});case"DOMMouseScroll":a.extend(b,b.data),b.delta=-b.detail/3;break;case"mousewheel":b.delta=b.wheelDelta/120}b.type="wheel";return a.event.handle.call(this,b,b.delta)}})(jQuery);
