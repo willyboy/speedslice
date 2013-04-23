@@ -41,7 +41,7 @@ function errorHandler (error) {
 		case 'registered':
 		if ( e.regid.length > 0 )
 		{
-			$.post(host+"notifications/HandleRegisterDevice.php",{Device:"Android",DeviceID:e.regID});
+			$.post(host+"notifications/HandleRegisterDevice.php",{Device:"Android",DeviceID:e.regid});
 		}
 		break;
 
