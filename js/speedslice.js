@@ -204,8 +204,22 @@ function loadInfo(){
 	$("#tapOrder").on("touchstart",function(){
 		orderPizzaPage();
 	});
-	var oldTime;
-    $("#pizzaToppings").on("touchstart",".topping:not(#cheeseTopping)",function(e){
+	var signout;
+    $("#signOut").on("touchstart",function(e){
+		signout=setTimeout(function(){
+			navigator.notification.confirm(
+				"You need to be signed in to order pizza. Are you sure you want to sign out?",
+				completeSignout,
+				'Press "Confirm" to sign out',
+				'Cancel,Confirm'
+			);
+		},100);
+	}).on("touchmove",function(e){
+		clearTimeout(signout);
+	}).on("click",function(e){
+		e.preventDefault();
+	});
+	$("#pizzaToppings").on("touchstart",".topping:not(#cheeseTopping)",function(e){
 		//check this with logged in
 		theTopID=$(this).attr("id");
 		toppingTouched=setTimeout(function(){
@@ -350,6 +364,13 @@ function addTopping(theID){
 		break;
 	}
 }
+function completeSignout(indexSel){
+	if(indexSel==2){
+		$.post(host+"Logout.php",function(){
+			navigator.app.exitApp();	
+		});
+	}
+}
 function finalOrderConfirmation(indexSel){
 	$("#loader").remove();
 	$("#pickSpot").css("opacity",1);
@@ -408,6 +429,7 @@ function toppingsOnOff(theSmallID,topping,theID,topID){
 	}
 }
 function orderPizzaPage(curSlide){
+	$("#orderErrorOccurred").remove();
 	$("#noRests").parent().remove();
 	$("#noPizzas").remove();
 	//ie
