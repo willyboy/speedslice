@@ -611,7 +611,9 @@ input[type=text].w40{
 }
 #signOut{
 	clear:both;
-	margin:3rem 0;
+	float:left;
+	width:100%;
+	margin:1.5rem 0;
 	font-size:1.8rem;
 	text-align:center;
 }
