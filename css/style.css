@@ -36,7 +36,7 @@ html{
 	font-size:62.5%;
 	-webkit-font-smoothing: antialiased;
 }
-a{
+a,#signOut{
 	color:rgb(252,176,60);
 }
 a:hover,a:active{
@@ -399,7 +399,7 @@ p.question{
 }
 .backslash{
 	font-size: 2.5rem;
-	line-height: 1;
+	line-height: 1.1;
 	margin-left:1%;
 }
 .tinytxt{
@@ -547,7 +547,7 @@ input[type=text].w40{
 	width:15%;
 }
 #expYr{
-	width:22%;
+	width:18%;
 	float:right;
 	margin-right:1.5rem;
 }
@@ -608,6 +608,11 @@ input[type=text].w40{
 }
 #savedPizzaName{
 	text-align: center;
+}
+#signOut{
+	clear:both;
+	margin:2rem auto;
+	font-size:1.8rem;
 }
 .pizzaCircleContent{
 	font-family: Lobster;
