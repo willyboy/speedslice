@@ -10,8 +10,8 @@ address.state="";
 additionalPizzas=new Object();
 cardReturnTo="account";
 prevSlide=1;
-host="https://speedslice.com/app/Final/";
-//host="http://pizzadelivery.piecewise.com/Final/";
+//host="https://speedslice.com/app/Final/";
+host="http://pizzadelivery.piecewise.com/Final/";
 loader=$("<img src='images/loading.gif' id='loader'>");
 lastY=0;
 initY=0;
@@ -29,12 +29,15 @@ function onDeviceReady() {
 	document.addEventListener("offline", checkConnection, false);
 	pushNotification = window.plugins.pushNotification;
 }
-function checkConnection(){
-	if(!navigator.onLine){
+function checkConnection(){  
+	var networkState = navigator.connection.type;
+	if(networkState==Connection.NONE){
 		navigator.notification.alert("SpeedSlice requires an active internet connection.",checkConnection,"SpeedSlice","Okay");
 	}
 	else{
-		loadInfo();
+		if(typeof loggedIn=="undefined"){
+			loadInfo();
+		}
 	}
 }
 function loadInfo(){
@@ -601,16 +604,20 @@ function createAccount(theDiv){
 			}
 		}
 		else{
-			$("#emailAdd").addClass("redBrdr");
+			$("#"+data).addClass("redBrdr");
 		}
 	});			
 }
 function addUserPizza(){//same pizza different name doesn't get added to array, how to handle?
 	if(!loggedIn){
 		toppings=currentToppings();
-		if(typeof additionalPizzas[$("#pizzaName").val()] == "undefined"){
-			additionalPizzas[$("#pizzaName").val()]=toppings;
+		var pizzaName=$("#pizzaName").val();
+		if(typeof additionalPizzas[pizzaName] == "undefined"){
+			additionalPizzas[pizzaName]=toppings;
 		}
+		$.post(host+"CreatePizza.php",{"Toppings":toppings,"PizzaName":pizzaName},function(data){			
+			populatePizzaList($.parseJSON(data));
+		});
 		return false;
 	}
 	//multiple pizzas on first sign up
@@ -665,7 +672,7 @@ function populatePizzaList(data){
 	}
 	$.each(data,function(index,value){
 		//relies on most recent pizza being the highest num, also on only one pizza being added at a time (so should use swirly loader)
-		if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
+		//if(parseInt(value.PizzaID)!=2 && parseInt(value.PizzaID)!=9){
 			$("#pizzaID").append("<option value='"+value.PizzaID+"' data-toppings='"+value.Toppings+"'>"+value.PizzaName+"</option>");
 			if(typeof qLength !="undefined"){
 				if($("#pizzaName").val()==value.PizzaName){
@@ -680,7 +687,7 @@ function populatePizzaList(data){
 					$("[name=qUpdate]").attr("name","q"+value.PizzaID);
 				}
 			}
-		}
+		//}
 		//ie
 		if(index==0){
 			$("#pizzaName").removeClass("placeholder");	
