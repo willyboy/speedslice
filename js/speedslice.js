@@ -740,7 +740,7 @@ function addCard(){
 	});
 }
 function changePizza(theChoice){
-	theOpt=$("#pizzaID option[value="+$(theChoice).val()+"]");
+	theOpt=$(theChoice);
 	$("#pizzaName").attr("name",$(theChoice).val()).val($(theOpt).text());
 	$("#someToppings > li:not(:first)").remove();
 	$(".topping:not(.chSelect)").attr("class","topping");
