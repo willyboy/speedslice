@@ -740,12 +740,11 @@ function addCard(){
 	});
 }
 function changePizza(theChoice){
-	theOpt=$(theChoice);
-	$("#pizzaName").attr("name",$(theChoice).val()).val($(theOpt).text());
+	$("#pizzaName").attr("name",$(theChoice).val()).val($(theChoice).text());
 	$("#someToppings > li:not(:first)").remove();
 	$(".topping:not(.chSelect)").attr("class","topping");
 	if($(theChoice).val()!=""){
-		pizTop=$(theOpt).attr("data-toppings").split(",");
+		pizTop=$(theChoice).attr("data-toppings").split(",");
 		$.each(pizTop,function(ind,top){
 			if(top=="Peppers" && $("#p3ppersTopping").attr("class").indexOf("Select")==-1){
 				addTopping("p3ppersTopping");
