@@ -611,8 +611,9 @@ input[type=text].w40{
 }
 #signOut{
 	clear:both;
-	margin:2rem auto;
+	margin:3rem 0;
 	font-size:1.8rem;
+	text-align:center;
 }
 .pizzaCircleContent{
 	font-family: Lobster;
